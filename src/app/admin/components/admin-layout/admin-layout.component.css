@@ -1,0 +1,17 @@
+.admin-layout {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+}
+
+.sidebar-content {
+    display: flex;
+    flex: 1;
+}
+
+.content {
+    flex: 1;
+}
+
+

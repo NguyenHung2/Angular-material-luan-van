@@ -1,0 +1,133 @@
+/* Định dạng bố cục chung của trang */
+.itinerary {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Hai cột bên trái và bên phải */
+    grid-template-rows: auto; /* Chiều cao tự động cho hàng */
+    grid-template-areas: "left right" "map map"; /* Sắp xếp các vùng */
+    gap: 20px; /* Khoảng cách giữa các cột và hàng */
+}
+
+/* Định dạng cột bên trái - Form tối ưu lịch trình và Danh sách điểm đến */
+.optimize-form {
+    grid-area: left; /* Xác định vùng "left" cho cột bên trái */
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.itinerary-list {
+    grid-area: right; /* Xác định vùng "right" cho cột bên phải */
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Định dạng cột bên phải - Bản đồ */
+.map {
+    grid-area: map; /* Xác định vùng "map" cho cột bên phải */
+}
+
+/* Quy tắc CSS cho phần Form tối ưu lịch trình */
+.optimize-form form {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Hai cột cho các trường thông tin */
+    gap: 20px; /* Khoảng cách giữa các trường thông tin */
+}
+
+.optimize-form .form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Các quy tắc CSS cho các trường thông tin trong Form */
+.optimize-form label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.optimize-form input[type="number"],
+.optimize-form input[type="date"],
+.optimize-form select,
+.optimize-form input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.optimize-form button {
+    background-color: #f39c12;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.optimize-form button:hover {
+    background-color: #e74c3c;
+}
+
+/* Quy tắc CSS cho Danh sách điểm đến */
+.itinerary-list .itinerary-item {
+    flex: calc(33.33% - 20px);
+    box-sizing: border-box;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.itinerary-list .itinerary-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.itinerary-list .itinerary-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.itinerary-list .item-info {
+    padding-top: 15px;
+}
+
+.itinerary-list h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.itinerary-list p {
+    font-size: 16px;
+    color: #666;
+    text-align: justify;
+}
+
+.itinerary-list .remove-button {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.itinerary-list .remove-button:hover {
+    background-color: #c0392b;
+}

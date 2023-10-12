@@ -1,0 +1,39 @@
+<header class="header">
+    <div class="logo">
+        <mat-icon class="logo-icon">explore</mat-icon>
+        <span class="logo-text">TravelOptima</span>
+    </div>
+    <nav class="nav-links">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a routerLink="/trang-chu" routerLinkActive="active" class="nav-link">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/kham-pha" routerLinkActive="active" class="nav-link">Khám phá</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/lich-trinh" routerLinkActive="active" class="nav-link">Lịch trình</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/ban-do" routerLinkActive="active" class="nav-link">Bản đồ</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/more" routerLinkActive="active" class="nav-link">Bài viết</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="user-actions">
+        <button class="notification-button" mat-icon-button>
+            <mat-icon>notifications</mat-icon>
+        </button>
+        <ng-container *ngIf="!isForgotPassword; else forgotPasswordForm">
+            <button mat-button (click)="openLoginDialog()" class="login-button">
+                <mat-icon>person</mat-icon>
+                <span>Đăng nhập</span>
+            </button>
+        </ng-container>
+        <ng-template #forgotPasswordForm>
+            <!-- Thêm nội dung của form khôi phục mật khẩu tại đây -->
+        </ng-template>
+    </div>
+</header>

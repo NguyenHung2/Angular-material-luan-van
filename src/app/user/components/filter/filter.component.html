@@ -1,0 +1,35 @@
+<div class="filter-container">
+    <div class="filter-header">
+        <h2 class="filter-title">Khám phá An Giang</h2>
+        <p class="filter-subtitle">Tìm kiếm và khám phá những điểm đến độc đáo tại An Giang.</p>
+    </div>
+    <div class="filter-form">
+        <div class="filter-input">
+            <label for="location">Tìm địa điểm:</label>
+            <input type="text" id="location" [(ngModel)]="selectedLocation"
+                placeholder="Ví dụ: Châu Đốc, Long Xuyên...">
+        </div>
+        <div class="filter-input">
+            <label for="category">Loại địa điểm:</label>
+            <select id="category" [(ngModel)]="selectedCategory">
+                <option value="all">Tất cả</option>
+                <option value="thien-nhien">Hoạt động ngoài trời và thể thao</option>
+                <option value="van-hoa">Di tích lịch sử và văn hóa</option>
+                <option value="van-hoa">Mua sắm và ẩm thực</option>
+                <option value="am-thuc">Cảnh quan thiên nhiên</option>
+                <option value="am-thuc">Relax và spa</option>
+                <!-- Thêm các loại địa điểm khác tại An Giang -->
+            </select>
+        </div>
+        <div class="filter-input">
+            <label for="sort">Sắp xếp theo:</label>
+            <select id="sort" [(ngModel)]="selectedSort">
+                <option value="moi-nhat">Mới nhất</option>
+                <option value="pho-bien">Phổ biến</option>
+                <option value="gia-thap-den-cao">Giá thấp đến cao</option>
+                <!-- Thêm các tùy chọn sắp xếp khác -->
+            </select>
+        </div>
+    </div>
+    <button class="apply-button" (click)="applyFilters()">Tìm Kiếm</button>
+</div>

@@ -1,0 +1,40 @@
+<div class="destination-list">
+    <h2 class="section-title">Danh Sách Điểm Đến tại An Giang</h2>
+
+    <!-- Danh sách các điểm đến -->
+    <div *ngFor="let destination of destinations | slice:(currentPage-1)*itemsPerPage:currentPage*itemsPerPage"
+        class="destination-item">
+        <img [src]="destination.imageUrl" alt="{{ destination.name }}">
+        <div class="place-info">
+            <h3>{{ destination.name }}</h3>
+            <p>{{ destination.description }}</p>
+            <div class="place-actions">
+                <div class="place-button-container">
+                    <a [href]="destination.detailUrl" class="featured-place-button">Xem Chi Tiết</a>
+                </div>
+                <div class="place-extras">
+                    <div class="rating">
+                        <span class="star-icons" [style.--rating]="destination.rating"></span>
+                        <span class="rating-text">({{ destination.reviews }} đánh giá)</span>
+                    </div>
+                    <div class="like">
+                        <span class="like-icon">&#x2665;</span>
+                        <span class="like-count">{{ destination.likes }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hiển thị nút chuyển trang -->
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+
+    <!-- Display page numbers -->
+    <div class="pagination">
+        <ul>
+            <li *ngFor="let page of pages" [class.current]="page === currentPage">
+                <a (click)="changePage(page)">{{ page }}</a>
+            </li>
+        </ul>
+    </div>
+</div>

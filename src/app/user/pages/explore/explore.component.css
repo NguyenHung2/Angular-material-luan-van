@@ -1,0 +1,40 @@
+/* Style for explore container */
+.explore-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+/* Style for filters */
+.filters {
+    flex: 1; /* Để filters tự mở rộng theo chiều ngang */
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for places */
+.places {
+    flex: 2; /* Để places tự mở rộng theo chiều ngang */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Style for featured places */
+.featured-places {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for search results */
+.search-results {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

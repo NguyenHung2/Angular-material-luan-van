@@ -1,0 +1,96 @@
+/* Style for filter container */
+.filter-container {
+    background-color: #f9f9f9;
+    /* Màu nền */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.filter-container:hover {
+    transform: scale(1.02);
+}
+
+/* Style for filter title */
+.filter-title {
+    font-size: 28px;
+    /* Kích thước lớn hơn */
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Style for filter inputs */
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    /* Hiển thị các phần tử theo chiều dọc */
+    align-items: center;
+    /* Canh giữa các phần tử */
+}
+
+/* Style for each filter input */
+.filter-input {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 20px;
+    /* Thêm khoảng cách giữa các phần tử */
+}
+
+/* Style for labels */
+label {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    /* Khoảng cách dưới label lớn hơn */
+    display: block;
+}
+
+/* Style for input fields and select */
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s ease-in-out;
+    box-sizing: border-box;
+    /* Tính cả padding và border trong chiều rộng */
+}
+
+input[type="text"]:hover,
+select:hover {
+    border-color: #f39c12;
+}
+
+/* Style for apply button */
+.apply-button {
+    background-color: #f39c12;
+    color: #fff;
+    border: none;
+    padding: 14px 24px;
+    /* Thay đổi giá trị padding */
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+
+.apply-button:hover {
+    background-color: #e74c3c;
+}
+
+/* Style for filter subtitle */
+.filter-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+}

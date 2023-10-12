@@ -1,0 +1,17 @@
+<mat-card class="sign-up-card">
+    <h2 class="sign-up-title">Tạo tài khoản mới</h2>
+    <mat-form-field>
+        <input matInput placeholder="Họ và tên">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Địa chỉ email">
+    </mat-form-field>
+    <mat-form-field class="password-field">
+        <input matInput [type]="showPassword ? 'text' : 'password'" placeholder="Mật khẩu">
+        <mat-icon matSuffix class="show-password-button" (click)="toggleShowPassword()">
+            {{ showPassword ? 'visibility_off' : 'visibility' }}
+        </mat-icon>
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="sign-up-button" (click)="signUp()">Đăng ký</button>
+    <a (click)="backToLogin.emit()" class="back-to-login-link">Quay lại đăng nhập</a>
+</mat-card>

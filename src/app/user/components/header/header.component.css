@@ -1,0 +1,157 @@
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff; /* Màu nền trắng */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo Styles */
+.logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.logo-icon {
+    font-size: 36px;
+    margin-right: 8px;
+    color: #3498db; /* Màu biểu tượng */
+    transition: color 0.3s; /* Hiệu ứng màu khi hover */
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333; /* Màu chữ */
+}
+
+/* Navigation Styles */
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links .nav-list {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links .nav-item {
+    margin-right: 20px;
+    position: relative; /* Để tạo hiệu ứng bottom border */
+}
+
+.nav-links .nav-item:last-child {
+    margin-right: 0;
+}
+
+.nav-links .nav-link {
+    text-decoration: none;
+    color: #333; /* Màu chữ */
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s; /* Hiệu ứng màu khi hover */
+}
+
+/* Hiệu ứng active */
+.nav-links .nav-link.active {
+    color: #f39c12; /* Màu khi được chọn */
+}
+
+/* Hiệu ứng hover cho nav-link */
+.nav-links .nav-link:hover {
+    color: #f39c12; /* Màu khi hover */
+}
+
+/* Hiệu ứng khi hover vào */
+.nav-links .nav-link::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px; /* Dịch lên để đường viền không gây hiệu ứng nhảy lên */
+    left: 0;
+    background-color: #f39c12; /* Màu đường viền */
+    transition: width 0.3s ease-out; /* Hiệu ứng chuyển động */
+}
+
+.nav-links .nav-link:hover::before {
+    width: 100%; /* Khi hover, đường viền chạy từ trái sang phải */
+}
+
+/* Hiệu ứng khi hover vào text */
+.nav-links .nav-link:hover {
+    transform: scale(1.1); /* Phóng to phần text khi hover */
+    font-weight: bold; /* Tăng độ đậm của font khi hover */
+}
+
+/* Hiệu ứng active */
+.nav-links .nav-link.active::before {
+    width: 100%; /* Khi active, đường viền đầy đủ chiều rộng */
+}
+
+/* User Actions Styles */
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-actions .notification-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px; /* Kích thước icon lớn hơn */
+    color: #333; /* Màu mặc định cho icon */
+    transition: color 0.3s, transform 0.3s; /* Hiệu ứng màu và phóng to khi hover */
+    display: flex;
+    align-items: center;
+}
+
+.user-actions .notification-button:hover {
+    color: #f39c12; /* Màu khi hover */
+    transform: scale(1.1); /* Phóng to khi hover */
+}
+
+.user-actions .login-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333; /* Màu mặc định cho text */
+    transition: color 0.3s, transform 0.3s; /* Hiệu ứng màu và phóng to khi hover */
+    display: flex;
+    align-items: center;
+}
+
+.user-actions .login-button:hover {
+    color: #f39c12; /* Màu khi hover */
+    transform: scale(1.1); /* Phóng to khi hover */
+}
+
+.user-actions .login-button span {
+    margin-left: 5px;
+}
+
+/* Responsive Design for Mobile Devices */
+@media (max-width: 768px) {
+    .header {
+        padding: 15px;
+    }
+
+    .logo-text {
+        font-size: 20px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .user-actions {
+        gap: 10px;
+    }
+}

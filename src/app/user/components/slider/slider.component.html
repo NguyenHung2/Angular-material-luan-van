@@ -1,0 +1,27 @@
+<div class="slider">
+    <div class="list" [style.left.px]="listPosition">
+        <div class="item" *ngFor="let image of images; let i = index">
+            <img [src]="image.src" alt="{{ image.alt }}">
+            <div class="content" [class.active]="i === activeDot">
+                <div class="content-overlay"></div>
+                <div class="content-details fadeIn-bottom">
+                    <h3>{{ image.title }}</h3>
+                    <div class="description">
+                        <p>{{ image.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="buttons">
+        <button mat-icon-button id="prev" (click)="prevSlide()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <button mat-icon-button id="next" (click)="nextSlide()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+    </div>
+    <ul class="dots">
+        <li *ngFor="let dot of dots; let i = index" [class.active]="i === activeDot" (click)="goToSlide(i)"></li>
+    </ul>
+</div>

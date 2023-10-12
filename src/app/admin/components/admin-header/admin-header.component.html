@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+    <!-- Nút hiển thị menu (burger menu) -->
+    <button mat-icon-button (click)="toggleSidenav.emit()">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <div class="header-left">
+        <span>TravelOptima Admin</span>
+    </div>
+    <div class="header-right">
+        <button mat-button (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon> <!-- Sử dụng biểu tượng exit_to_app từ Material Icons -->
+        </button>
+    </div>
+</mat-toolbar>

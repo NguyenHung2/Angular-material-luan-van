@@ -1,0 +1,86 @@
+<div class="content-table">
+    <h2>Danh Sách Danh Mục Địa Điểm</h2>
+
+    <div class="search-and-add">
+        <!-- Thanh tìm kiếm -->
+        <mat-form-field class="search-input">
+            <mat-label>Tìm kiếm</mat-label>
+            <input matInput [formControl]="searchControl" placeholder="Ví dụ: 1" #input />
+        </mat-form-field>
+
+        <!-- Thêm nút "Thêm" -->
+        <button mat-fab class="add-button" (click)="showAddForm()">
+            <mat-icon style="color: #fff;">add</mat-icon>
+        </button>
+    </div>
+
+    <!-- Hiển thị form thêm mới danh mục -->
+    <div class="overlay-container" *ngIf="showAddFormFlag">
+        <div class="add-destination-form">
+            <h2>Thêm Danh Mục Địa Điểm Mới</h2>
+            <form (submit)="addCategory()">
+                <mat-form-field class="form-field">
+                    <mat-label>Mã Danh Mục Địa Điểm</mat-label>
+                    <input matInput [(ngModel)]="newCategory.maDanhMuc" name="maDanhMuc" required>
+                </mat-form-field>
+
+                <mat-form-field class="form-field">
+                    <mat-label>Tên Danh Mục</mat-label>
+                    <input matInput [(ngModel)]="newCategory.tenDanhMuc" name="tenDanhMuc" required>
+                </mat-form-field>
+
+                <div class="button-container">
+                    <button mat-raised-button type="submit">Lưu</button>
+                    <button mat-raised-button type="button" (click)="cancelAddForm()">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table mat-table [dataSource]="filteredCategories" matSort class="mat-elevation-z8">
+        <!-- Cột Mã Danh Mục Địa Điểm -->
+        <ng-container matColumnDef="maDanhMuc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Mã Danh Mục Địa Điểm </th>
+            <td mat-cell *matCellDef="let category" class="small-column" class="responsive-cell">
+                <div class="data-label">Mã Danh Mục Địa Điểm</div>
+                <div class="data-value">{{ category.maDanhMuc }}</div>
+            </td>
+        </ng-container>
+
+        <!-- Cột Tên Danh Mục -->
+        <ng-container matColumnDef="tenDanhMuc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Tên Danh Mục </th>
+            <td mat-cell *matCellDef="let category" class="small-column" class="responsive-cell">
+                <div class="data-label">Tên Danh Mục</div>
+                <div class="data-value">{{ category.tenDanhMuc }}</div>
+            </td>
+        </ng-container>
+
+        <!-- Cột Thao Tác -->
+        <ng-container matColumnDef="thaoTac">
+            <th mat-header-cell *matHeaderCellDef> Thao Tác </th>
+            <td mat-cell *matCellDef="let category" class="responsive-cell">
+                <div class="data-label">Thao Tác:</div>
+                <div class="data-value" style="text-align: center;">
+                    <!-- Nút chỉnh sửa và xóa -->
+                    <button mat-icon-button (click)="editCategory(category)">
+                        <mat-icon class="edit-icon">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="deleteCategory(category)">
+                        <mat-icon class="delete-icon">delete</mat-icon>
+                    </button>
+                </div>
+            </td>
+        </ng-container>
+
+        <!-- Định nghĩa các hàng và cột của bảng -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+        <!-- Thông báo không có dữ liệu -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="3">Không có dữ liệu phù hợp với từ khóa tìm kiếm "{{ searchControl.value }}"</td>
+        </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+</div>

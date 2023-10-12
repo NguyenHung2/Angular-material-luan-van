@@ -1,0 +1,38 @@
+<div class="sidebar" [class.sidebar-hidden]="!isSidebarVisible">
+    <div class="header-center">
+        <div class="center-content">
+            <button mat-button routerLink="/admin/dashboard" routerLinkActive="active-link">
+                <mat-icon class="mat-icon-custom">home</mat-icon>
+                <span>Dashboard</span>
+            </button>
+            <button mat-button routerLink="/admin/quan-ly-nguoi-dung" routerLinkActive="active-link">
+                <mat-icon class="mat-icon-custom">person</mat-icon>
+                <span>Quản Lý Người Dùng</span>
+            </button>
+            <button mat-button routerLink="/admin/quan-ly-danh-muc-diem-den" routerLinkActive="active-link">
+                <mat-icon class="mat-icon-custom">location_on</mat-icon>
+                <span>Quản Lý DM Điểm Đến</span>
+            </button>
+            <button mat-button routerLink="/admin/quan-ly-diem-den" routerLinkActive="active-link">
+                <mat-icon class="mat-icon-custom">location_on</mat-icon>
+                <span>Quản Lý Điểm Đến</span>
+            </button>
+            <button mat-button routerLink="/admin/quan-ly-lich-trinh" routerLinkActive="active-link">
+                <mat-icon class="mat-icon-custom">calendar_today</mat-icon>
+                <span>Quản Lý Lịch Trình</span>
+            </button>
+            <button mat-button routerLink="/admin/quan-ly-bai-viet" routerLinkActive="active-link">
+                <mat-icon class="mat-icon-custom">description</mat-icon>
+                <span>Quản Lý Bài Viết</span>
+            </button>
+            <button mat-button routerLink="/admin/quan-ly-danh-gia" routerLinkActive="active-link">
+                <mat-icon class="mat-icon-custom">star</mat-icon>
+                <span>Quản Lý Đánh Giá</span>
+            </button>
+            <button mat-button routerLink="/admin/quan-ly-thong-ke" routerLinkActive="active-link">
+                <mat-icon class="mat-icon-custom">bar_chart</mat-icon>
+                <span>Quản Lý Thống Kê</span>
+            </button>
+        </div>
+    </div>
+</div>

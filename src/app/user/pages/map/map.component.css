@@ -1,0 +1,134 @@
+/* map.component.scss */
+
+.map-container {
+    padding: 20px;
+    /* Khoảng cách ngoại vi cho toàn bộ nội dung */
+}
+
+.section-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Thiết lập form bên trái */
+form {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    margin-right: 20px;
+    /* Khoảng cách giữa form và bản đồ */
+}
+
+/* Các style cho nút tối ưu */
+.optimize-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Các style cho danh sách điểm đến */
+.itinerary-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Các style cho từng điểm đến */
+.itinerary-item {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    width: calc(33.33% - 20px);
+    /* Chia thành 3 cột với khoảng cách 20px */
+}
+
+/* Các style cho hình ảnh điểm đến */
+.itinerary-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Các style cho nút xóa khỏi lịch trình */
+.remove-button {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Các style cho bản đồ bên phải */
+mat-card {
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Các style cho thông tin lịch trình tối ưu bên phải */
+.itinerary-details {
+    margin-top: 20px;
+}
+
+/* Các style cho mục lịch trình */
+.itinerary-item {
+    margin-bottom: 10px;
+}
+
+/* Các style cho các thông tin lịch trình */
+.itinerary-item h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+/* Các style cho các thông tin thời gian và hoàn thành */
+.itinerary-item p {
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Các style cho trạng thái hoàn thành */
+.itinerary-item .completed {
+    color: #00cc00;
+}
+
+/* Hiển thị danh sách điểm đến dưới dạng danh sách ngang */
+.itinerary-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Style cho mỗi mục điểm đến */
+.itinerary-item {
+    flex: 1 1 calc(33.33% - 20px);
+    /* Chia thành 3 cột với khoảng cách 20px */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Style cho hình ảnh điểm đến */
+.itinerary-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Style cho nút xóa khỏi lịch trình */
+.remove-button {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}

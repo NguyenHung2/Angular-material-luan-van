@@ -1,0 +1,65 @@
+/* Thiết lập kích thước và màu sắc cho sidebar */
+.sidebar {
+    width: 300px; /* Độ rộng của sidebar */
+    height: 100%; /* Chiều cao 100% để điền toàn bộ chiều cao của phần con */
+    background-color: #2c3e50; /* Màu nền của sidebar */
+    color: #ecf0f1; /* Màu chữ trong sidebar */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Đảm bảo các nút nằm ở dưới */
+    padding: 20px 0; /* Khoảng cách nội dung bên trong sidebar */
+    transition: background-color 0.3s; /* Hiệu ứng thay đổi màu nền */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng cho sidebar */
+    transition: width 0.3s ease-in-out, padding 0.3s ease-in-out;
+}
+
+/* Style the navigation buttons */
+button {
+    color: white;
+    margin: 10px 0;
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 10px 20px;
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+/* Add a hover effect to the buttons */
+button:hover {
+    /* background-color: rgba(255, 255, 255, 0.1); */
+    background-color: #FFA500;
+    border-radius: 5px;
+    transform: translateX(5px); /* Dịch sang phải khi hover */
+    border-left: 5px solid #FFA500; /* Hiển thị đường viền màu cam ở bên trái */
+}
+
+/* Style the "active" link */
+button.active-link {
+    background-color: #1565C0;
+    border-radius: 5px;
+    transform: translateX(5px); /* Dịch sang phải khi active */
+    color: white;
+    border-left: 5px solid #FFA500; /* Hiển thị đường viền màu cam ở bên trái */
+}
+
+/* Khoảng cách giữa icon và văn bản trong nút */
+button i.mat-icon-custom {
+    margin-right: 10px; /* Điều chỉnh khoảng cách tại đây */
+}
+
+/* Khoảng cách giữa tên và biểu tượng trong nút */
+button .link-text {
+    margin-left: 10px; /* Điều chỉnh khoảng cách tại đây */
+}
+
+.sidebar-hidden {
+    display: none;
+}
+
+span {
+    color: #fff;
+}

@@ -1,0 +1,116 @@
+<div class="itinerary">
+    <!-- Cột trái - Form tối ưu lịch trình -->
+    <div class="itinerary-column optimize-form">
+        <h2 class="section-title">Tối Ưu Lịch Trình</h2>
+        <form (ngSubmit)="optimizeItinerary()" #itineraryForm="">
+            <div class="form-field">
+                <label for="travel-duration">Thời gian dự kiến đi là bao lâu (ngày):</label>
+                <input type="number" id="travel-duration" name="travel-duration" required>
+            </div>
+
+            <div class="form-field">
+                <label for="start-date">Ngày xuất phát:</label>
+                <input type="date" id="start-date" name="start-date" required>
+            </div>
+
+            <div class="form-field">
+                <label for="optimize-options">Tối ưu lịch trình theo:</label>
+                <select id="optimize-options" name="optimize-options">
+                    <option value="distance">Khoảng cách</option>
+                    <option value="time">Thời gian</option>
+                    <option value="popularity">Độ phổ biến</option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label for="start-point">Điểm xuất phát:</label>
+                <input type="text" id="start-point" name="start-point" ngModel required placeholder="Nhập vị trí hoặc chọn từ Google Maps">
+                <button class="select-from-maps-button" type="button" (click)="openGoogleMapsDialog()">Chọn từ Google Maps</button>
+                <small class="form-text text-muted">Ví dụ: "Cổng Trời Tri Tôn" hoặc "Cổng Trời Tri Tôn, Tri Tôn, An Giang, Việt Nam"</small>
+            </div>            
+
+            <button class="optimize-button" type="button" (click)="optimizeItinerary()">Tối ưu lịch trình</button>
+        </form>
+    </div>
+
+    <!-- Cột trái - Kết quả tối ưu lịch trình -->
+<div class="itinerary-column optimize-result">
+    <h2 class="section-title">Kết Quả Tối Ưu Lịch Trình</h2>
+    <form>
+        <div class="form-field">
+            <label for="route-order">Thứ tự các địa điểm đến:</label>
+            <ul>
+                <!-- Hiển thị danh sách các địa điểm theo thứ tự -->
+                <li>Địa điểm 1</li>
+                <li>Địa điểm 2</li>
+                <!-- Thêm các mục khác tùy theo số lượng địa điểm -->
+            </ul>
+        </div>
+
+        <div class="form-field">
+            <label for="start-times">Thời gian bắt đầu từng địa điểm:</label>
+            <ul>
+                <!-- Hiển thị thời gian bắt đầu tại mỗi địa điểm -->
+                <li>Địa điểm 1: 09:00 AM, Ngày 1</li>
+                <li>Địa điểm 2: 11:30 AM, Ngày 1</li>
+                <!-- Thêm các mục khác tùy theo số lượng địa điểm -->
+            </ul>
+        </div>
+
+        <div class="form-field">
+            <label for="end-times">Thời gian kết thúc từng địa điểm:</label>
+            <ul>
+                <!-- Hiển thị thời gian kết thúc tại mỗi địa điểm -->
+                <li>Địa điểm 1: 01:00 PM, Ngày 1</li>
+                <li>Địa điểm 2: 03:30 PM, Ngày 1</li>
+                <!-- Thêm các mục khác tùy theo số lượng địa điểm -->
+            </ul>
+        </div>
+
+        <div class="form-field">
+            <label for="completion-status">Trạng thái hoàn thành:</label>
+            <ul>
+                <!-- Cho phép người dùng đánh dấu trạng thái hoàn thành cho từng địa điểm -->
+                <li>Địa điểm 1: <input type="checkbox" id="completion-1" name="completion-1"> Hoàn thành</li>
+                <li>Địa điểm 2: <input type="checkbox" id="completion-2" name="completion-2"> Hoàn thành</li>
+                <!-- Thêm các mục khác tùy theo số lượng địa điểm -->
+            </ul>
+        </div>
+    </form>
+</div>
+
+
+    <!-- Danh sách điểm đến -->
+    <div class="itinerary-list">
+        <!-- Điểm đến 1 -->
+        <div class="itinerary-item">
+            <img src="assets/cong-troi-tri-ton.jpg" alt="Cổng Trời Tri Tôn">
+            <div class="item-info">
+                <h3>Cổng Trời Tri Tôn</h3>
+                <p>Cổng Trời Tri Tôn là một địa điểm thú vị để khám phá và trải nghiệm.</p>
+                <button class="remove-button">Xóa khỏi lịch trình</button>
+            </div>
+        </div>
+
+        <!-- Điểm đến 2 -->
+        <div class="itinerary-item">
+            <img src="assets/ho-ta-pa-7.jpg" alt="Hồ Tà Pạ">
+            <div class="item-info">
+                <h3>Hồ Tà Pạ</h3>
+                <p>Hồ Tà Pạ có cảnh đẹp và văn hóa độc đáo mà bạn không thể bỏ lỡ.</p>
+                <button class="remove-button">Xóa khỏi lịch trình</button>
+            </div>
+        </div>
+
+        <!-- Điểm đến 3 -->
+        <div class="itinerary-item">
+            <img src="assets/rung-tram-tra-su.jpg" alt="Rừng Tràm Trà Sư">
+            <div class="item-info">
+                <h3>Rừng Tràm Trà Sư</h3>
+                <p>Rừng Tràm Trà Sư là nơi có thiên nhiên hoang sơ và đẹp đẽ.</p>
+                <button class="remove-button">Xóa khỏi lịch trình</button>
+            </div>
+        </div>
+        <!-- Thêm các điểm đến khác tại đây -->
+    </div>
+</div>

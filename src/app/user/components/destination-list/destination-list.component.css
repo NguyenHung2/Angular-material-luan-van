@@ -1,0 +1,133 @@
+/* Style for destination list */
+.destination-list {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for section title */
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0074e4;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #0074e4;
+    padding-bottom: 5px;
+}
+
+/* Style for destination item */
+.destination-item {
+    display: flex;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.destination-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for destination item image */
+.destination-item img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px 0 0 10px;
+}
+
+/* Style for place info */
+.place-info {
+    padding: 20px;
+}
+
+/* Style for destination item title */
+h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Style for destination item description */
+p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Style for place actions */
+.place-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+/* Style for place button container */
+.place-button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Style for place button */
+.featured-place-button {
+    background-color: #f39c12;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+.featured-place-button:hover {
+    background-color: #e74c3c;
+}
+
+/* Style for place extras */
+.place-extras {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Style for rating */
+.rating {
+    font-size: 18px;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+/* Style for star icons */
+.star-icons {
+    font-size: 18px;
+    color: #f39c12;
+    margin-right: 5px;
+}
+
+/* Style for rating text */
+.rating-text {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Style for like */
+.like {
+    display: flex;
+    align-items: center;
+}
+
+/* Style for like icon */
+.like-icon {
+    font-size: 24px;
+    color: #e74c3c;
+    margin-right: 5px;
+}

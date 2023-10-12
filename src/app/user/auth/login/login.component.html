@@ -1,0 +1,19 @@
+<div *ngIf="isLoginVisible">
+    <mat-card class="login-card">
+        <h2 class="login-title">Đăng nhập</h2>
+        <mat-form-field>
+            <input matInput placeholder="Tên đăng nhập" [(ngModel)]="username">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput [type]="showPassword ? 'text' : 'password'" placeholder="Mật khẩu" [(ngModel)]="password">
+            <mat-icon matSuffix class="show-password-button" (click)="toggleShowPassword()">
+                {{ showPassword ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
+        </mat-form-field>
+        <button mat-raised-button color="primary" class="login-button" (click)="login()">Đăng nhập</button>
+        <a (click)="showForgotPassword()" class="forgot-password-link">Quên mật khẩu?</a>
+        <a (click)="showSignUpForm()" class="sign-up-link">Tạo tài khoản mới</a>
+    </mat-card>
+</div>
+<app-forgot-password *ngIf="!isLoginVisible && !isSignUpVisible" (backToLogin)="showLoginForm()"></app-forgot-password>
+<app-sign-up *ngIf="isSignUpVisible" (backToLogin)="showLoginForm()"></app-sign-up>

@@ -1,0 +1,45 @@
+.sign-up-card {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.sign-up-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+.password-field {
+    width: 100%;
+}
+
+mat-icon.show-password-button {
+    cursor: pointer;
+}
+
+.sign-up-button {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #1976D2;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.sign-up-button:hover {
+    background-color: #1565C0;
+}
+
+.back-to-login-link {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.back-to-login-link:hover {
+    text-decoration: underline;
+}
