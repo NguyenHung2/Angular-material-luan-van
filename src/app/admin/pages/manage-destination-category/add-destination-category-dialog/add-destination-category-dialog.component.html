@@ -1,0 +1,17 @@
+<div class="add-dialog">
+    <h2>Thêm Danh Mục Điểm Đến</h2>
+    <form (submit)="saveChanges()">
+        <!-- Tên Danh Mục -->
+        <mat-form-field class="form-field" [ngClass]="{'error': isInputEmpty || isDuplicateName }">
+            <mat-label>Tên Danh Mục</mat-label>
+            <input matInput [(ngModel)]="newCategory.tenDanhMuc" name="tenDanhMuc" required>
+        </mat-form-field>
+        <div class="error-message" *ngIf="isInputEmpty">Vui lòng nhập tên danh mục.</div>
+        <div class="error-message" *ngIf="isDuplicateName">Tên danh mục đã tồn tại.</div> 
+
+        <div class="button-container">
+            <button mat-raised-button type="submit">Lưu</button>
+            <button mat-raised-button type="button" (click)="closeDialog()">Hủy</button>
+        </div>
+    </form>
+</div>

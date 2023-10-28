@@ -63,8 +63,7 @@ import { ManageReviewsComponent } from './admin/pages/manage-reviews/manage-revi
 import { ManageStatisticsComponent } from './admin/pages/manage-statistics/manage-statistics.component';
 import { HeaderComponent } from './user/components/header/header.component';
 import { FooterComponent } from './user/components/footer/footer.component';
-import { DestinationListComponent } from './user/components/destination-list/destination-list.component';
-import { ContentComponent } from './user/components/content/content.component';
+import { DestinationListComponent } from './user/pages/destination-list/destination-list.component';
 import { FeaturedPlacesComponent } from './user/components/featured-places/featured-places.component';
 import { LoginComponent } from './user/auth/login/login.component';
 import { SignUpComponent } from './user/auth/sign-up/sign-up.component';
@@ -72,13 +71,33 @@ import { ForgotPasswordComponent } from './user/auth/forgot-password/forgot-pass
 import { UserLayoutComponent } from './user/components/user-layout/user-layout.component';
 import { HomeComponent } from './user/pages/home/home.component';
 import { SliderComponent } from './user/components/slider/slider.component';
-import { ExploreComponent } from './user/pages/explore/explore.component';
 import { FilterComponent } from './user/components/filter/filter.component';
 import { ItineraryComponent } from './user/pages/itinerary/itinerary.component';
 import { MapComponent } from './user/pages/map/map.component';
-import { EmpAddEditComponent } from './admin/components/emp-add-edit/emp-add-edit.component';
 import { ManageDestinationCategoryComponent } from './admin/pages/manage-destination-category/manage-destination-category.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ManageListPostsComponent } from './admin/pages/manage-list-posts/manage-list-posts.component';
+import { EditPostCategoryDialogComponent } from './admin/pages/manage-posts/edit-post-category-dialog/edit-post-category-dialog.component';
+import { AddPostDialogComponent } from './admin/pages/manage-posts/add-post-dialog/add-post-dialog.component';
+import { AddListDialogComponent } from './admin/pages/manage-list-posts/add-list-dialog/add-list-dialog.component';
+import { EditListDialogComponent } from './admin/pages/manage-list-posts/edit-list-dialog/edit-list-dialog.component';
+import { DeletePostDialogComponent } from './admin/pages/manage-posts/delete-post-dialog/delete-post-dialog.component';
+import { DetailPostDialogComponent } from './admin/pages/manage-posts/detail-post-dialog/detail-post-dialog.component';
+import { ManageImagesComponent } from './admin/pages/manage-images/manage-images.component';
+import { AddImageDialogComponent } from './admin/pages/manage-images/add-image-dialog/add-image-dialog.component';
+import { DeleteImageDialogComponent } from './admin/pages/manage-images/delete-image-dialog/delete-image-dialog.component';
+import { EditImageDialogComponent } from './admin/pages/manage-images/edit-image-dialog/edit-image-dialog.component';
+import { DetailImageDialogComponent } from './admin/pages/manage-images/detail-image-dialog/detail-image-dialog.component';
+import { AddDestinationCategoryDialogComponent } from './admin/pages/manage-destination-category/add-destination-category-dialog/add-destination-category-dialog.component';
+import { EditDestinationCategoryDialogComponent } from './admin/pages/manage-destination-category/edit-destination-category-dialog/edit-destination-category-dialog.component';
+import { DeleteDestinationCategoryDialogComponent } from './admin/pages/manage-destination-category/delete-destination-category-dialog/delete-destination-category-dialog.component';
+import { PostListComponent } from './user/pages/post-list/post-list.component';
+import { SidenavComponent } from './user/components/sidenav/sidenav.component';
+import { DeleteListDialogComponent } from './admin/pages/manage-list-posts/delete-list-dialog/delete-list-dialog.component';
+import { DeleteDestinationDialogComponent } from './admin/pages/manage-destinations/delete-destination-dialog/delete-destination-dialog.component';
+import { EditDestinationDialogComponent } from './admin/pages/manage-destinations/edit-destination-dialog/edit-destination-dialog.component';
+import { AddDestinationDialogComponent } from './admin/pages/manage-destinations/add-destination-dialog/add-destination-dialog.component';
+import { DetailDestinationDialogComponent } from './admin/pages/manage-destinations/detail-destination-dialog/detail-destination-dialog.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +119,6 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     FooterComponent,
     DestinationListComponent,
-    ContentComponent,
     FeaturedPlacesComponent,
     LoginComponent,
     SignUpComponent,
@@ -108,12 +126,32 @@ import { HttpClientModule } from '@angular/common/http';
     UserLayoutComponent,
     HomeComponent,
     SliderComponent,
-    ExploreComponent,
     FilterComponent,
     ItineraryComponent,
     MapComponent,
-    EmpAddEditComponent,
     ManageDestinationCategoryComponent,
+    ManageListPostsComponent,
+    EditPostCategoryDialogComponent,
+    AddPostDialogComponent,
+    AddListDialogComponent,
+    EditListDialogComponent,
+    DeletePostDialogComponent,
+    DetailPostDialogComponent,
+    ManageImagesComponent,
+    AddImageDialogComponent,
+    DeleteImageDialogComponent,
+    EditImageDialogComponent,
+    DetailImageDialogComponent,
+    AddDestinationCategoryDialogComponent,
+    EditDestinationCategoryDialogComponent,
+    DeleteDestinationCategoryDialogComponent,
+    PostListComponent,
+    SidenavComponent,
+    DeleteListDialogComponent,
+    DeleteDestinationDialogComponent,
+    EditDestinationDialogComponent,
+    AddDestinationDialogComponent,
+    DetailDestinationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -156,7 +194,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatBadgeModule,
     MatRippleModule,
     NgxPaginationModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

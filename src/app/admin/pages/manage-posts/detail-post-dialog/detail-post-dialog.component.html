@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Chi Tiết Bài Viết</h1>
+<div mat-dialog-content>
+  <p class="bold-title">Mã Bài Viết:</p>
+  <p>{{ data.maBaiViet }}</p>
+
+  <p class="bold-title">Tiêu Đề:</p>
+  <p>{{ data.tieuDe }}</p>
+
+  <p class="bold-title">Danh Mục Bài Viết:</p>
+  <p>{{ data.danhMucBaiViet }}</p>
+
+  <p class="bold-title">Tóm Tắt:</p>
+  <p>{{ data.tomTat }}</p>
+
+  <p class="bold-title">Nội Dung Bài Viết:</p>
+  <div [innerHTML]="data.noiDung"></div>
+
+  <p class="bold-title">Hình Ảnh:</p>
+  <img [src]="data.hinhAnh" alt="Hình Ảnh Bài Viết">
+
+  <p class="bold-title">Ngày Đăng:</p>
+  <p>{{ data.ngayDang | date: 'dd/MM/yyyy' }}</p>
+</div>
+<div>
+  <button mat-button (click)="closeDialog()">Đóng</button>
+</div>

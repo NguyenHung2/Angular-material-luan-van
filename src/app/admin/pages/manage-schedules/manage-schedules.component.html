@@ -1,1 +1,190 @@
-<p>manage-schedules works!</p>
+<div class="content-table">
+    <h2>Danh Sách Lịch Trình</h2>
+
+    <div class="search-and-add">
+        <!-- Thanh tìm kiếm -->
+        <mat-form-field class="search-input">
+            <mat-label>Tìm kiếm</mat-label>
+            <input matInput [formControl]="searchControl" placeholder="Ví dụ: 1" #input />
+        </mat-form-field>
+
+        <!-- Thêm nút "Thêm" -->
+        <button mat-fab class="add-button" (click)="showAddForm()">
+            <mat-icon style="color: #fff;">add</mat-icon>
+        </button>
+    </div>
+
+    <!-- Hiển thị form thêm mới -->
+    <div class="overlay-container" *ngIf="showAddFormFlag">
+        <div class="add-destination-form">
+            <h2>Thêm Lịch Trình Mới</h2>
+            <form (submit)="addSchedule()">
+                <mat-form-field class="form-field">
+                    <mat-label>Mã Lịch Trình</mat-label>
+                    <input matInput [(ngModel)]="newSchedule.maLichTrinh" name="maLichTrinh" required>
+                </mat-form-field>
+
+                <mat-form-field class="form-field">
+                    <mat-label>Tên Lịch Trình</mat-label>
+                    <input matInput [(ngModel)]="newSchedule.tenLichTrinh" name="tenLichTrinh" required>
+                </mat-form-field>
+
+                <mat-form-field class="form-field">
+                    <mat-label>Mô Tả</mat-label>
+                    <input matInput [(ngModel)]="newSchedule.moTa" name="moTa" required>
+                </mat-form-field>
+
+                <mat-form-field class="form-field">
+                    <mat-label>Thời Gian Bắt Đầu</mat-label>
+                    <input matInput [(ngModel)]="newSchedule.thoiGianBatDau" name="thoiGianBatDau" required>
+                </mat-form-field>
+
+                <mat-form-field class="form-field">
+                    <mat-label>Thời Gian Kết Thúc</mat-label>
+                    <input matInput [(ngModel)]="newSchedule.thoiGianKetThuc" name="thoiGianKetThuc" required>
+                </mat-form-field>
+
+                <mat-form-field class="form-field">
+                    <mat-label>Điểm Bắt Đầu</mat-label>
+                    <input matInput [(ngModel)]="newSchedule.diemBatDau" name="diemBatDau" required>
+                </mat-form-field>
+
+                <mat-form-field class="form-field">
+                    <mat-label>Số Lượng Điểm Đến Tối Đa</mat-label>
+                    <input matInput [(ngModel)]="newSchedule.soLuongDiemDenToiDa" name="soLuongDiemDenToiDa" required>
+                </mat-form-field>
+
+                <mat-form-field class="form-field">
+                    <mat-label>Trạng Thái Địa Điểm</mat-label>
+                    <mat-select [(ngModel)]="newSchedule.trangThai" name="trangThaiDiaDiem" required
+                        placeholder="Chọn trạng thái">
+                        <mat-option value="true">Hoạt động</mat-option>
+                        <mat-option value="false">Ngưng hoạt động</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="form-field">
+                    <mat-label>Thứ Tự</mat-label>
+                    <input matInput [(ngModel)]="newSchedule.thuTu" name="thuTu" required>
+                </mat-form-field>
+
+                <!-- Add other schedule-related input fields here -->
+
+                <div class="button-container">
+                    <button mat-raised-button type="submit">Lưu</button>
+                    <button mat-raised-button type="button" (click)="cancelAddForm()">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table mat-table [dataSource]="filteredSchedules" matSort class="mat-elevation-z8">
+        <!-- Cột Mã Lịch Trình -->
+        <ng-container matColumnDef="maLichTrinh">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Mã Lịch Trình </th>
+            <td mat-cell *matCellDef="let schedule" class="small-column" class="responsive-cell">
+                <div class="data-label">Mã Lịch Trình</div>
+                <div class="data-value">{{ schedule.maLichTrinh }}</div>
+            </td>
+        </ng-container>
+
+        <!-- Cột Tên Lịch Trình -->
+        <ng-container matColumnDef="tenLichTrinh">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Tên Lịch Trình </th>
+            <td mat-cell *matCellDef="let schedule" class="small-column" class="responsive-cell">
+                <div class="data-label">Tên Lịch Trình</div>
+                <div class="data-value">{{ schedule.tenLichTrinh }}</div>
+            </td>
+        </ng-container>
+
+        <!-- Cột Mô Tả -->
+        <ng-container matColumnDef="moTa">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Mô Tả </th>
+            <td mat-cell *matCellDef="let schedule" class="hideText" class="responsive-cell">
+                <div class="data-label">Mô Tả</div>
+                <div class="data-value">{{ schedule.moTa }}</div>
+            </td>
+        </ng-container>
+
+        <!-- Cột Thời Gian Bắt Đầu -->
+        <ng-container matColumnDef="thoiGianBatDau">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Thời Gian Bắt Đầu </th>
+            <td mat-cell *matCellDef="let schedule" class="responsive-cell">
+                <div class="data-label">Thời Gian Bắt Đầu</div>
+                <div class="data-value">{{ schedule.thoiGianBatDau }}</div>
+            </td>
+        </ng-container>
+
+        <!-- Cột Thời Gian Kết Thúc -->
+        <ng-container matColumnDef="thoiGianKetThuc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Thời Gian Kết Thúc </th>
+            <td mat-cell *matCellDef="let schedule" class="responsive-cell">
+                <div class="data-label">Thời Gian Kết Thúc</div>
+                <div class="data-value">{{ schedule.thoiGianKetThuc }}</div>
+            </td>
+        </ng-container>
+
+        <!-- Cột Điểm Bắt Đầu -->
+        <ng-container matColumnDef="diemBatDau">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Điểm Bắt Đầu </th>
+            <td mat-cell *matCellDef="let schedule" class="responsive-cell">
+                <div class="data-label">Điểm Bắt Đầu</div>
+                <div class="data-value">{{ schedule.diemBatDau }}</div>
+            </td>
+        </ng-container>
+
+        <!-- Cột Số Lượng Điểm Đến Tối Đa -->
+        <ng-container matColumnDef="soLuongDiemDenToiDa">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Số Lượng Điểm Đến Tối Đa </th>
+            <td mat-cell *matCellDef="let schedule" class="responsive-cell">
+                <div class="data-label">Số Lượng Điểm Đến Tối Đa</div>
+                <div class="data-value">{{ schedule.soLuongDiemDenToiDa }}</div>
+            </td>
+        </ng-container>
+
+        <!-- Cột Trạng Thái -->
+        <ng-container matColumnDef="trangThai">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Trạng Thái </th>
+            <td mat-cell *matCellDef="let schedule" class="responsive-cell">
+                <div class="data-label">Trạng Thái</div>
+                <div class="data-value">
+                    <mat-icon>{{ schedule.trangThai ? 'check_circle' : 'cancel' }}</mat-icon>
+                </div>
+            </td>
+        </ng-container>
+
+        <!-- Cột Thứ Tự -->
+        <ng-container matColumnDef="thuTu">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Thứ Tự </th>
+            <td mat-cell *matCellDef="let schedule" class="responsive-cell">
+                <div class="data-label">Thứ Tự</div>
+                <div class="data-value">{{ schedule.thuTu }}</div>
+            </td>
+        </ng-container>
+
+        <!-- Cột Thao Tác -->
+        <ng-container matColumnDef="thaoTac">
+            <th mat-header-cell *matHeaderCellDef> Thao Tác </th>
+            <td mat-cell *matCellDef="let schedule" class="responsive-cell">
+                <div class="data-label">Thao Tác:</div>
+                <div class="data-value" style="text-align: center;">
+                    <!-- Nút chỉnh sửa và xóa -->
+                    <button mat-icon-button (click)="editSchedule(schedule)">
+                        <mat-icon class="edit-icon">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="deleteSchedule(schedule)">
+                        <mat-icon class="delete-icon">delete</mat-icon>
+                    </button>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="13">Không có dữ liệu phù hợp với từ khóa tìm kiếm "{{ input.value }}"</td>
+        </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+</div>

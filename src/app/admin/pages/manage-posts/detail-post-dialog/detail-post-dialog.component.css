@@ -1,0 +1,43 @@
+/* CSS cho toàn bộ dialog */
+.mat-dialog-container {
+    max-width: 80%;
+    /* Điều chỉnh chiều rộng của dialog */
+    padding: 20px;
+}
+
+.mat-dialog-title {
+    font-size: 24px;
+    border-bottom: 2px solid #007bff;
+    /* Thêm border bottom và đặt màu xanh #007bff */
+}
+
+/* CSS cho phần nội dung */
+.bold-title {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* CSS cho hình ảnh */
+img {
+    max-width: 100%;
+    border: 1px solid #ccc;
+    /* Đưa viền cho hình ảnh */
+    margin-top: 10px;
+}
+
+/* CSS cho nút Đóng */
+.mat-dialog-actions button {
+    margin-top: 20px;
+    background-color: #ff5722;
+    /* Đổi màu nền của nút thành màu cam (#ff5722) */
+    color: #fff;
+    /* Màu chữ của nút */
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.mat-dialog-actions button:hover {
+    background-color: #ff6d42;
+    /* Đổi màu nền khi hover thành màu cam sáng (#ff6d42) */
+}

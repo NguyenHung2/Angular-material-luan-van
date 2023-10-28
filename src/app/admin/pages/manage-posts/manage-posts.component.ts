@@ -1,11 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { Post, PostService } from '../../services/post.service';
+import { MatSort, MatSortable } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { EditPostCategoryDialogComponent } from './edit-post-category-dialog/edit-post-category-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { EmployeeService } from '../../service/employee.service';
-import { CoreService } from '../../service/core.service';
-import { EmpAddEditComponent } from '../../components/emp-add-edit/emp-add-edit.component';
+import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.component';
+import { DeletePostDialogComponent } from './delete-post-dialog/delete-post-dialog.component';
+import { DetailPostDialogComponent } from './detail-post-dialog/detail-post-dialog.component';
 
 @Component({
   selector: 'app-manage-posts',
@@ -13,86 +16,178 @@ import { EmpAddEditComponent } from '../../components/emp-add-edit/emp-add-edit.
   styleUrls: ['./manage-posts.component.css']
 })
 export class ManagePostsComponent implements OnInit {
-  displayedColumns: string[] = [
-    'id',
-    'firstName',
-    'lastName',
-    'email',
-    'dob',
-    'gender',
-    'education',
-    'company',
-    'experience',
-    'package',
-    'action',
-  ];
-  dataSource!: MatTableDataSource<any>;
+  posts: Post[] = [];
+  searchControl = new FormControl('');
+  filteredPosts: MatTableDataSource<Post> = new MatTableDataSource<Post>(this.posts);
+  // displayedColumns: string[] = ['maBaiViet', 'tieuDe', 'danhMucBaiViet', 'tomTat', 'noiDung', 'hinhAnh', 'ngayDang', 'thaoTac'];
+  displayedColumns: string[] = ['maBaiViet', 'tieuDe', 'thaoTac'];
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  showAddFormFlag: boolean = false;
+  newPostForm!: FormGroup;
+  newPost: Post = {
+    maBaiViet: 0,
+    tieuDe: '',
+    danhMucBaiViet: '',
+    tomTat: '',
+    noiDung: '',
+    hinhAnh: '',
+    ngayDang: new Date(),
+  };
+
+  selectedFileName: string = 'Chưa chọn tệp';
+
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(
-    private _dialog: MatDialog,
-    private _empService: EmployeeService,
-    private _coreService: CoreService
-  ) {}
+    private postService: PostService,
+    private fb: FormBuilder,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
-    this.getEmployeeList();
+    this.loadPosts();
+    this.setupForm();
   }
 
-  openAddEditEmpForm() {
-    const dialogRef = this._dialog.open(EmpAddEditComponent);
-    dialogRef.afterClosed().subscribe({
-      next: (val) => {
-        if (val) {
-          this.getEmployeeList();
+  ngAfterViewInit() {
+    this.filteredPosts.sort = this.sort;
+    this.filteredPosts.paginator = this.paginator;
+  }
+
+  loadPosts() {
+    this.postService.getPosts().subscribe((data) => {
+      this.posts = data;
+      this.filteredPosts = new MatTableDataSource<Post>(this.posts);
+
+      this.filteredPosts.sort = this.sort;
+      this.filteredPosts.paginator = this.paginator;
+    });
+  }
+
+  setupForm() {
+    this.newPostForm = this.fb.group({
+      maBaiViet: ['', Validators.required],
+      tieuDe: ['', Validators.required],
+      danhMucBaiViet: ['', Validators.required],
+      tomTat: ['', Validators.required],
+      noiDung: ['', Validators.required],
+      hinhAnh: ['', Validators.required],
+      ngayDang: [new Date(), Validators.required],
+    });
+  }
+
+  applyFilter(filterValue: string): void {
+    filterValue = filterValue.trim().toLowerCase();
+    this.filteredPosts.filter = filterValue;
+  }
+
+  editPost(post: Post): void {
+    const dialogRef = this.dialog.open(EditPostCategoryDialogComponent, {
+      data: { post, fileInput: this.fileInput, selectedFileName: this.selectedFileName }
+    });
+
+    dialogRef.afterClosed().subscribe((editedPost: Post) => {
+      if (editedPost) {
+        this.postService.updatePost(editedPost).subscribe(
+          (updatedPost: Post) => {
+            this.loadPosts();
+          },
+          (error) => {
+            console.error('Failed to update post:', error);
+          }
+        );
+      }
+    });
+  }
+
+  deletePost(post: Post): void {
+    const dialogRef = this.dialog.open(DeletePostDialogComponent, {
+      data: { post } // Pass the post data to the dialog
+    });
+  
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        // User confirmed deletion in the dialog
+        this.postService.deletePost(post.maBaiViet).subscribe(
+          () => {
+            this.loadPosts(); // Reload the posts after successful deletion
+          },
+          (error) => {
+            console.error('Failed to delete post:', error);
+          }
+        );
+      }
+    });
+  }
+
+  addPost() {
+    if (this.newPostForm.valid) {
+      this.postService.addPost(this.newPost).subscribe(
+        (newPost: Post) => {
+          this.resetForm();
+          this.loadPosts();
+        },
+        (error) => {
+          console.error('Failed to add new post:', error);
         }
-      },
-    });
-  }
-
-  getEmployeeList() {
-    this._empService.getEmployeeList().subscribe({
-      next: (res) => {
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      },
-      error: console.log,
-    });
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+      );
     }
   }
 
-  deleteEmployee(id: number) {
-    this._empService.deleteEmployee(id).subscribe({
-      next: (res) => {
-        this._coreService.openSnackBar('Employee deleted!', 'done');
-        this.getEmployeeList();
-      },
-      error: console.log,
+  cancelAddForm() {
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.newPostForm.reset(this.newPost);
+    this.selectedFileName = 'Chưa chọn tệp';
+    this.showAddFormFlag = false;
+  }
+
+  showAddPostDialog() {
+    const dialogRef = this.dialog.open(AddPostDialogComponent, {
+      data: { post: this.newPost, fileInput: this.fileInput, selectedFileName: this.selectedFileName }
+    });
+
+    dialogRef.afterClosed().subscribe((addedPost: Post) => {
+      if (addedPost) {
+        this.postService.addPost(addedPost).subscribe(
+          (newPost: Post) => {
+            this.loadPosts();
+          },
+          (error) => {
+            console.error('Failed to add new post:', error);
+          }
+        );
+      }
     });
   }
 
-  openEditForm(data: any) {
-    const dialogRef = this._dialog.open(EmpAddEditComponent, {
-      data,
-    });
-
-    dialogRef.afterClosed().subscribe({
-      next: (val) => {
-        if (val) {
-          this.getEmployeeList();
-        }
-      },
-    });
+  openFileInput() {
+    this.fileInput.nativeElement.click();
   }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.selectedFileName = file.name;
+      // You may want to handle the file upload logic here
+      // You can also update this.newPost.hinhAnh with the selected file data
+    } else {
+      this.selectedFileName = 'Chưa chọn tệp';
+      this.newPost.hinhAnh = '';
+    }
+  }
+
+  showDetails(post: Post): void {
+    const dialogRef = this.dialog.open(DetailPostDialogComponent, {
+      data: { ...post } // Truyền bài viết vào dialog
+    });
+  
+    dialogRef.afterClosed().subscribe(() => {
+      // Xử lý khi dialog đóng (nếu cần)
+    });
+  }  
 }

@@ -2,36 +2,55 @@
     <div class="header-center">
         <div class="center-content">
             <button mat-button routerLink="/admin/dashboard" routerLinkActive="active-link">
-                <mat-icon class="mat-icon-custom">home</mat-icon>
+                <mat-icon class="material-icons">home</mat-icon>
                 <span>Dashboard</span>
             </button>
-            <button mat-button routerLink="/admin/quan-ly-nguoi-dung" routerLinkActive="active-link">
-                <mat-icon class="mat-icon-custom">person</mat-icon>
-                <span>Quản Lý Người Dùng</span>
+
+            <!-- Button to toggle the "Danh Mục" submenu -->
+            <button mat-button (click)="toggleCategoryMenu()">
+                <mat-icon class="material-icons" [ngClass]="{ 'white-icon': isCategoryMenuOpen }">category</mat-icon>
+                <span>Danh Mục <mat-icon class="material-icons right-icon"
+                    [ngClass]="{ 'icon-rotated': isCategoryMenuOpen }">arrow_drop_down</mat-icon></span>
+            </button>            
+
+            <!-- "Danh Mục" submenu -->
+            <div class="submenu" *ngIf="isCategoryMenuOpen">
+                <button mat-button routerLink="/admin/danh-muc-diem-den"
+                    [ngClass]="{ 'selected-submenu-item': isDiemDenActive }" routerLinkActive="active-link">
+                    <mat-icon class="material-icons">place</mat-icon>
+                    <span>Danh Mục Điểm Đến</span>
+                </button>
+                <button mat-button routerLink="/admin/danh-muc-bai-viet"
+                    [ngClass]="{ 'selected-submenu-item': isBaiVietActive }" routerLinkActive="active-link">
+                    <mat-icon class="material-icons">description</mat-icon>
+                    <span>Danh Mục Bài Viết</span>
+                </button>
+            </div>
+
+            <button mat-button routerLink="/admin/diem-den" routerLinkActive="active-link">
+                <mat-icon class="material-icons">place</mat-icon>
+                <span>Điểm Đến</span>
             </button>
-            <button mat-button routerLink="/admin/quan-ly-danh-muc-diem-den" routerLinkActive="active-link">
-                <mat-icon class="mat-icon-custom">location_on</mat-icon>
-                <span>Quản Lý DM Điểm Đến</span>
+
+            <button mat-button routerLink="/admin/lich-trinh" routerLinkActive="active-link">
+                <mat-icon class="material-icons">calendar_today</mat-icon>
+                <span>Lịch Trình</span>
             </button>
-            <button mat-button routerLink="/admin/quan-ly-diem-den" routerLinkActive="active-link">
-                <mat-icon class="mat-icon-custom">location_on</mat-icon>
-                <span>Quản Lý Điểm Đến</span>
+            <button mat-button routerLink="/admin/bai-viet" routerLinkActive="active-link">
+                <mat-icon class="material-icons">description</mat-icon>
+                <span>Bài Viết</span>
             </button>
-            <button mat-button routerLink="/admin/quan-ly-lich-trinh" routerLinkActive="active-link">
-                <mat-icon class="mat-icon-custom">calendar_today</mat-icon>
-                <span>Quản Lý Lịch Trình</span>
+            <button mat-button routerLink="/admin/danh-gia" routerLinkActive="active-link">
+                <mat-icon class="material-icons">star</mat-icon>
+                <span>Đánh Giá</span>
             </button>
-            <button mat-button routerLink="/admin/quan-ly-bai-viet" routerLinkActive="active-link">
-                <mat-icon class="mat-icon-custom">description</mat-icon>
-                <span>Quản Lý Bài Viết</span>
+            <button mat-button routerLink="/admin/hinh-anh" routerLinkActive="active-link">
+                <mat-icon class="material-icons">image</mat-icon>
+                <span>Hình Ảnh</span>
             </button>
-            <button mat-button routerLink="/admin/quan-ly-danh-gia" routerLinkActive="active-link">
-                <mat-icon class="mat-icon-custom">star</mat-icon>
-                <span>Quản Lý Đánh Giá</span>
-            </button>
-            <button mat-button routerLink="/admin/quan-ly-thong-ke" routerLinkActive="active-link">
-                <mat-icon class="mat-icon-custom">bar_chart</mat-icon>
-                <span>Quản Lý Thống Kê</span>
+            <button mat-button routerLink="/admin/thong-ke" routerLinkActive="active-link">
+                <mat-icon class="material-icons">bar_chart</mat-icon>
+                <span>Thống Kê</span>
             </button>
         </div>
     </div>

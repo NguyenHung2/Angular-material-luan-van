@@ -1,0 +1,42 @@
+<div class="edit-dialog">
+    <h2>Chỉnh sửa hình ảnh</h2>
+    <form (submit)="saveChanges()" class="scrollable-form">
+  
+      <!-- Mã Hình Ảnh -->
+      <mat-form-field class="form-field">
+        <mat-label>Mã Hình Ảnh</mat-label>
+        <input matInput [(ngModel)]="editedImage.maAnh" name="maAnh" required>
+      </mat-form-field>
+  
+      <!-- Tiêu Đề Hình Ảnh -->
+      <mat-form-field class="form-field">
+        <mat-label>Tiêu Đề Hình Ảnh</mat-label>
+        <input matInput [(ngModel)]="editedImage.tenAnh" name="tenAnh" required>
+      </mat-form-field>
+  
+      <!-- Hình Ảnh -->
+      <mat-form-field class="form-field">
+        <mat-label>Hình Ảnh</mat-label>
+        <input type="file" (change)="onFileSelected($event)" accept=".jpg, .jpeg, .png" #fileInput hidden />
+        <mat-icon matSuffix (click)="openFileInput()">attach_file</mat-icon>
+        <span>{{ selectedFileName }}</span>
+        <input matInput [placeholder]="'Choose File'" [disabled]="true" [value]="selectedFileName" class="file-path-input">
+      </mat-form-field>
+  
+      <img [src]="editedImage.duongDan" alt="Selected Image" *ngIf="editedImage.duongDan" class="selected-image"/>
+  
+      <!-- Ngày Tạo -->
+      <mat-form-field class="form-field">
+        <mat-label>Ngày Tạo</mat-label>
+        <input matInput [(ngModel)]="editedImage.ngayTao" name="ngayTao" required [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+  
+      <div class="button-container">
+        <button mat-raised-button type="submit">Lưu</button>
+        <button mat-raised-button type="button" (click)="closeDialog()">Hủy</button>
+      </div>
+    </form>
+  </div>
+  

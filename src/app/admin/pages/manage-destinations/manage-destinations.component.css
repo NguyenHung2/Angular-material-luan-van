@@ -1,8 +1,5 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
+.list-post {
+    margin: 10px;
 }
 
 h2 {
@@ -22,38 +19,43 @@ h2:hover {
     border-color: #00aaff;
 }
 
-/* Table Style */
-.content-table {
-    max-width: 100%;
-    margin: 20px;
-    overflow-x: auto;
-}
-
 table {
     width: 100%;
-    table-layout: fixed;
-    /* Đảm bảo bố cục không bị thay đổi dựa trên nội dung */
+    border-collapse: collapse;
+    border-radius: 2em;
 }
 
-.mat-elevation-z8 {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    table-layout: auto;
-    border: 1px solid #ddd;
-    transition: box-shadow 0.3s ease;
+.mat-table {
+    background-color: transparent !important;
+}
+
+table tr:last-child td {
+    border-bottom: 0 solid
 }
 
 .mat-elevation-z8 th,
 .mat-elevation-z8 td {
     border-bottom: 1px solid #ddd;
     text-align: left;
-    padding: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    margin: 0 10px;
 }
 
 .mat-elevation-z8 th {
     background-color: #f2f2f2;
     font-weight: bold;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    min-width: 150px;
+}
+
+.mat-elevation-z8 th.mat-header-cell {
+    min-width: 150px;
+    /* Đảm bảo chiều rộng tối thiểu */
+}
+
+.mat-elevation-z8 th:last-child {
     text-align: center;
 }
 
@@ -69,17 +71,12 @@ table {
 }
 
 .mat-elevation-z8 tr:hover {
-    background-color: #e0e0e0;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    background-color: #f0f0f0;
+    transition: background-color 0.3s ease;
 }
 
 .mat-elevation-z8 td.responsive-cell .data-label {
     display: none;
-}
-
-.destination-image {
-    max-width: 100%;
-    height: auto;
 }
 
 /* ------------- Search and Add Styles ------------- */
@@ -96,157 +93,54 @@ table {
 
 .add-button {
     font-size: 24px;
-    color: #007bff;
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-/* ------------- Hide Text Styles And Tooltip Hover ------------- */
-.hideText {
-    text-overflow: ellipsis;
-    /* Hiển thị "..." nếu nội dung quá dài */
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-}
-
-.hideText:hover::after {
-    content: attr(data-text);
-    position: absolute;
-    background-color: #333;
+    background-color: #4CAF50;
     color: #fff;
-    padding: 5px;
-    border-radius: 5px;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: normal;
-    z-index: 1;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* ------------- Add Form Styles ------------- */
-/* CSS for Fixed Position Form and Overlay */
-.overlay-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+.add-button:hover {
+    background-color: #44A047;
+    transform: scale(1.1);
 }
 
-.add-destination-form {
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    width: 400px;
-    height: 500px;
-    overflow: auto;
-}
 
-/* Rest of your form styling remains the same */
-
-
-/* Styling for Form Elements */
-.add-destination-form h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.add-destination-form .form-field {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.add-destination-form button {
+/* ------------- Icon Button Styles ------------- */
+.mat-elevation-z8 td .edit-icon {
+    color: #007bff;
+    cursor: pointer;
     margin-right: 10px;
 }
 
-.add-destination-form .button-container {
-    margin-top: 10px;
-    text-align: right;
-}
-
-/* Style for the "Lưu" (Save) button */
-.add-destination-form button[type="submit"] {
-    background-color: #007bff;
-    /* Set the background color */
-    color: #fff;
-    /* Set the text color */
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
-.add-destination-form button[type="submit"]:hover {
-    background-color: #0056b3;
-    /* Change the background color on hover */
-}
-
-/* Style for the "Hủy" (Cancel) button */
-.add-destination-form button[type="button"] {
-    background-color: #dc3545;
-    /* Set the background color */
-    color: #fff;
-    /* Set the text color */
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
-.add-destination-form button[type="button"]:hover {
-    background-color: #c82333;
-    /* Change the background color on hover */
-}
-
-/* Đảm bảo phần input và nút button cùng có chiều cao và ẩn phần input */
-.mat-form-field.file-input-container {
-    position: relative;
-}
-
-.mat-form-field.file-input-container input[type="file"] {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0; /* Ẩn phần input thực sự */
-    cursor: pointer;
-}
-
-/* Đổi màu cho icon */
-mat-icon.custom-color {
-    color: #007bff; /* Đổi màu thành đỏ (#ff0000) hoặc mã màu khác bạn muốn */
-  }
-  
-
-/* ------------- Icon Button Styles ------------- */
-/* CSS for edit icon */
-.mat-elevation-z8 td .edit-icon {
-    color: #007bff;
-}
-
-/* CSS for delete icon */
 .mat-elevation-z8 td .delete-icon {
     color: #f44336;
+    cursor: pointer;
 }
 
-/* Status Icon Styles */
-.data-value mat-icon {
-    font-size: 24px;
-    vertical-align: middle;
-    color: #4caf50;
+.mat-mdc-icon-button:hover {
+    transform: scale(1.1);
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.data-value mat-icon[ng-reflect-message='false'] {
-    color: #f44336;
+.mat-elevation-z8 td .detail-icon {
+    color: #00bcd4; /* Thay đổi màu icon "Chi tiết" thành màu xanh lam */
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.mat-elevation-z8 td .detail-icon:hover {
+    color: #0097a7; /* Thay đổi màu khi di chuột qua icon "Chi tiết" */
+}
+
+
+.mat-elevation-z8 td.mat-cell {
+    padding: 16px 0 16px 0;
+    border-bottom: 2px solid #ffa600;
+    border-top: 2px solid #ffa600;
 }
 
 @media (max-width: 768px) {
@@ -254,7 +148,6 @@ mat-icon.custom-color {
     .mat-elevation-z8 th,
     .mat-elevation-z8 td {
         display: block;
-        width: 100%;
         box-sizing: border-box;
     }
 
@@ -286,12 +179,20 @@ mat-icon.custom-color {
         float: right;
         text-align: justify;
         flex-wrap: wrap;
-
     }
 
     .mat-elevation-z8 td.responsive-cell .data-label {
         display: inline;
         font-weight: bold;
         margin-right: 5px;
+    }
+
+    .mat-elevation-z8 tr {
+        border: 1px solid #ddd;
+    }
+
+    .mat-elevation-z8 tr.mat-row {
+        background-color: red;
+        padding: 20px;
     }
 }

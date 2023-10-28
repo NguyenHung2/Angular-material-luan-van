@@ -1,0 +1,124 @@
+/* Styles for the Add Post Dialog */
+.add-post-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-post-dialog h2 {
+  font-size: 24px;
+  margin: 20px 0;
+  border-bottom: 2px solid #1976D2;
+  padding-bottom: 10px;
+}
+
+.scrollable-form {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.form-field {
+  width: 100%;
+  margin: 10px 0;
+  position: relative;
+}
+
+.form-field .mat-form-field-underline {
+  border-color: #1976D2;
+}
+
+.form-field .mat-input-element {
+  color: #333;
+  font-size: 16px;
+  padding: 6px;
+}
+
+.form-field .mat-input-placeholder {
+  color: #999;
+}
+
+.mat-label {
+  color: #555;
+  font-size: 14px;
+  position: absolute;
+  top: -6px;
+  background-color: #fff;
+  padding: 0 4px;
+  transition: top 0.3s, font-size 0.3s;
+}
+
+.form-field.focused .mat-label {
+  top: -20px;
+  font-size: 12px;
+}
+
+.selected-image {
+  max-width: 100%;
+  max-height: 200px;
+  margin: 10px 0;
+}
+
+.file-path-input {
+  margin-top: 10px;
+  color: #333;
+  font-size: 14px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.button-container button {
+  flex: 1;
+  margin: 0 10px;
+}
+
+/* Styles for the 'Lưu' button */
+button[type="submit"] {
+  background-color: #1976D2;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Styles for the 'Hủy' button */
+button[type="button"] {
+  background-color: #ccc;
+  color: #333;
+  font-size: 16px;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Style for the attach file icon */
+.mat-icon {
+  cursor: pointer;
+  color: #1976D2;
+  font-size: 24px;
+  transition: color 0.3s;
+}
+
+.mat-icon:hover {
+  color: #0a58ca;
+}
+
+/* Style for the choose file input */
+input[disabled] {
+  cursor: not-allowed;
+}

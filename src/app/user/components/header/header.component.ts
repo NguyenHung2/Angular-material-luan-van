@@ -11,6 +11,15 @@ import { MatDialog } from '@angular/material/dialog';
 export class HeaderComponent implements OnInit {
   isForgotPassword: boolean = false;
   isLoginFormOpen: boolean = true;
+  showSidenav = false;
+
+  toggleSidenav() {
+    this.showSidenav = !this.showSidenav;
+  }
+
+  closeSidenav() {
+    this.showSidenav = false;
+  }
 
   constructor(private dialog: MatDialog) { }
 

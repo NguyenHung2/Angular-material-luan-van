@@ -1,115 +1,73 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSort, MatSortable } from '@angular/material/sort';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
-import { ManageDestinationService, Destination } from '../../service/manage-destination.service';
+import { Destination, DestinationService } from '../../services/destination.service';
+import { DestinationCategory, DestinationCategoryService } from '../../services/destination-category.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { AddDestinationDialogComponent } from './add-destination-dialog/add-destination-dialog.component';
+import { EditDestinationDialogComponent } from './edit-destination-dialog/edit-destination-dialog.component';
+import { DeleteDestinationDialogComponent } from './delete-destination-dialog/delete-destination-dialog.component';
+import { DetailDestinationDialogComponent } from './detail-destination-dialog/detail-destination-dialog.component';
 
 @Component({
   selector: 'app-manage-destinations',
   templateUrl: './manage-destinations.component.html',
-  styleUrls: ['./manage-destinations.component.css'],
+  styleUrls: ['./manage-destinations.component.css']
 })
-export class ManageDestinationsComponent implements OnInit, AfterViewInit {
+export class ManageDestinationsComponent implements OnInit {
   destinations: Destination[] = [];
+  destinationCategories: DestinationCategory[] = [];
   searchControl = new FormControl('');
   filteredDestinations: MatTableDataSource<Destination> = new MatTableDataSource<Destination>(this.destinations);
-  displayedColumns: string[] = [
-    'maDiaDiem',
-    'tenDiaDiem',
-    'moTa',
-    'kinhDo',
-    'viDo',
-    'hinhAnh',
-    'diaChi',
-    'ngayTao',
-    'trangThaiDiaDiem',
-    'danhMucDiaDiem',
-    'thaoTac',
-  ];
+  displayedColumns: string[] = ['maDiemDen', 'tenDiemDen', 'thaoTac'];
 
-  // Thêm biến và mô hình cho việc thêm mới
   showAddFormFlag: boolean = false;
-  newDestinationForm!: FormGroup;
   newDestination: Destination = {
-    maDiaDiem: 0,
-    tenDiaDiem: '',
+    maDiemDen: null,
+    tenDiemDen: '',
     moTa: '',
-    kinhDo: 0,
-    viDo: 0,
-    hinhAnh: '',
     diaChi: '',
+    kinhDo: null,
+    viDo: null,
     ngayTao: new Date(),
-    trangThaiDiaDiem: true,
-    danhMucDiaDiem: '',
+    danhMuc: null
   };
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private manageDestinationService: ManageDestinationService, private fb: FormBuilder) { }
+  constructor(
+    private destinationService: DestinationService,
+    private destinationCategoryService: DestinationCategoryService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
-    this.manageDestinationService.getDestinations().subscribe((data) => {
-      this.destinations = data;
-
-      // Cập nhật cột "Ngày Tạo" và "Trạng Thái Địa Điểm"
-      this.destinations.forEach((destination) => {
-        destination.ngayTao = new Date(); // Thay bằng ngày tạo thực tế
-        destination.trangThaiDiaDiem = true; // Thay bằng trạng thái thực tế của địa điểm
-      });
-
-      this.filteredDestinations = new MatTableDataSource<Destination>(this.destinations);
-      // Thiết lập sắp xếp cho bảng dữ liệu
-      this.filteredDestinations.sort = this.sort;
-
-      // Sắp xếp mặc định theo cột "Mã Địa Điểm" từ thấp đến cao
-      this.sort.sort(<MatSortable>{
-        id: 'maDiaDiem',
-        start: 'asc', // Sắp xếp từ thấp đến cao
-      });
-    });
-
-    this.filteredDestinations.filterPredicate = (data: Destination, filter: string) => {
-      const searchTerms = filter.toLowerCase().split(' ');
-      return searchTerms.every((term) => {
-        return (
-          data.maDiaDiem.toString().toLowerCase().includes(term) ||
-          data.tenDiaDiem.toLowerCase().includes(term) ||
-          data.moTa.toLowerCase().includes(term) ||
-          data.kinhDo.toString().toLowerCase().includes(term) ||
-          data.viDo.toString().toLowerCase().includes(term) ||
-          data.diaChi.toLowerCase().includes(term) ||
-          (data.trangThaiDiaDiem ? 'Hoạt động' : 'Ngừng hoạt động').toLowerCase().includes(term)
-        );
-      });
-    };
-
-    this.searchControl.valueChanges.subscribe((value: string | null) => {
-      if (value !== null) {
-        this.applyFilter(value);
-      }
-    });
-
-
-    this.newDestinationForm = this.fb.group({
-      maDiaDiem: ['', Validators.required],
-      tenDiaDiem: ['', Validators.required],
-      moTa: ['', Validators.required],
-      kinhDo: ['', Validators.required],
-      viDo: ['', Validators.required],
-      hinhAnh: ['', Validators.required],
-      diaChi: ['', Validators.required],
-      ngayTao: ['', Validators.required],
-      trangThaiDiaDiem: [true, Validators.required],
-      danhMucDiaDiem: ['', Validators.required],
-    });
+    this.loadDestinations();
+    this.loadDestinationCategories(); // Gọi để tải danh sách danh mục điểm đến
   }
 
   ngAfterViewInit() {
-    // Cấu hình paginator và sort sau khi view đã được khởi tạo
-    this.filteredDestinations.paginator = this.paginator;
     this.filteredDestinations.sort = this.sort;
+    this.filteredDestinations.paginator = this.paginator;
+  }
+
+  loadDestinations() {
+    this.destinationService.getAllDestinations().subscribe((data) => {
+      this.destinations = data;
+      this.filteredDestinations = new MatTableDataSource<Destination>(this.destinations);
+
+      this.filteredDestinations.sort = this.sort;
+      this.filteredDestinations.paginator = this.paginator;
+    });
+  }
+
+  loadDestinationCategories() {
+    this.destinationCategoryService.getAllDestinationCategories().subscribe((data) => {
+      this.destinationCategories = data;
+    });
   }
 
   applyFilter(filterValue: string): void {
@@ -117,60 +75,106 @@ export class ManageDestinationsComponent implements OnInit, AfterViewInit {
     this.filteredDestinations.filter = filterValue;
   }
 
-  editDestination(destination: Destination): void {
-    // Xử lý khi người dùng chọn chỉnh sửa
+  showEditForm(destination: Destination): void {
+    const dialogRef = this.dialog.open(EditDestinationDialogComponent, {
+      data: { destination, existingDestinations: this.destinations, destinationCategories: this.destinationCategories }
+    });
+
+    dialogRef.afterClosed().subscribe((editedDestination: Destination) => {
+      if (editedDestination.maDiemDen !== null) {
+        this.destinationService.updateDestination(editedDestination.maDiemDen, editedDestination).subscribe(
+          (updatedDestination: Destination) => {
+            this.loadDestinations();
+          },
+          (error) => {
+            console.error('Lỗi khi cập nhật điểm đến:', error);
+          }
+        );
+      }
+    });
   }
 
-  deleteDestination(destination: Destination): void {
-    // Xử lý khi người dùng chọn xóa
-  }
+  showDeleteForm(destination: Destination): void {
+    if (destination.maDiemDen !== null) {
+      const dialogRef = this.dialog.open(DeleteDestinationDialogComponent, {
+        data: { destination }
+      });
 
-  // Function to submit the form
-  addDestination() {
-    if (this.newDestinationForm.valid) {
-      console.log('New destination:', this.newDestination);
-      this.resetForm();
+      dialogRef.afterClosed().subscribe((result: boolean) => {
+        if (result) {
+          this.destinationService.deleteDestination(destination.maDiemDen as number).subscribe(
+            () => {
+              this.loadDestinations();
+            },
+            (error) => {
+              console.error('Failed to delete destination:', error);
+            }
+          );
+        }
+      });
+    } else {
+      // Handle the case where `destination.maDiemDen` is `null`.
     }
   }
 
-  // Function to cancel and hide the form
+  addDestination() {
+    this.destinationService.createDestination(this.newDestination).subscribe(
+      (newDestination: Destination) => {
+        this.resetForm();
+        this.loadDestinations();
+      },
+      (error) => {
+        console.error('Failed to add new destination:', error);
+      }
+    );
+  }
+
   cancelAddForm() {
     this.resetForm();
   }
 
-  // Function to reset the form and hide it
   resetForm() {
-    this.newDestinationForm.reset(this.newDestination);
+    this.newDestination = {
+      maDiemDen: null,
+      tenDiemDen: '',
+      moTa: '',
+      diaChi: '',
+      kinhDo: null,
+      viDo: null,
+      ngayTao: new Date(),
+      danhMuc: null
+    };
     this.showAddFormFlag = false;
   }
 
-  // Function to show the form
   showAddForm() {
-    this.showAddFormFlag = true;
+    const dialogRef = this.dialog.open(AddDestinationDialogComponent, {
+      data: {
+        destination: this.newDestination,
+        existingDestinations: this.destinations,
+        destinationCategories: this.destinationCategories
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((addedDestination: Destination) => {
+      if (addedDestination) {
+        this.destinationService.createDestination(addedDestination).subscribe(
+          (newDestination: Destination) => {
+            this.loadDestinations();
+            this.resetForm();
+          },
+          (error) => {
+            console.error('Failed to add new destination:', error);
+          }
+        );
+      }
+    });
   }
 
-  selectedFileName: string = 'Chưa chọn tệp';
-
-  openFileInput() {
-    this.fileInput.nativeElement.click();
-  }
-  @ViewChild('fileInput') fileInput!: ElementRef;
-
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-
-    if (file) {
-      this.selectedFileName = file.name;
-
-      // Tạo một đường dẫn tạm thời cho tệp hình ảnh
-      // Lưu ý rằng đây là một đường dẫn tạm thời và cần phải xử lý tệp sau khi tải lên máy chủ
-      const temporaryImageUrl = URL.createObjectURL(file);
-
-      // Lưu đường dẫn tạm thời vào newDestination.hinhAnh
-      this.newDestination.hinhAnh = temporaryImageUrl;
-    } else {
-      this.selectedFileName = 'Chưa chọn tệp';
-      this.newDestination.hinhAnh = ''; // Gán giá trị rỗng nếu không có tệp nào được chọn
-    }
+  // Hiển thị form chi tiết
+  showDetails(destination: Destination): void {
+    const dialogRef = this.dialog.open(DetailDestinationDialogComponent, {
+      data: { destination }
+    });
   }
 }

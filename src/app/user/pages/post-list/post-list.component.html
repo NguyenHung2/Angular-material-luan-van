@@ -1,0 +1,71 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav class="sidenav" [opened]="sidenavOpen" mode="side">
+        <mat-card>
+            <mat-card-title>
+                <div class="filter_title">Bộ lọc</div>
+            </mat-card-title>
+
+            <!-- Loại bài viết -->
+            <mat-card-subtitle>Loại bài viết</mat-card-subtitle>
+            <mat-radio-group [(ngModel)]="selectedTypes">
+                <mat-radio-button *ngFor="let type of availableTypes" [value]="type">{{ type }}</mat-radio-button>
+            </mat-radio-group>
+
+
+            <!-- Đánh giá -->
+            <mat-card-subtitle>Đánh giá</mat-card-subtitle>
+            <mat-radio-group [(ngModel)]="selectedRating">
+                <div *ngFor="let rating of ['all', '4.0', '4.5', '5.0']">
+                    <mat-radio-button [value]="rating">{{ rating === 'all' ? 'Tất cả' : rating + ' sao trở lên'
+                        }}</mat-radio-button>
+                </div>
+            </mat-radio-group>
+
+
+            <!-- Lọc theo mới nhất và cũ nhất -->
+            <mat-card-subtitle>Sắp xếp</mat-card-subtitle>
+            <mat-radio-group>
+                <div *ngFor="let sortOption of ['newest', 'oldest']">
+                    <mat-radio-button [value]="sortOption">{{ sortOption === 'newest' ? 'Mới nhất' : 'Cũ nhất'
+                        }}</mat-radio-button>
+                </div>
+            </mat-radio-group>
+
+            <!-- Nút áp dụng bộ lọc -->
+            <button mat-raised-button color="primary" (click)="applyFilters()">Áp dụng</button>
+        </mat-card>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <mat-card>
+            <mat-card-title>
+                <mat-icon class="filter-icon" (click)="toggleSidenav()" *ngIf="isScreenSmall()">filter_list</mat-icon>
+                <h3 class="post-list-title">Danh sách bài viết</h3>
+            </mat-card-title>
+
+            <mat-card-content>
+                <div class="post-list" *ngIf="!noResultsFound">
+                    <div class="post-item" *ngFor="let post of displayedPosts">
+                        <img src="{{ post.hinhAnh }}" alt="{{ post.tieuDe }}" class="post-image">
+                        <h3 class="post-title">{{ post.tieuDe }}</h3>
+                        <p class="post-summary">{{ post.tomTat }}</p>
+                        <p class="post-category">Loại: {{ post.loaiBaiViet }}</p>
+                        <p class="post-rating">Ngày đăng: {{ post.ngayDang | date: 'dd/MM/yyyy' }}</p>
+                        <!-- Add other post details as needed -->
+                        <button mat-button color="primary" (click)="showDetails(post)">Xem chi tiết</button>
+                    </div>
+                </div>
+                <div class="no-results-message" *ngIf="noResultsFound">
+                    Không tìm thấy kết quả cho các từ khóa:
+                    <span *ngFor="let keyword of filteredKeywords; let last = last" [ngClass]="{'bold-keyword': !last}">
+                        {{ keyword }}<span *ngIf="!last">, </span>
+                    </span>. Vui lòng điều chỉnh bộ lọc của bạn.
+                </div>
+
+                <mat-paginator [length]="filteredPosts.length" [pageSize]="itemsPerPage" (page)="onPageChange($event)"
+                    [showFirstLastButtons]="true"></mat-paginator>
+            </mat-card-content>
+
+        </mat-card>
+    </mat-sidenav-content>
+</mat-sidenav-container>

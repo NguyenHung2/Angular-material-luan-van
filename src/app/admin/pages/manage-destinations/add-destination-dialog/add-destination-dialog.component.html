@@ -1,0 +1,53 @@
+<div class="add-dialog">
+  <h2>Thêm Điểm Đến</h2>
+  <form (submit)="saveChanges()">
+    <!-- Tên Điểm Đến -->
+    <mat-form-field class="form-field" [ngClass]="{'error': isInputEmpty || isDuplicateName }">
+      <mat-label>Tên Điểm Đến</mat-label>
+      <input matInput [(ngModel)]="newDestination.tenDiemDen" name="tenDiemDen" required>
+    </mat-form-field>
+    <div class="error-message" *ngIf="isInputEmpty">Vui lòng nhập tên điểm đến.</div>
+    <div class="error-message" *ngIf="isDuplicateName">Tên điểm đến đã tồn tại.</div>
+
+    <!-- Mô Tả Điểm Đến -->
+    <mat-form-field class="form-field">
+      <mat-label>Mô Tả Điểm Đến</mat-label>
+      <textarea matInput [(ngModel)]="newDestination.moTa" name="moTa"></textarea>
+    </mat-form-field>
+
+    <!-- Địa Chỉ Điểm Đến -->
+    <mat-form-field class="form-field">
+      <mat-label>Địa Chỉ Điểm Đến</mat-label>
+      <input matInput [(ngModel)]="newDestination.diaChi" name="diaChi">
+    </mat-form-field>
+
+    <!-- Kinh Độ -->
+    <mat-form-field class="form-field" [ngClass]="{'error': isInvalidKinhDo }">
+      <mat-label>Kinh Độ</mat-label>
+      <input matInput [(ngModel)]="newDestination.kinhDo" name="kinhDo" type="number">
+    </mat-form-field>
+    <div class="error-message" *ngIf="isInvalidKinhDo">Vui lòng nhập kinh độ hợp lệ.</div>
+
+    <!-- Vĩ Độ -->
+    <mat-form-field class="form-field" [ngClass]="{'error': isInvalidViDo }">
+      <mat-label>Vĩ Độ</mat-label>
+      <input matInput [(ngModel)]="newDestination.viDo" name="viDo" type="number">
+    </mat-form-field>
+    <div class="error-message" *ngIf="isInvalidViDo">Vui lòng nhập vĩ độ hợp lệ.</div>
+
+    <!-- Danh Mục Điểm Đến -->
+    <mat-form-field class="form-field">
+      <mat-label>Danh Mục Điểm Đến</mat-label>
+      <mat-select [(ngModel)]="newDestination.danhMuc" name="danhMuc">
+        <mat-option *ngFor="let category of destinationCategories" [value]="category.maDanhMuc">
+          {{ category.maDanhMuc }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="button-container">
+      <button mat-raised-button type="submit">Lưu</button>
+      <button mat-raised-button type="button" (click)="closeDialog()">Hủy</button>
+    </div>
+  </form>
+</div>

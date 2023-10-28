@@ -1,0 +1,9 @@
+<div class="delete-dialog">
+    <h2>Xóa Danh Mục Điểm Đến</h2>
+    <p>Bạn có chắc muốn xóa danh mục <strong>{{ data.category.tenDanhMuc }}</strong> không?</p>
+
+    <div class="button-container">
+        <button mat-raised-button color="warn" (click)="confirmDelete()">Xóa</button>
+        <button mat-raised-button (click)="cancelDelete()">Hủy</button>
+    </div>
+</div>

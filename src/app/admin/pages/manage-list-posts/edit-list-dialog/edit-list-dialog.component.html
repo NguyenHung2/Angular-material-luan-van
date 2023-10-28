@@ -1,0 +1,17 @@
+<div class="edit-dialog">
+  <h2>Chỉnh Sửa Loại Bài Viết</h2>
+  <form (submit)="saveChanges()">
+      <!-- Tên Loại -->
+      <mat-form-field class="form-field" [ngClass]="{'error': isInputEmpty || isDuplicateName }">
+          <mat-label>Tên Loại</mat-label>
+          <input matInput [(ngModel)]="editedCategory.tenLoai" name="tenLoai" required>
+      </mat-form-field>
+      <div class="error-message" *ngIf="isInputEmpty">Vui lòng nhập tên loại.</div>
+      <div class="error-message" *ngIf="isDuplicateName">Tên loại đã tồn tại.</div> 
+
+      <div class="button-container">
+          <button mat-raised-button type="submit">Lưu</button>
+          <button mat-raised-button type="button" (click)="closeDialog()">Hủy</button>
+      </div>
+  </form>
+</div>

@@ -1,0 +1,221 @@
+/* Bộ lọc và tiêu đề của bộ lọc */
+.sidenav {
+    width: 250px; /* Độ rộng của side nav */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Thêm box-shadow */
+}
+
+.mat-card {
+    background-color: #fff; /* Thay đổi màu nền của thẻ */
+    border-radius: 10px; /* Thêm border radius cho thẻ bên trong */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm box-shadow cho thẻ */
+    padding: 20px;
+}
+
+/* Danh mục điểm đến và Loại bài viết */
+.mat-mdc-card-subtitle {
+    font-weight: bold;
+    margin: 10px;
+    font-size: 16px;
+    color: #333;
+    border-bottom: 1px solid #0078d4;
+}
+
+.mat-checkbox {
+    display: block;
+    margin: 5px 0;
+}
+
+/* Đánh giá */
+.mat-form-field {
+    width: 100%;
+}
+
+/* Nút áp dụng bộ lọc */
+button[mat-raised-button] {
+    margin-top: 20px;
+    background-color: #0078d4; /* Thay đổi màu nền nút */
+    color: #fff; /* Thay đổi màu chữ trên nút */
+}
+
+.mat-mdc-card-content {
+    min-height: 70vh; /* Set a fixed height for the sidenav content */
+  }
+
+.post-list-title, .filter_title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center; /* Để căn giữa tiêu đề */
+    margin: 20px 0; /* Khoảng cách lề 20px ở phía trên và dưới */
+    position: relative; /* Để có thể sử dụng độ rộng tương đối cho border */
+}
+
+.post-list-title::after, .filter_title::after {
+    content: '';
+    display: block;
+    width: 60px; /* Độ rộng của border */
+    height: 2px; /* Độ dày của border */
+    background-color: #0078d4; /* Màu của border */
+    position: absolute;
+    bottom: -5px; /* Để căn chính giữa border */
+    left: 50%; /* Để căn giữa tiêu đề */
+    transform: translateX(-50%); /* Để căn giữa border */
+}
+
+.mat-icon.filter-icon {
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+/* Style for the list of posts */
+.post-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Style for each post item */
+.post-item {
+    width: calc(33.33% - 20px);
+    border: 1px solid #e1e1e1;
+    background-color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+/* Hover effect for post items */
+.post-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.post-item img {
+    max-width: 100%;
+    height: auto;
+}
+
+.post-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 16px;
+}
+
+.post-summary {
+    font-size: 16px;
+    margin: 0 16px 16px;
+    color: #555;
+}
+
+.post-category {
+    font-size: 16px;
+    margin: 0 16px 16px;
+    color: #0078d4;
+}
+
+.post-rating {
+    font-size: 16px;
+    margin: 0 16px 16px;
+}
+
+/* Định dạng phần tử cha của mat-paginator */
+mat-paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Định dạng các nút */
+mat-paginator .mat-paginator-navigation {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Định dạng nút chuyển đến trang đầu và cuối */
+mat-paginator .mat-paginator-navigation-first,
+mat-paginator .mat-paginator-navigation-last {
+    background-color: #0078d4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* Định dạng nút chuyển trang */
+mat-paginator .mat-paginator-navigation-previous,
+mat-paginator .mat-paginator-navigation-next {
+    background-color: #0078d4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* Định dạng phần số trang */
+mat-paginator .mat-paginator-range-label {
+    font-weight: bold;
+}
+
+/* Định dạng phần số trang mà người dùng có thể chọn */
+mat-paginator .mat-select-trigger {
+    background-color: #0078d4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* Định dạng phần số trang khi người dùng mở danh sách */
+mat-paginator .mat-select-panel {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Định dạng số trang đã chọn */
+mat-paginator .mat-select-value-text {
+    font-weight: bold;
+}
+
+/* Định dạng số trang đã chọn khi người dùng di chuột qua */
+mat-paginator .mat-select-value-text:hover {
+    background-color: #0078d4;
+    color: #fff;
+}
+
+.bold-keyword {
+    font-weight: bold;
+}
+
+/* Hiển thị 1 cột khi kích thước màn hình nhỏ hơn hoặc bằng 256px */
+@media screen and (max-width: 526px) {
+    .post-list {
+        flex-direction: column;
+    }
+
+    .post-item {
+        width: 100%;
+    }
+}
+
+/* Hiển thị 2 cột khi kích thước màn hình từ 257px đến 768px */
+@media screen and (min-width: 526px) and (max-width: 768px) {
+    .post-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .post-item {
+        width: calc(50% - 20px);
+    }
+}

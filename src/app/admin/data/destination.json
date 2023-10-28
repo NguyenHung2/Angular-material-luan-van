@@ -1,0 +1,27 @@
+[
+    {
+      "maDiaDiem": "1",
+      "tenDiaDiem": "Địa điểm 1",
+      "moTa": "Mô tả địa điểm 1",
+      "kinhDo": 123.456,
+      "viDo": 78.901,
+      "hinhAnh": "image1.jpg",
+      "diaChi": "Địa chỉ địa điểm 1",
+      "ngayTao": "2023-10-12T14:30:00.000Z",
+      "trangThaiDiaDiem": true,
+      "danhMucDiaDiem": "Danh mục 1"
+    },
+    {
+      "maDiaDiem": "2",
+      "tenDiaDiem": "Địa điểm 2",
+      "moTa": "Mô tả địa điểm 2",
+      "kinhDo": 345.678,
+      "viDo": 12.345,
+      "hinhAnh": "image2.jpg",
+      "diaChi": "Địa chỉ địa điểm 2",
+      "ngayTao": "2023-10-11T10:45:00.000Z",
+      "trangThaiDiaDiem": false,
+      "danhMucDiaDiem": "Danh mục 2"
+    }
+  ]
+  

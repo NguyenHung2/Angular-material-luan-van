@@ -1,0 +1,62 @@
+.edit-dialog {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.edit-dialog h2 {
+    font-size: 24px;
+    padding-bottom: 10px; 
+    border-bottom: 2px solid #1976D2; 
+}
+
+.form-field {
+    width: 100%;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.error-message {
+    color: #f44336;
+    font-size: 14px;
+    margin-top: -25px;
+    position: absolute;
+}
+
+.form-field.error div.error-message {
+    display: block;
+}
+
+.button-container {
+    text-align: right;
+    margin-top: 10px; 
+}
+
+.button-container button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-container button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.button-container button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.button-container button[type="button"] {
+    background-color: #f44336;
+    color: white;
+}
+
+.button-container button[type="button"]:hover {
+    background-color: #d32f2f;
+}

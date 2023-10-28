@@ -1,0 +1,32 @@
+<div class="detail-dialog">
+    <h2 class="dialog-title">Chi Tiết Điểm Đến</h2>
+    <div class="dialog-content">
+        <p class="bold-title">Mã Điểm Đến:</p>
+        <p class="data">{{ data.destination.maDiemDen }}</p>
+
+        <p class="bold-title">Tên Điểm Đến:</p>
+        <p class="data">{{ data.destination.tenDiemDen }}</p>
+
+        <p class="bold-title">Mô Tả:</p>
+        <p class="data">{{ data.destination.moTa }}</p>
+
+        <p class="bold-title">Kinh Độ:</p>
+        <p class="data">{{ data.destination.kinhDo }}</p>
+
+        <p class="bold-title">Vĩ Độ:</p>
+        <p class="data">{{ data.destination.viDo }}</p>
+
+        <p class="bold-title">Địa Chỉ:</p>
+        <p class="data">{{ data.destination.diaChi }}</p>
+
+        <p class="bold-title">Ngày Tạo:</p>
+        <p class="data">{{ data.destination.ngayTao | date: 'dd/MM/yyyy' }}</p>
+
+        <p class="bold-title">Danh mục:</p>
+        <p class="data">{{ data.destination.danhmuc.maDanhMuc }} - {{ data.destination.danhmuc.tenDanhMuc }}</p>
+
+    </div>
+    <div class="button-container">
+        <button mat-button type="button" (click)="closeDialog()" class="close-button">Đóng</button>
+    </div>
+</div>

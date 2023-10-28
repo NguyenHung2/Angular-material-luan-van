@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserComponent } from './user.component';
 import { HomeComponent } from './pages/home/home.component';
-import { ExploreComponent } from './pages/explore/explore.component';
 import { ItineraryComponent } from './pages/itinerary/itinerary.component';
 import { MapComponent } from './pages/map/map.component';
+import { PostListComponent } from './pages/post-list/post-list.component';
+import { DestinationListComponent } from './pages/destination-list/destination-list.component';
 
 const routes: Routes = [
   {
@@ -13,9 +14,10 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'trang-chu', pathMatch: 'full' },
       { path: 'trang-chu', component: HomeComponent },
-      { path: 'kham-pha', component: ExploreComponent },
+      { path: 'kham-pha', component: DestinationListComponent },
       { path: 'lich-trinh', component: ItineraryComponent },
       { path: 'ban-do', component: MapComponent },
+      { path: 'bai-viet', component: PostListComponent },
     ]
   }
 ];

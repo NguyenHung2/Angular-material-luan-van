@@ -7,4 +7,11 @@ import { Component, Input } from '@angular/core';
 })
 export class SidebarComponent {
   @Input() isSidebarVisible: boolean | undefined;
+  isCategoryMenuOpen = false;
+  isDiemDenActive = false;
+  isBaiVietActive = false;
+
+  toggleCategoryMenu() {
+    this.isCategoryMenuOpen = !this.isCategoryMenuOpen;
+  }
 }

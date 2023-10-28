@@ -1,0 +1,142 @@
+/* Sidebar */
+.sidenav {
+    width: 250px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Card titles */
+.mat-card-title {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.mat-card-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background-color: #0078d4;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Filter title */
+.filter_title {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+    margin: 10px;
+    border-bottom: 1px solid #0078d4;
+}
+
+/* Checkboxes */
+.mat-checkbox {
+    display: block;
+    margin: 5px 0;
+}
+
+/* Apply Filters Button */
+button[mat-raised-button] {
+    margin-top: 20px;
+    background-color: #0078d4;
+    color: #fff;
+}
+
+/* Sidenav Content */
+.mat-mdc-card-content {
+    min-height: 70vh;
+}
+
+/* Filter Icon */
+.mat-icon.filter-icon {
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+/* Destination List Title */
+.destination-list-title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.destination-list-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background-color: #0078d4;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Destination List */
+.destination-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Destination Item */
+.destination-item {
+    width: calc(33.33% - 20px);
+    border: 1px solid #e1e1e1;
+    background-color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+/* Hover Effect for Destination Items */
+.destination-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Destination Image */
+.destination-item img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Destination Name */
+.destination-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 16px;
+}
+
+/* Destination Description */
+.destination-description {
+    font-size: 16px;
+    margin: 0 16px 16px;
+    color: #555;
+}
+
+/* Destination Category */
+.destination-category {
+    font-size: 16px;
+    margin: 0 16px 16px;
+    color: #0078d4;
+}
+
+/* Paginator Container */
+mat-paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

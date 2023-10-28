@@ -1,96 +1,117 @@
-<mat-toolbar color="primary">
-    <span>Crud Application</span>
-    <span class="example-spacer"></span>
-    <button mat-raised-button (click)="openAddEditEmpForm()">
-        ADD EMPLOYEE
-    </button>
-</mat-toolbar>
+<div class="content-table">
+    <h2>Danh Sách Bài Viết</h2>
 
+    <!-- Search and Add Buttons -->
+    <div class="search-and-add">
+        <mat-form-field class="search-input">
+            <mat-label>Tìm kiếm</mat-label>
+            <input matInput [formControl]="searchControl" placeholder="Ví dụ: 1" #input
+                (keyup)="applyFilter(input.value)" />
+        </mat-form-field>
 
-
-<div class="main-body">
-
-    <mat-form-field>
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-    </mat-form-field>
-
-    <div class="table-container">
-        <table mat-table [dataSource]="dataSource" matSort>
-
-            <!-- ID Column -->
-            <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                <td mat-cell *matCellDef="let row"> {{row.id}} </td>
-            </ng-container>
-
-            <!-- Progress Column -->
-            <ng-container matColumnDef="firstName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
-                <td mat-cell *matCellDef="let row"> {{row.firstName}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="lastName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
-                <td mat-cell *matCellDef="let row"> {{row.lastName}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-                <td mat-cell *matCellDef="let row"> {{row.email}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="dob">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> dob </th>
-                <td mat-cell *matCellDef="let row"> {{row.dob | date}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="gender">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> gender </th>
-                <td mat-cell *matCellDef="let row"> {{row.gender}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="education">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Education </th>
-                <td mat-cell *matCellDef="let row"> {{row.education}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="company">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Company </th>
-                <td mat-cell *matCellDef="let row"> {{row.company}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="experience">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Exp. </th>
-                <td mat-cell *matCellDef="let row"> {{row.experience}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="package">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Package </th>
-                <td mat-cell *matCellDef="let row"> {{row.package | currency:'INR'}}L</td>
-            </ng-container>
-
-            <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
-                <td mat-cell *matCellDef="let row">
-                    <button mat-icon-button color="primary" (click)="openEditForm(row)">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-icon-button color="warn" (click)="deleteEmployee(row.id)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-            <!-- Row shown when there is no matching data. -->
-            <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-            </tr>
-        </table>
-
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        <button mat-fab class="add-button" (click)="showAddPostDialog()">
+            <mat-icon style="color: #fff;">add</mat-icon>
+        </button>
     </div>
+
+    <!-- Table -->
+    <table mat-table [dataSource]="filteredPosts" matSort class="mat-elevation-z8">
+        <!-- Mã Bài Viết Column -->
+        <ng-container matColumnDef="maBaiViet">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Mã Bài Viết </th>
+            <td mat-cell *matCellDef="let post" class="small-column" class="responsive-cell">
+                <div class="data-label">Mã Bài Viết</div>
+                <div class="data-value">{{ post.maBaiViet }}</div>
+            </td>
+        </ng-container>
+
+        <!-- Tiêu Đề Column -->
+        <ng-container matColumnDef="tieuDe">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Tiêu Đề </th>
+            <td mat-cell *matCellDef="let post" class="small-column" class="responsive-cell">
+                <div class="data-label">Tiêu Đề</div>
+                <div class="data-value">{{ post.tieuDe }}</div>
+            </td>
+        </ng-container>
+
+        <!-- Danh Mục Bài Viết Column -->
+        <!-- <ng-container matColumnDef="danhMucBaiViet">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Danh Mục Bài Viết </th>
+            <td mat-cell *matCellDef="let post" class="small-column" class="responsive-cell">
+                <div class="data-label">Danh Mục Bài Viết</div>
+                <div class="data-value">{{ post.danhMucBaiViet }}</div>
+            </td>
+        </ng-container> -->
+
+        <!-- Tóm tắt Column -->
+        <!-- <ng-container matColumnDef="tomTat">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Tóm tắt </th>
+            <td mat-cell *matCellDef="let post" class="small-column" class="responsive-cell">
+                <div class="data-label">Tóm tắt</div>
+                <div class="data-value">{{ post.tomTat }}</div>
+            </td>
+        </ng-container> -->
+
+        <!-- Nội dung bài viết Column -->
+        <!-- <ng-container matColumnDef="noiDung">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Nội dung bài viết </th>
+            <td mat-cell *matCellDef="let post" class="small-column" class="responsive-cell">
+                <div class="data-label">Nội dung bài viết</div>
+                <div class="data-value">{{ post.noiDung }}</div>
+            </td>
+        </ng-container> -->
+
+        <!-- Hình Ảnh Column -->
+        <!-- <ng-container matColumnDef="hinhAnh">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Hình Ảnh </th>
+            <td mat-cell *matCellDef="let post" class="small-column" class="responsive-cell">
+                <div class="data-label">Hình Ảnh</div>
+                <div class="data-value">
+                    <img [src]="post.hinhAnh" alt="Image" class="limited-height">
+                </div>
+            </td>
+        </ng-container> -->
+
+        <!-- Ngày Đăng Column -->
+        <!-- <ng-container matColumnDef="ngayDang">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Ngày Đăng </th>
+            <td mat-cell *matCellDef="let post" class="small-column" class="responsive-cell">
+                <div class="data-label">Ngày Đăng</div>
+                <div class="data-value">{{ post.ngayDang | date: 'dd/MM/yyyy' }}</div>
+            </td>
+        </ng-container> -->
+
+        <!-- Thao Tác Column -->
+        <ng-container matColumnDef="thaoTac">
+            <th mat-header-cell *matHeaderCellDef> Thao Tác </th>
+            <td mat-cell *matCellDef="let post" class="responsive-cell">
+                <div class="data-label">Thao Tác:</div>
+                <div class="data-value" style="text-align: center;">
+                    <!-- Edit Button -->
+                    <button mat-icon-button (click)="editPost(post)">
+                        <mat-icon class="edit-icon">edit</mat-icon>
+                    </button>
+                    <!-- Delete Button -->
+                    <button mat-icon-button (click)="deletePost(post)">
+                        <mat-icon class="delete-icon">delete</mat-icon>
+                    </button>
+                    <!-- Detail Button -->
+                    <button mat-icon-button (click)="showDetails(post)">
+                        <mat-icon class="detail-icon">info</mat-icon>
+                    </button>
+                </div>
+            </td>
+        </ng-container>
+
+        <!-- Define Table Rows and Columns -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+        <!-- No Data Message -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="7">Không có dữ liệu phù hợp với từ khóa tìm kiếm "{{ searchControl.value }}"
+            </td>
+        </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
 </div>

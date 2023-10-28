@@ -1,0 +1,53 @@
+<div class="edit-dialog">
+  <h2>Chỉnh sửa bài viết</h2>
+  <form (submit)="saveChanges()" class="scrollable-form">
+
+    <!-- Mã Bài Viết -->
+    <mat-form-field class="form-field">
+      <mat-label>Mã Bài Viết</mat-label>
+      <input matInput [(ngModel)]="editedPost.maBaiViet" name="maBaiViet" required>
+    </mat-form-field>
+
+    <!-- Tiêu Đề -->
+    <mat-form-field class="form-field">
+      <mat-label>Tiêu Đề</mat-label>
+      <input matInput [(ngModel)]="editedPost.tieuDe" name="tieuDe" required>
+    </mat-form-field>
+
+    <!-- Tóm Tắt -->
+    <mat-form-field class="form-field">
+      <mat-label>Tóm Tắt</mat-label>
+      <input matInput [(ngModel)]="editedPost.tomTat" name="tomTat" required>
+    </mat-form-field>
+
+    <!-- Nội Dung -->
+    <mat-form-field class="form-field">
+      <mat-label>Nội Dung</mat-label>
+      <textarea matInput [(ngModel)]="editedPost.noiDung" name="noiDung" required></textarea>
+    </mat-form-field>
+
+    <!-- Ngày Đăng -->
+    <mat-form-field class="form-field">
+      <mat-label>Ngày Đăng</mat-label>
+      <input matInput [(ngModel)]="editedPost.ngayDang" name="ngayDang" required [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Tệp Đính Kèm -->
+    <mat-form-field class="form-field">
+      <mat-label>Tệp Đính Kèm</mat-label>
+      <input type="file" (change)="onFileSelected($event)" accept=".jpg, .jpeg, .png" #fileInput hidden />
+      <mat-icon matSuffix (click)="openFileInput()">attach_file</mat-icon>
+      <span>{{ selectedFileName }}</span>
+      <input matInput [placeholder]="'Choose File'" [disabled]="true" [value]="selectedFileName" class="file-path-input">
+    </mat-form-field>
+
+    <img [src]="editedPost.hinhAnh" alt="Selected Image" *ngIf="editedPost.hinhAnh" class="selected-image"/>
+
+    <div class="button-container">
+      <button mat-raised-button type="submit">Lưu</button>
+      <button mat-raised-button type="button" (click)="closeDialog()">Hủy</button>
+    </div>
+  </form>
+</div>

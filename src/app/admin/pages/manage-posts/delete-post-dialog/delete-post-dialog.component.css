@@ -1,0 +1,28 @@
+/* Chỉnh giữa nội dung của hộp thoại */
+mat-dialog-content {
+    text-align: center;
+}
+
+/* Tùy chỉnh tiêu đề */
+mat-dialog-title {
+    background-color: #f44336;
+    /* Màu nền đỏ */
+    color: white;
+    /* Màu văn bản trắng */
+    padding: 10px;
+    /* Thêm một chút lề */
+}
+
+/* Tùy chỉnh nút Hủy */
+mat-dialog-actions button:nth-child(1) {
+    background-color: #ccc;
+    /* Màu nền xám */
+}
+
+/* Tùy chỉnh nút Xóa */
+mat-dialog-actions button:nth-child(2) {
+    background-color: #f44336;
+    /* Màu nền đỏ */
+    color: white;
+    /* Màu văn bản trắng */
+}

@@ -1,193 +1,36 @@
-<div class="content-table">
-    <h2>Danh Sách Địa Điểm</h2>
+<div class="list-destinations">
+    <h2>Danh Sách Điểm Đến</h2>
 
     <div class="search-and-add">
         <!-- Thanh tìm kiếm -->
         <mat-form-field class="search-input">
             <mat-label>Tìm kiếm</mat-label>
-            <input matInput [formControl]="searchControl" placeholder="Ví dụ: 1" #input />
+            <input matInput [formControl]="searchControl" placeholder="Ví dụ: 1" #input
+                (keyup)="applyFilter(input.value)" />
         </mat-form-field>
 
         <!-- Thêm nút "Thêm" -->
         <button mat-fab class="add-button" (click)="showAddForm()">
-            <mat-icon style="color: #fff;">add</mat-icon>
+            <mat-icon>add</mat-icon>
         </button>
     </div>
 
-    <!-- Hiển thị form thêm mới -->
-    <!-- Form to Add New Destination -->
-    <div class="overlay-container" *ngIf="showAddFormFlag">
-        <div class="add-destination-form">
-            <h2>Thêm Địa Điểm Mới</h2>
-            <form (submit)="addDestination()">
-                <mat-form-field class="form-field">
-                    <mat-label>Mã Địa Điểm</mat-label>
-                    <input matInput [(ngModel)]="newDestination.maDiaDiem" name="maDiaDiem" required>
-                </mat-form-field>
-
-                <mat-form-field class="form-field">
-                    <mat-label>Tên Địa Điểm</mat-label>
-                    <input matInput [(ngModel)]="newDestination.tenDiaDiem" name="tenDiaDiem" required>
-                </mat-form-field>
-
-                <mat-form-field class="form-field">
-                    <mat-label>Mô Tả</mat-label>
-                    <textarea matInput [(ngModel)]="newDestination.moTa" name="moTa" required></textarea>
-                </mat-form-field>
-
-                <mat-form-field class="form-field">
-                    <mat-label>Kinh Độ</mat-label>
-                    <input matInput [(ngModel)]="newDestination.kinhDo" name="kinhDo" required>
-                </mat-form-field>
-
-                <mat-form-field class="form-field">
-                    <mat-label>Vĩ Độ</mat-label>
-                    <input matInput [(ngModel)]="newDestination.viDo" name="viDo" required>
-                </mat-form-field>
-
-                <mat-form-field class="form-field file-input-container">
-                    <mat-label>Hình Ảnh</mat-label>
-                    <input matInput [(ngModel)]="newDestination.hinhAnh" name="hinhAnh" required style="display: none;">
-                    <button mat-icon-button (click)="fileInput.click()" style="cursor: pointer;">
-                        <mat-icon class="custom-color">image</mat-icon>
-                    </button>
-                    <input #fileInput type="file" (change)="onFileSelected($event)" style="display: none;">
-                    <!-- Đặt #fileInput để có thể truy cập vào phần tử input từ TypeScript -->
-                    <div>{{ selectedFileName }}</div>
-                    <img [src]="newDestination.hinhAnh" *ngIf="newDestination.hinhAnh" class="destination-image">
-                </mat-form-field>
-
-
-
-                <mat-form-field class="form-field">
-                    <mat-label>Địa Chỉ</mat-label>
-                    <input matInput [(ngModel)]="newDestination.diaChi" name="diaChi" required>
-                </mat-form-field>
-
-                <mat-form-field class="form-field">
-                    <mat-label>Ngày Tạo</mat-label>
-                    <input matInput [matDatepicker]="datePicker" [(ngModel)]="newDestination.ngayTao" name="ngayTao"
-                        required>
-                    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #datePicker></mat-datepicker>
-                </mat-form-field>
-
-
-                <mat-form-field class="form-field">
-                    <mat-label>Trạng Thái Địa Điểm</mat-label>
-                    <mat-select [(ngModel)]="newDestination.trangThaiDiaDiem" name="trangThaiDiaDiem" required
-                        placeholder="Chọn trạng thái">
-                        <mat-option value="true">Hoạt động</mat-option>
-                        <mat-option value="false">Ngưng hoạt động</mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-                <mat-form-field class="form-field">
-                    <mat-label>Danh Mục Điểm Đến</mat-label>
-                    <input matInput [(ngModel)]="newDestination.danhMucDiaDiem" name="danhMucDiaDiem" required>
-                  </mat-form-field>
-
-                <div class="button-container">
-                    <button mat-raised-button type="submit">Lưu</button>
-                    <button mat-raised-button type="button" (click)="cancelAddForm()">Hủy</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
     <table mat-table [dataSource]="filteredDestinations" matSort class="mat-elevation-z8">
-        <!-- Cột Mã Địa Điểm -->
-        <ng-container matColumnDef="maDiaDiem">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Mã Địa Điểm </th>
+        <!-- Cột Mã Điểm Đến -->
+        <ng-container matColumnDef="maDiemDen">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Mã Điểm Đến </th>
             <td mat-cell *matCellDef="let destination" class="small-column" class="responsive-cell">
-                <div class="data-label">Mã Địa Điểm</div>
-                <div class="data-value">{{ destination.maDiaDiem }}</div>
+                <div class="data-label">Mã Điểm Đến</div>
+                <div class="data-value">{{ destination.maDiemDen }}</div>
             </td>
         </ng-container>
 
-        <!-- Cột Tên Địa Điểm -->
-        <ng-container matColumnDef="tenDiaDiem">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Tên Địa Điểm </th>
-            <td mat-cell *matCellDef="let destination" class="small-column" class="responsive-cell">
-                <div class="data-label">Tên Địa Điểm</div>
-                <div class="data-value">{{ destination.tenDiaDiem }}</div>
-            </td>
-        </ng-container>
-
-        <!-- Cột Mô Tả -->
-        <ng-container matColumnDef="moTa">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Mô Tả </th>
-            <td mat-cell *matCellDef="let destination" class="hideText" class="responsive-cell">
-                <div class="data-label">Mô Tả</div>
-                <div class="data-value">{{ destination.moTa }}</div>
-            </td>
-        </ng-container>
-
-        <!-- Cột Kinh Độ -->
-        <ng-container matColumnDef="kinhDo">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Kinh Độ </th>
-            <td mat-cell *matCellDef="let destination" class="small-column" class="responsive-cell">
-                <div class="data-label">Kinh Độ</div>
-                <div class="data-value">{{ destination.kinhDo }}</div>
-            </td>
-        </ng-container>
-
-        <!-- Cột Vĩ Độ -->
-        <ng-container matColumnDef="viDo">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Vĩ Độ </th>
-            <td mat-cell *matCellDef="let destination" class="small-column" class="responsive-cell">
-                <div class="data-label">Vĩ Độ</div>
-                <div class="data-value">{{ destination.viDo }}</div>
-            </td>
-        </ng-container>
-
-        <!-- Cột Hình Ảnh -->
-        <ng-container matColumnDef="hinhAnh">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Hình Ảnh </th>
+        <!-- Cột Tên Điểm Đến -->
+        <ng-container matColumnDef="tenDiemDen">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên Điểm Đến </th>
             <td mat-cell *matCellDef="let destination" class="responsive-cell">
-                <div class="data-label">Hình Ảnh</div>
-                <div class="data-value">
-                    <img [src]="destination.hinhAnh" alt="{{ destination.tenDiaDiem }}" class="destination-image" />
-                </div>
-            </td>
-        </ng-container>
-
-        <!-- Cột Địa Chỉ -->
-        <ng-container matColumnDef="diaChi">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="large-column"> Địa Chỉ </th>
-            <td mat-cell *matCellDef="let destination" class="large-column" class="responsive-cell">
-                <div class="data-label">Địa Chỉ</div>
-                <div class="data-value">{{ destination.diaChi }}</div>
-            </td>
-        </ng-container>
-
-        <!-- Cột Ngày Tạo -->
-        <ng-container matColumnDef="ngayTao">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ngày Tạo </th>
-            <td mat-cell *matCellDef="let destination" class="responsive-cell">
-                <div class="data-label">Ngày Tạo</div>
-                <div class="data-value">{{ destination.ngayTao | date:'dd/MM/yyyy HH:mm:ss' }}</div>
-            </td>
-        </ng-container>
-
-        <!-- Cột Trạng Thái Địa Điểm -->
-        <ng-container matColumnDef="trangThaiDiaDiem">
-            <th mat-header-cell *matHeaderCellDef> Trạng Thái Địa Điểm </th>
-            <td mat-cell *matCellDef="let destination" class="responsive-cell">
-                <div class="data-label">Trạng Thái Địa Điểm</div>
-                <div class="data-value" style="text-align: center;">
-                    <mat-icon>{{ destination.trangThaiDiaDiem ? 'check_circle' : 'cancel' }}</mat-icon>
-                </div>
-            </td>
-        </ng-container>
-
-        <!-- Cột Danh Mục Địa Điểm -->
-        <ng-container matColumnDef="danhMucDiaDiem">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Danh Mục Địa Điểm </th>
-            <td mat-cell *matCellDef="let destination" class="responsive-cell">
-                <div class="data-label">Danh Mục Địa Điểm</div>
-                <div class="data-value">{{ destination.danhMucDiaDiem }}</div>
+                <div class="data-label">Tên Điểm Đến</div>
+                <div class="data-value">{{ destination.tenDiemDen }}</div>
             </td>
         </ng-container>
 
@@ -197,21 +40,32 @@
             <td mat-cell *matCellDef="let destination" class="responsive-cell">
                 <div class="data-label">Thao Tác:</div>
                 <div class="data-value" style="text-align: center;">
-                    <button mat-icon-button (click)="editDestination(destination)">
+                    <!-- Nút chỉnh sửa -->
+                    <button mat-icon-button (click)="showEditForm(destination)">
                         <mat-icon class="edit-icon">edit</mat-icon>
                     </button>
-                    <button mat-icon-button (click)="deleteDestination(destination)">
+
+                    <!-- Nút xóa -->
+                    <button mat-icon-button (click)="showDeleteForm(destination)">
                         <mat-icon class="delete-icon">delete</mat-icon>
+                    </button>
+
+                    <!-- Nút Chi tiết -->
+                    <button mat-icon-button (click)="showDetails(destination)">
+                        <mat-icon class="detail-icon">info</mat-icon>
                     </button>
                 </div>
             </td>
         </ng-container>
 
+        <!-- Định nghĩa các hàng và cột của bảng -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
+        <!-- Thông báo không có dữ liệu -->
         <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="13">Không có dữ liệu phù hợp với từ khóa tìm kiếm "{{ input.value }}"</td>
+            <td class="mat-cell" colspan="10">Không có dữ liệu phù hợp với từ khóa tìm kiếm "{{ searchControl.value }}"
+            </td>
         </tr>
     </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>

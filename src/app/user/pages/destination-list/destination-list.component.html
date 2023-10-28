@@ -1,0 +1,52 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav class="sidenav" [opened]="sidenavOpen" mode="side">
+        <mat-card>
+            <mat-card-title>
+                <div class="filter_title">Bộ lọc</div>
+            </mat-card-title>
+
+            <!-- Loại điểm đến -->
+            <mat-card-subtitle>Loại điểm đến</mat-card-subtitle>
+            <mat-checkbox *ngFor="let category of availableCategories"
+                [(ngModel)]="selectedCategories[category.maDanhMuc.toString()]"
+                (change)="onCategorySelected(category.maDanhMuc.toString())">
+                {{ category.tenDanhMuc }}
+            </mat-checkbox>
+
+
+            <!-- Nút áp dụng bộ lọc -->
+            <button mat-raised-button color="primary" (click)="applyFilters()">Áp dụng</button>
+        </mat-card>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <mat-card>
+            <mat-card-title>
+                <mat-icon class="filter-icon" (click)="toggleSidenav()" *ngIf="isScreenSmall()">filter_list</mat-icon>
+                <h3 class="destination-list-title">Danh sách điểm đến</h3>
+            </mat-card-title>
+
+            <mat-card-content>
+                <div class="destination-list" *ngIf="!noResultsFound">
+                    <div class="destination-item" *ngFor="let destination of displayedDestinations">
+                        <img src="{{ destination.hinhAnh }}" alt="{{ destination.TenDiemDen }}"
+                            class="destination-image">
+                        <h3 class="destination-name">{{ destination.TenDiemDen }}</h3>
+                        <p class="destination-description">{{ destination.moTa }}</p>
+                        <p class="destination-category">Loại: {{ categoryNameMap[destination.maDanhMuc.toString()] }}
+                        </p>
+                        <!-- Add other destination details as needed -->
+                        <button mat-button color="primary" (click)="showDetails(destination)">Xem chi tiết</button>
+                    </div>
+                </div>
+                <div class="no-results-message" *ngIf="noResultsFound">
+                    Không tìm thấy kết quả cho các loại đã chọn. Vui lòng điều chỉnh bộ lọc của bạn.
+                </div>
+
+                <mat-paginator [length]="filteredDestinations.length" [pageSize]="itemsPerPage"
+                    (page)="onPageChange($event)" [showFirstLastButtons]="true"></mat-paginator>
+            </mat-card-content>
+
+        </mat-card>
+    </mat-sidenav-content>
+</mat-sidenav-container>
