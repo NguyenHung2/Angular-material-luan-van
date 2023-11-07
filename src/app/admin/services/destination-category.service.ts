@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface DestinationCategory {
-  maDanhMuc: number | null;
+  maDanhMuc: number;
   tenDanhMuc: string;
 }
 

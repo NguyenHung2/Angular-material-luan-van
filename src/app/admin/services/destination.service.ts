@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { DestinationCategory } from './destination-category.service';
 
 export interface Destination {
-  maDiemDen: number | null;
+  maDiemDen: number;
   tenDiemDen: string;
   moTa: string;
   kinhDo: number | null;
   viDo: number | null;
   diaChi: string;
   ngayTao: Date;
-  danhMuc: DestinationCategory | null;
+  maDanhMuc: DestinationCategory | null;
 }
 
 @Injectable({

@@ -1,6 +1,7 @@
 <div class="add-dialog">
   <h2>Thêm Điểm Đến</h2>
   <form (submit)="saveChanges()">
+
     <!-- Tên Điểm Đến -->
     <mat-form-field class="form-field" [ngClass]="{'error': isInputEmpty || isDuplicateName }">
       <mat-label>Tên Điểm Đến</mat-label>
@@ -37,10 +38,10 @@
 
     <!-- Danh Mục Điểm Đến -->
     <mat-form-field class="form-field">
-      <mat-label>Danh Mục Điểm Đến</mat-label>
-      <mat-select [(ngModel)]="newDestination.danhMuc" name="danhMuc">
-        <mat-option *ngFor="let category of destinationCategories" [value]="category.maDanhMuc">
-          {{ category.maDanhMuc }}
+      <mat-label>Mã danh mục</mat-label>
+      <mat-select [(ngModel)]="newDestination.maDanhMuc" name="maDanhMuc">
+        <mat-option *ngFor="let category of data.destinationCategories" [value]="category.maDanhMuc">
+          {{ category.tenDanhMuc }}
         </mat-option>
       </mat-select>
     </mat-form-field>

@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DestinationCategory } from 'src/app/admin/services/destination-category.service';
-import { Destination, DestinationService } from 'src/app/admin/services/destination.service';
+import { Destination } from 'src/app/admin/services/destination.service';
 
 @Component({
   selector: 'app-add-destination-dialog',
@@ -9,40 +9,37 @@ import { Destination, DestinationService } from 'src/app/admin/services/destinat
   styleUrls: ['./add-destination-dialog.component.css']
 })
 export class AddDestinationDialogComponent {
-  newDestination: Destination;
+  newDestination: Destination = {
+    maDiemDen: 0,
+    tenDiemDen: '',
+    moTa: '',
+    kinhDo: null,
+    viDo: null,
+    diaChi: '',
+    ngayTao: new Date(),
+    maDanhMuc: null
+  };
   isInputEmpty: boolean = false;
   isDuplicateName: boolean = false;
   isInvalidKinhDo: boolean = false;
   isInvalidViDo: boolean = false;
-  destinationCategories: DestinationCategory[]; // Danh sách danh mục điểm đến
 
   constructor(
     public dialogRef: MatDialogRef<AddDestinationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       destination: Destination,
       existingDestinations: Destination[],
-      destinationCategories: DestinationCategory[] // Inject danh sách danh mục
+      destinationCategories: DestinationCategory[] 
     },
-    private destinationService: DestinationService
   ) {
-    this.newDestination = { ...this.data.destination };
-    this.destinationCategories = this.data.destinationCategories; // Gán danh sách danh mục từ data
+    console.log('Constructor của AddDestinationDialogComponent được gọi.');
+    console.log('Dữ liệu được truyền vào: ', this.data);
+    console.log('Danh sách danh mục:', this.data.destinationCategories);
   }
 
   saveChanges(): void {
-    this.isInputEmpty = false;
-    this.isDuplicateName = false;
-    this.isInvalidKinhDo = false;
-    this.isInvalidViDo = false;
-
-    if (!this.newDestination.tenDiemDen.trim()) {
-      this.isInputEmpty = true;
-    } else if (this.isDuplicateDestination(this.newDestination)) {
-      this.isDuplicateName = true;
-    } else {
-      this.dialogRef.close(this.newDestination);
-    }
-  }
+    this.dialogRef.close(this.newDestination); 
+  }  
 
   closeDialog(): void {
     this.dialogRef.close();

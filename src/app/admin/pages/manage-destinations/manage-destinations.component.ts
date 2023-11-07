@@ -25,14 +25,14 @@ export class ManageDestinationsComponent implements OnInit {
 
   showAddFormFlag: boolean = false;
   newDestination: Destination = {
-    maDiemDen: null,
+    maDiemDen: 0,
     tenDiemDen: '',
     moTa: '',
     diaChi: '',
     kinhDo: null,
     viDo: null,
     ngayTao: new Date(),
-    danhMuc: null
+    maDanhMuc: null
   };
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -57,12 +57,14 @@ export class ManageDestinationsComponent implements OnInit {
   loadDestinations() {
     this.destinationService.getAllDestinations().subscribe((data) => {
       this.destinations = data;
+
       this.filteredDestinations = new MatTableDataSource<Destination>(this.destinations);
 
       this.filteredDestinations.sort = this.sort;
       this.filteredDestinations.paginator = this.paginator;
     });
   }
+
 
   loadDestinationCategories() {
     this.destinationCategoryService.getAllDestinationCategories().subscribe((data) => {
@@ -77,11 +79,14 @@ export class ManageDestinationsComponent implements OnInit {
 
   showEditForm(destination: Destination): void {
     const dialogRef = this.dialog.open(EditDestinationDialogComponent, {
-      data: { destination, existingDestinations: this.destinations, destinationCategories: this.destinationCategories }
+      data: { 
+        destination, 
+        existingDestinations: this.destinations, 
+        destinationCategories: this.destinationCategories }
     });
 
     dialogRef.afterClosed().subscribe((editedDestination: Destination) => {
-      if (editedDestination.maDiemDen !== null) {
+      if (editedDestination) {
         this.destinationService.updateDestination(editedDestination.maDiemDen, editedDestination).subscribe(
           (updatedDestination: Destination) => {
             this.loadDestinations();
@@ -117,54 +122,48 @@ export class ManageDestinationsComponent implements OnInit {
     }
   }
 
-  addDestination() {
-    this.destinationService.createDestination(this.newDestination).subscribe(
-      (newDestination: Destination) => {
-        this.resetForm();
-        this.loadDestinations();
-      },
-      (error) => {
-        console.error('Failed to add new destination:', error);
-      }
-    );
-  }
-
   cancelAddForm() {
     this.resetForm();
   }
 
   resetForm() {
     this.newDestination = {
-      maDiemDen: null,
+      maDiemDen: 0,
       tenDiemDen: '',
       moTa: '',
       diaChi: '',
       kinhDo: null,
       viDo: null,
       ngayTao: new Date(),
-      danhMuc: null
+      maDanhMuc: null
     };
     this.showAddFormFlag = false;
   }
 
   showAddForm() {
+    console.log('showAddForm được gọi');
+
     const dialogRef = this.dialog.open(AddDestinationDialogComponent, {
       data: {
         destination: this.newDestination,
         existingDestinations: this.destinations,
-        destinationCategories: this.destinationCategories
+        destinationCategories: this.destinationCategories,
       },
     });
 
     dialogRef.afterClosed().subscribe((addedDestination: Destination) => {
+      console.log('Hộp thoại thêm điểm đến đã đóng');
+
       if (addedDestination) {
+        console.log('Đang thêm một điểm đến mới:', addedDestination);
         this.destinationService.createDestination(addedDestination).subscribe(
           (newDestination: Destination) => {
+            console.log('Điểm đến mới được tạo thành công:', newDestination);
             this.loadDestinations();
             this.resetForm();
           },
           (error) => {
-            console.error('Failed to add new destination:', error);
+            console.error('Lỗi khi thêm điểm đến mới:', error);
           }
         );
       }

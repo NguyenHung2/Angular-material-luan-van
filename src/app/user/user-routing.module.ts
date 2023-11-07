@@ -6,6 +6,7 @@ import { ItineraryComponent } from './pages/itinerary/itinerary.component';
 import { MapComponent } from './pages/map/map.component';
 import { PostListComponent } from './pages/post-list/post-list.component';
 import { DestinationListComponent } from './pages/destination-list/destination-list.component';
+import { ScheduleMapComponent } from './pages/schedule-map/schedule-map.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'lich-trinh', component: ItineraryComponent },
       { path: 'ban-do', component: MapComponent },
       { path: 'bai-viet', component: PostListComponent },
+      { path: 'lich-trinh-ban-do', component: ScheduleMapComponent },
     ]
   }
 ];

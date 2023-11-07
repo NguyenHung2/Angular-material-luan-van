@@ -1,6 +1,6 @@
 // itinerary.component.ts
 
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -44,6 +44,7 @@ export class ItineraryComponent {
     
     // Lắng nghe sự kiện khi Google Maps trả về vị trí
     window.addEventListener('message', (event) => {
+      console.log('Received message from origin: ', event.data);
       if (event.origin === 'https://www.google.com' && event.data.type === 'selected-location') {
         const selectedLocation = event.data.location;
         this.updateStartPoint(selectedLocation);
@@ -53,9 +54,9 @@ export class ItineraryComponent {
       }
     });    
   }
-
+  @ViewChild('startPointInput') startPointInput!: ElementRef;
   updateStartPoint(location: string) {
     // Cập nhật giá trị của input "Điểm xuất phát" với vị trí từ Google Maps
-    this.itineraryForm.controls['start-point'].setValue(location);
+    this.startPointInput.nativeElement.value = location;
   }
 }

@@ -34,6 +34,15 @@
             </td>
         </ng-container>
 
+        <!-- Cột Danh Mục -->
+        <ng-container matColumnDef="danhMuc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Danh Mục </th>
+            <td mat-cell *matCellDef="let destination" class="responsive-cell">
+                <div class="data-label">Danh Mục</div>
+                <div class="data-value">{{ destination.danhMuc?.tenDanhMuc }}</div>
+            </td>
+        </ng-container>
+
         <!-- Cột Thao Tác -->
         <ng-container matColumnDef="thaoTac">
             <th mat-header-cell *matHeaderCellDef> Thao Tác </th>

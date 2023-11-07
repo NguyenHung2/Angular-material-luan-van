@@ -1,0 +1,37 @@
+<div class="add-post-dialog">
+    <h2 mat-dialog-title>Thêm Lịch Trình Mới</h2>
+    <form [formGroup]="addScheduleForm" class="scrollable-form">
+        <!-- Tiêu Đề -->
+        <mat-form-field class="form-field">
+            <mat-label>Tiêu Đề</mat-label>
+            <input matInput formControlName="tieuDe" placeholder="Tiêu Đề" required>
+        </mat-form-field>
+
+        <!-- Mô Tả -->
+        <mat-form-field class="form-field">
+            <mat-label>Mô Tả</mat-label>
+            <textarea matInput formControlName="moTa" placeholder="Mô Tả"></textarea>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Người Dùng</mat-label>
+            <mat-select formControlName="maNguoiDung" placeholder="Mã Người Dùng">
+                <mat-option *ngFor="let user of users" [value]="user.maNguoiDung">{{ user.tenNguoiDung }}</mat-option>
+            </mat-select>
+        </mat-form-field>        
+        <mat-form-field>
+            <mat-label>Kinh Độ Xuất Phát</mat-label>
+            <input matInput formControlName="kinhDoXuatPhat" placeholder="Kinh Độ Xuất Phát" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Vĩ Độ Xuất Phát</mat-label>
+            <input matInput formControlName="viDoXuatPhat" placeholder="Vĩ Độ Xuất Phát" readonly>
+        </mat-form-field>        
+        <button mat-icon-button (click)="openMapDialog()">
+            <mat-icon>add_location</mat-icon>
+        </button>
+    </form>
+    <div class="button-container">
+        <button mat-raised-button type="button" (click)="onNoClick()">Hủy</button>
+        <button  mat-raised-button type="submit" [disabled]="!addScheduleForm.valid" (click)="onSaveClick()">Lưu</button>
+    </div>
+</div>

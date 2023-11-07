@@ -13,7 +13,7 @@ export interface ListPost {
   providedIn: 'root'
 })
 export class ListPostService {
-  private apiUrl = 'http://localhost:8080/api/postCategories'; // Replace with your actual API URL
+  private apiUrl = 'http://localhost:8080/api/post-categories'; // Replace with your actual API URL
 
   constructor(private http: HttpClient) {}
 

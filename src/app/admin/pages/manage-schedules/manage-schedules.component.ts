@@ -1,105 +1,72 @@
-import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, MatSortable } from '@angular/material/sort';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 import { Schedule, ScheduleService } from '../../services/schedule.service';
+import { EditScheduleDialogComponent } from './edit-schedule-dialog/edit-schedule-dialog.component';
+import { DeleteScheduleDialogComponent } from './delete-schedule-dialog/delete-schedule-dialog.component';
+import { DetailScheduleDialogComponent } from './detail-schedule-dialog/detail-schedule-dialog.component';
+import { AddScheduleDialogComponent } from './add-schedule-dialog/add-schedule-dialog.component';
+import { User, UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-manage-schedules',
   templateUrl: './manage-schedules.component.html',
-  styleUrls: ['./manage-schedules.component.css'],
+  styleUrls: ['./manage-schedules.component.css']
 })
-export class ManageSchedulesComponent implements OnInit, AfterViewInit {
+export class ManageSchedulesComponent implements OnInit {
   schedules: Schedule[] = [];
+  user: User[] = [];
   searchControl = new FormControl('');
-  filteredSchedules: MatTableDataSource<Schedule> = new MatTableDataSource<Schedule>(
-    this.schedules
-  );
-  displayedColumns: string[] = [
-    'maLichTrinh',
-    'tenLichTrinh',
-    'moTa',
-    'thoiGianBatDau',
-    'thoiGianKetThuc',
-    'diemBatDau',
-    'soLuongDiemDenToiDa',
-    'trangThai',
-    'thuTu',
-    'thaoTac',
-  ];
+  filteredSchedules: MatTableDataSource<Schedule> = new MatTableDataSource<Schedule>(this.schedules);
+  displayedColumns: string[] = ['maLichTrinh', 'tieuDe', 'moTa', 'maNguoiDung', 'kinhDoXuatPhat', 'viDoXuatPhat', 'soLuongDiemDenToiDa', 'thaoTac'];
 
-  // Add variables and models for adding new schedules
-  showAddFormFlag: boolean = false;
-  newScheduleForm!: FormGroup;
   newSchedule: Schedule = {
     maLichTrinh: 0,
-    tenLichTrinh: '',
+    tieuDe: '',
     moTa: '',
-    thoiGianBatDau: new Date(),
-    thoiGianKetThuc: new Date(),
-    diemBatDau: '',
-    soLuongDiemDenToiDa: 0,
-    trangThai: true,
-    thuTu: 0,
-  };
+    maNguoiDung: 0,
+    kinhDoXuatPhat: 0,
+    viDoXuatPhat: 0,
+    soLuongDiemDenToiDa: 5
+  }
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private scheduleService: ScheduleService, private fb: FormBuilder) {}
+  constructor(
+    private scheduleService: ScheduleService,
+    private userService: UserService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
-    this.scheduleService.getSchedules().subscribe((data) => {
-      this.schedules = data;
-
-      // Initialize filteredSchedules and set up sorting
-      this.filteredSchedules = new MatTableDataSource<Schedule>(this.schedules);
-      this.filteredSchedules.sort = this.sort;
-
-      // Set default sorting by 'maLichTrinh' in ascending order
-      this.sort.sort(<MatSortable>{
-        id: 'maLichTrinh',
-        start: 'asc',
-      });
-    });
-
-    // Define the filter predicate for search
-    this.filteredSchedules.filterPredicate = (data: Schedule, filter: string) => {
-      const searchTerms = filter.toLowerCase().split(' ');
-      return searchTerms.every((term) =>
-        data.maLichTrinh.toString().toLowerCase().includes(term) ||
-        data.tenLichTrinh.toLowerCase().includes(term) ||
-        data.moTa.toLowerCase().includes(term) ||
-        data.diemBatDau.toLowerCase().includes(term) ||
-        (data.trangThai ? 'Hoạt động' : 'Ngừng hoạt động').toLowerCase().includes(term) ||
-        data.thuTu.toString().toLowerCase().includes(term)
-      );
-    };
-
-    this.searchControl.valueChanges.subscribe((value: string | null) => {
-      if (value !== null) {
-        this.applyFilter(value);
-      }
-    });
-
-    this.newScheduleForm = this.fb.group({
-      maLichTrinh: ['', Validators.required],
-      tenLichTrinh: ['', Validators.required],
-      moTa: ['', Validators.required],
-      thoiGianBatDau: [new Date(), Validators.required],
-      thoiGianKetThuc: [new Date(), Validators.required],
-      diemBatDau: ['', Validators.required],
-      soLuongDiemDenToiDa: [0, Validators.required],
-      trangThai: [true, Validators.required],
-      thuTu: [0, Validators.required],
-    });
+    this.loadSchedules();
+    this.loadUsers();
   }
 
   ngAfterViewInit() {
-    // Configure paginator and sort after the view is initialized
-    this.filteredSchedules.paginator = this.paginator;
     this.filteredSchedules.sort = this.sort;
+    this.filteredSchedules.paginator = this.paginator;
+  }
+
+  loadSchedules() {
+    this.scheduleService.getSchedules().subscribe((data) => {
+      this.schedules = data;
+      this.filteredSchedules = new MatTableDataSource<Schedule>(this.schedules);
+
+      this.filteredSchedules.sort = this.sort;
+      this.filteredSchedules.paginator = this.paginator;
+    });
+  }
+
+  // Tải danh sách người dùng
+  loadUsers() {
+    this.userService.getAllUsers().subscribe((data) => {
+      this.user = data;
+    });
   }
 
   applyFilter(filterValue: string): void {
@@ -108,33 +75,72 @@ export class ManageSchedulesComponent implements OnInit, AfterViewInit {
   }
 
   editSchedule(schedule: Schedule): void {
-    // Handle edit action
+    const dialogRef = this.dialog.open(EditScheduleDialogComponent, {
+      data: { schedule }
+    });
+
+    dialogRef.afterClosed().subscribe((editedSchedule: Schedule) => {
+      if (editedSchedule) {
+        this.scheduleService.updateSchedule(editedSchedule).subscribe(
+          (updatedSchedule: Schedule) => {
+            this.loadSchedules();
+          },
+          (error) => {
+            console.error('Failed to update schedule:', error);
+          }
+        );
+      }
+    });
   }
 
   deleteSchedule(schedule: Schedule): void {
-    // Handle delete action
+    const dialogRef = this.dialog.open(DeleteScheduleDialogComponent, {
+      data: { schedule }
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.scheduleService.deleteSchedule(schedule.maLichTrinh).subscribe(
+          () => {
+            this.loadSchedules();
+          },
+          (error) => {
+            console.error('Failed to delete schedule:', error);
+          }
+        );
+      }
+    });
   }
 
-  addSchedule() {
-    if (this.newScheduleForm.valid) {
-      // Logic to add a new schedule to the list
-      // Example:
-      this.schedules.push(this.newSchedule);
+  addSchedule(): void {
+    const dialogRef = this.dialog.open(AddScheduleDialogComponent, {
+      data: {
+        schedules: this.newSchedule,
+        users: this.user
+      }
+    });
 
-      this.resetForm();
-    }
+    dialogRef.afterClosed().subscribe((newSchedule: Schedule) => {
+      if (newSchedule) {
+        this.scheduleService.addSchedule(newSchedule).subscribe(
+          (newSchedule: Schedule) => {
+            this.loadSchedules();
+          },
+          (error) => {
+            console.error('Failed to add new schedule:', error);
+          }
+        );
+      }
+    });
   }
 
-  cancelAddForm() {
-    this.resetForm();
-  }
+  showScheduleDetails(schedule: Schedule): void {
+    const dialogRef = this.dialog.open(DetailScheduleDialogComponent, {
+      data: { ...schedule }
+    });
 
-  resetForm() {
-    this.newScheduleForm.reset(this.newSchedule);
-    this.showAddFormFlag = false;
-  }
-
-  showAddForm() {
-    this.showAddFormFlag = true;
+    dialogRef.afterClosed().subscribe(() => {
+      // Xử lý khi dialog đóng (nếu cần)
+    });
   }
 }

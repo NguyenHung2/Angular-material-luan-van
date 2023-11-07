@@ -22,7 +22,7 @@ export class ManageDestinationCategoryComponent implements OnInit {
 
   showAddFormFlag: boolean = false;
   newCategory: DestinationCategory = {
-    maDanhMuc: null,
+    maDanhMuc: 0,
     tenDanhMuc: '',
   };
 

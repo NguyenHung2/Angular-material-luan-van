@@ -23,6 +23,11 @@ export class PostService {
     return this.http.get<Post[]>(this.apiUrl);
   }
 
+  getPostById(postId: number): Observable<Post> {
+    const url = `${this.apiUrl}/${postId}`;
+    return this.http.get<Post>(url);
+  }
+
   addPost(post: Post): Observable<Post> {
     const httpOptions = {
       headers: new HttpHeaders({

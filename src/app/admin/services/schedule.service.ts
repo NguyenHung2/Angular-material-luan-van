@@ -1,49 +1,53 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Schedule {
   maLichTrinh: number;
-  tenLichTrinh: string;
+  tieuDe: string;
   moTa: string;
-  thoiGianBatDau: Date;
-  thoiGianKetThuc: Date;
-  diemBatDau: string;
+  maNguoiDung: number; 
+  kinhDoXuatPhat: number;
+  viDoXuatPhat: number;
   soLuongDiemDenToiDa: number;
-  trangThai: boolean;
-  thuTu: number;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ScheduleService {
-  private schedules: Schedule[] = [
-    {
-      maLichTrinh: 1,
-      tenLichTrinh: 'Lịch trình thử nghiệm',
-      moTa: 'Lịch trình thử nghiệm cho ví dụ',
-      thoiGianBatDau: new Date('2023-10-13T08:00:00'),
-      thoiGianKetThuc: new Date('2023-10-14T18:00:00'),
-      diemBatDau: 'Điểm xuất phát',
-      soLuongDiemDenToiDa: 5,
-      trangThai: true,
-      thuTu: 1
-    },
-    {
-      maLichTrinh: 2,
-      tenLichTrinh: 'Lịch trình thứ hai',
-      moTa: 'Mô tả lịch trình thứ hai',
-      thoiGianBatDau: new Date('2023-10-15T10:00:00'),
-      thoiGianKetThuc: new Date('2023-10-16T17:00:00'),
-      diemBatDau: 'Điểm khởi hành',
-      soLuongDiemDenToiDa: 3,
-      trangThai: false,
-      thuTu: 2
-    },
-    // Add more schedule data here
-  ];
+  private apiUrl = 'http://localhost:8080/api/schedules'; // Replace with your backend API URL
+
+  constructor(private http: HttpClient) {}
 
   getSchedules(): Observable<Schedule[]> {
-    return of(this.schedules);
+    return this.http.get<Schedule[]>(this.apiUrl);
+  }
+
+  getScheduleById(scheduleId: number): Observable<Schedule> {
+    const url = `${this.apiUrl}/${scheduleId}`;
+    return this.http.get<Schedule>(url);
+  }
+
+  addSchedule(schedule: Schedule): Observable<Schedule> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post<Schedule>(this.apiUrl, schedule, httpOptions);
+  }
+
+  updateSchedule(schedule: Schedule): Observable<Schedule> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.put<Schedule>(`${this.apiUrl}/${schedule.maLichTrinh}`, schedule, httpOptions);
+  }
+
+  deleteSchedule(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

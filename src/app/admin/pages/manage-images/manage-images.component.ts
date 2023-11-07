@@ -101,7 +101,13 @@ export class ManageImagesComponent implements OnInit {
 
   editImage(image: Image): void {
     const dialogRef = this.dialog.open(EditImageDialogComponent, {
-      data: { image, fileInput: this.fileInput, selectedFileName: this.selectedFileName }
+      data: { 
+        image, 
+        fileInput: this.fileInput, 
+        selectedFileName: this.selectedFileName,
+        destinations: this.destinations, // Truyền danh sách Destination
+        posts: this.posts // Truyền danh sách Post 
+      }
     });
 
     dialogRef.afterClosed().subscribe((editedImage: Image) => {
@@ -111,7 +117,7 @@ export class ManageImagesComponent implements OnInit {
             this.loadImages();
           },
           (error) => {
-            console.error('Failed to update image:', error);
+            console.error('Lỗi khi cập nhật hình ảnh:', error);
           }
         );
       }
@@ -163,7 +169,13 @@ export class ManageImagesComponent implements OnInit {
 
   showAddImageDialog() {
     const dialogRef = this.dialog.open(AddImageDialogComponent, {
-      data: { image: this.newImage, fileInput: this.fileInput, selectedFileName: this.selectedFileName }
+      data: {
+        image: this.newImage,
+        fileInput: this.fileInput,
+        selectedFileName: this.selectedFileName,
+        destinations: this.destinations, // Truyền danh sách Destination
+        posts: this.posts // Truyền danh sách Post
+      }
     });
 
     dialogRef.afterClosed().subscribe((addedImage: Image) => {

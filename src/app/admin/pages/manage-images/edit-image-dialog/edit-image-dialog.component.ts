@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Destination } from 'src/app/admin/services/destination.service';
 import { Image } from 'src/app/admin/services/image.service';
+import { Post } from 'src/app/admin/services/post.service';
 // ...
 
 @Component({
@@ -9,15 +11,21 @@ import { Image } from 'src/app/admin/services/image.service';
   styleUrls: ['./edit-image-dialog.component.css']
 })
 export class EditImageDialogComponent implements OnInit {
-  editedImage!: Image; 
+  image!: Image;
   @ViewChild('fileInput') fileInput!: ElementRef;
   selectedFileName: string;
 
   constructor(
     public dialogRef: MatDialogRef<EditImageDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { image: Image, selectedFileName: string } 
+    @Inject(MAT_DIALOG_DATA) public data: {
+      image: Image,
+      fileInput: HTMLInputElement,
+      selectedFileName: string,
+      destinations: Destination[],
+      posts: Post[]
+    }
   ) {
-    this.editedImage = { ...this.data.image }; 
+    this.image = { ...this.data.image };
     this.selectedFileName = this.data.selectedFileName;
   }
 
@@ -26,7 +34,7 @@ export class EditImageDialogComponent implements OnInit {
   }
 
   saveChanges(): void {
-    this.dialogRef.close(this.editedImage);
+    this.dialogRef.close(this.image);
   }
 
   closeDialog(): void {
@@ -37,7 +45,7 @@ export class EditImageDialogComponent implements OnInit {
     const file: File = event.target.files[0];
     if (file) {
       this.selectedFileName = file.name;
-      this.editedImage.duongDan = 'assets/' + this.selectedFileName;
+      this.image.duongDan = 'assets/' + this.selectedFileName;
     }
   }
 

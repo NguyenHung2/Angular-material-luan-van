@@ -98,6 +98,13 @@ import { DeleteDestinationDialogComponent } from './admin/pages/manage-destinati
 import { EditDestinationDialogComponent } from './admin/pages/manage-destinations/edit-destination-dialog/edit-destination-dialog.component';
 import { AddDestinationDialogComponent } from './admin/pages/manage-destinations/add-destination-dialog/add-destination-dialog.component';
 import { DetailDestinationDialogComponent } from './admin/pages/manage-destinations/detail-destination-dialog/detail-destination-dialog.component';
+import { ScheduleMapComponent } from './user/pages/schedule-map/schedule-map.component';
+import { AddScheduleDialogComponent } from './admin/pages/manage-schedules/add-schedule-dialog/add-schedule-dialog.component';
+import { EditScheduleDialogComponent } from './admin/pages/manage-schedules/edit-schedule-dialog/edit-schedule-dialog.component';
+import { DetailScheduleDialogComponent } from './admin/pages/manage-schedules/detail-schedule-dialog/detail-schedule-dialog.component';
+import { DeleteScheduleDialogComponent } from './admin/pages/manage-schedules/delete-schedule-dialog/delete-schedule-dialog.component';
+import { MapDialogComponent } from './admin/pages/manage-schedules/map-dialog/map-dialog.component';
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 
 @NgModule({
   declarations: [
@@ -152,6 +159,12 @@ import { DetailDestinationDialogComponent } from './admin/pages/manage-destinati
     EditDestinationDialogComponent,
     AddDestinationDialogComponent,
     DetailDestinationDialogComponent,
+    ScheduleMapComponent,
+    AddScheduleDialogComponent,
+    EditScheduleDialogComponent,
+    DetailScheduleDialogComponent,
+    DeleteScheduleDialogComponent,
+    MapDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -195,6 +208,7 @@ import { DetailDestinationDialogComponent } from './admin/pages/manage-destinati
     MatRippleModule,
     NgxPaginationModule,
     HttpClientModule,
+    NgxMatTimepickerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

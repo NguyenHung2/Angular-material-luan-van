@@ -2,10 +2,16 @@
 <div class="edit-dialog">
     <h2>Chỉnh Sửa Điểm Đến</h2>
     <form (submit)="saveChanges()">
+        <!-- Mã Điểm Đến -->
+        <mat-form-field class="form-field" [ngClass]="{'error': isInputEmpty || isDuplicateName }">
+            <mat-label>Mã Điểm Đến</mat-label>
+            <input matInput [(ngModel)]="destination.maDiemDen" name="maDiemDen" required>
+        </mat-form-field>
+
         <!-- Tên Điểm Đến -->
         <mat-form-field class="form-field" [ngClass]="{'error': isInputEmpty || isDuplicateName }">
             <mat-label>Tên Điểm Đến</mat-label>
-            <input matInput [(ngModel)]="editedDestination.tenDiemDen" name="tenDiemDen" required>
+            <input matInput [(ngModel)]="destination.tenDiemDen" name="tenDiemDen" required>
         </mat-form-field>
         <div class="error-message" *ngIf="isInputEmpty">Vui lòng nhập tên điểm đến.</div>
         <div class="error-message" *ngIf="isDuplicateName">Tên điểm đến đã tồn tại.</div>
@@ -13,30 +19,40 @@
         <!-- Mô tả -->
         <mat-form-field class="form-field" [ngClass]="{'error': isDescriptionEmpty}">
             <mat-label>Mô Tả</mat-label>
-            <textarea matInput [(ngModel)]="editedDestination.moTa" name="moTa" required></textarea>
+            <textarea matInput [(ngModel)]="destination.moTa" name="moTa" required></textarea>
         </mat-form-field>
         <div class="error-message" *ngIf="isDescriptionEmpty">Vui lòng nhập mô tả.</div>
 
         <!-- Địa Chỉ -->
         <mat-form-field class="form-field" [ngClass]="{'error': isAddressEmpty}">
             <mat-label>Địa Chỉ</mat-label>
-            <input matInput [(ngModel)]="editedDestination.diaChi" name="diaChi" required>
+            <input matInput [(ngModel)]="destination.diaChi" name="diaChi" required>
         </mat-form-field>
         <div class="error-message" *ngIf="isAddressEmpty">Vui lòng nhập địa chỉ.</div>
 
         <!-- Kinh Độ -->
         <mat-form-field class="form-field" [ngClass]="{'error': isKinhDoEmpty}">
             <mat-label>Kinh Độ</mat-label>
-            <input matInput [(ngModel)]="editedDestination.kinhDo" name="kinhDo" required>
+            <input matInput [(ngModel)]="destination.kinhDo" name="kinhDo" required>
         </mat-form-field>
         <div class="error-message" *ngIf="isKinhDoEmpty">Vui lòng nhập kinh độ.</div>
 
         <!-- Vĩ Độ -->
         <mat-form-field class="form-field" [ngClass]="{'error': isViDoEmpty}">
             <mat-label>Vĩ Độ</mat-label>
-            <input matInput [(ngModel)]="editedDestination.viDo" name="viDo" required>
+            <input matInput [(ngModel)]="destination.viDo" name="viDo" required>
         </mat-form-field>
         <div class="error-message" *ngIf="isViDoEmpty">Vui lòng nhập vĩ độ.</div>
+
+        <!-- Danh Mục Điểm Đến -->
+        <mat-form-field class="form-field">
+            <mat-label>Mã danh mục</mat-label>
+            <mat-select [(ngModel)]="destination.maDanhMuc" name="maDanhMuc">
+                <mat-option *ngFor="let category of data.destinationCategories" [value]="category.maDanhMuc">
+                    {{ category.tenDanhMuc }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
         <div class="button-container">
             <button mat-raised-button type="submit">Lưu</button>
