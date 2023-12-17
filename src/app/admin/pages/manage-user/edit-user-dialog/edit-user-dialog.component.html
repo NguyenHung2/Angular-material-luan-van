@@ -1,0 +1,71 @@
+<!-- edit-user-dialog/edit-user-dialog.component.html -->
+
+<div class="edit-dialog">
+    <h2>Chỉnh Sửa Người Dùng</h2>
+    <form (submit)="saveChanges()">
+
+        <!-- Tên Người Dùng -->
+        <mat-form-field class="form-field">
+            <mat-label>Tên Người Dùng</mat-label>
+            <input matInput [(ngModel)]="newUser.tenNguoiDung" name="tenNguoiDung" required>
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field class="form-field">
+            <mat-label>Email</mat-label>
+            <input matInput [(ngModel)]="newUser.email" name="email" type="email" required>
+        </mat-form-field>
+
+        <!-- Giới Tính -->
+        <mat-form-field class="form-field">
+            <mat-label>Giới Tính</mat-label>
+            <mat-select [(ngModel)]="newUser.gioiTinh" name="gioiTinh">
+                <mat-option value="Nam">Nam</mat-option>
+                <mat-option value="Nữ">Nữ</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Địa Chỉ -->
+        <mat-form-field class="form-field">
+            <mat-label>Địa Chỉ</mat-label>
+            <input matInput [(ngModel)]="newUser.diaChi" name="diaChi">
+        </mat-form-field>
+
+         <!-- Số Điện Thoại -->
+         <mat-form-field class="form-field">
+            <mat-label>Số Điện Thoại</mat-label>
+            <input matInput [(ngModel)]="newUser.soDienThoai" name="soDienThoai">
+        </mat-form-field>
+
+        <!-- Ngày Sinh -->
+        <mat-form-field class="form-field">
+            <mat-label>Ngày Sinh</mat-label>
+            <input matInput [(ngModel)]="newUser.ngaySinh" name="ngaySinh" [matDatepicker]="picker" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Mật Khẩu -->
+        <mat-form-field class="form-field">
+            <mat-label>Mật Khẩu</mat-label>
+            <input matInput [(ngModel)]="newUser.matKhau" name="matKhau" [type]="passwordFieldType" required>
+            <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()">
+                <mat-icon>{{ passwordVisibilityIcon }}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <!-- Vai Trò -->
+        <mat-form-field class="form-field">
+            <mat-label>Vai Trò</mat-label>
+            <mat-select [(ngModel)]="newUser.vaiTro" name="vaiTro">
+                <mat-option value="Người Dùng">Người Dùng</mat-option>
+                <mat-option value="Quản Trị Viên">Quản Trị Viên</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="button-container">
+            <button mat-raised-button type="submit">Lưu</button>
+            <button mat-raised-button type="button" (click)="closeDialog()">Hủy</button>
+        </div>
+    </form>
+</div>

@@ -1,8 +1,8 @@
 <div class="delete-dialog">
     <h2>Xác Nhận Xóa Điểm Đến</h2>
-    <p>Bạn có chắc chắn muốn xóa điểm đến <strong>{{ data.destination.tenDiemDen }}</strong>?</p>
+    <p>Bạn có chắc chắn muốn xóa điểm đến "<strong>{{ data.destination.tenDiemDen }}</strong>"?</p>
     <div class="button-container">
-        <button mat-raised-button (click)="confirmDeletion()">Xác Nhận</button>
+        <button mat-raised-button color="warn" (click)="confirmDeletion()">Xác nhận</button>
         <button mat-raised-button (click)="cancelDeletion()">Hủy</button>
     </div>
 </div>

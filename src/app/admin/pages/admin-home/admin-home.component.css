@@ -1,82 +1,111 @@
-.admin-home {
+/* admin-home.component.css */
+
+.summary-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 90%; /* Chiều cao là 90% màn hình */
-    background-image: url('src/assets/cho-noi-long-xuyen-an-giang.jpg'); /* Thay URL ảnh nền thực tế tại đây */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin: 0 auto;
-    top: 5%;
-    border-radius: 10px; /* Độ cong viền */
-    overflow: hidden; /* Ẩn phần nội dung vượt ra ngoài hình nền */
-    position: relative; /* Sử dụng để tạo hiệu ứng cho tiêu đề */
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px;
 }
 
-.custom-header {
-    background-color: rgba(0, 0, 0, 0.6); /* Màu nền header */
-    width: 100%;
-    padding: 10px 0;
-    text-align: center;
-}
-
-.header-text {
-    font-size: 36px;
-    font-weight: bold;
-    color: #fff; /* Màu chữ trong header */
-    text-transform: uppercase; /* Chuyển đổi chữ thành chữ in hoa */
-    letter-spacing: 2px; /* Khoảng cách giữa các ký tự */
-    margin: 0;
+.summary-box {
+    flex: 1;
     position: relative;
-    z-index: 1; /* Để tiêu đề nằm trên phần nền */
+    border: 1px solid transparent;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease;
+    margin: 10px; /* Điều chỉnh khoảng cách giữa các summary-box */
+    box-sizing: border-box;
 }
 
-.header-text::before {
+.destination-box {
+    background: linear-gradient(45deg, #a3d2ca, #7f8c8d);
+    color: #004445;
+}
+
+.schedule-box {
+    background: linear-gradient(45deg, #f8b400, #e74c3c);
+    color: #2d2926;
+}
+
+.schedule-destination-box {
+    background: linear-gradient(45deg, #3498db, #2c3e50);
+    color: #ecf0f1;
+}
+
+.post-box {
+    background: linear-gradient(45deg, #f28d35, #2ecc71);
+    color: #fff;
+}
+
+.summary-header {
+    position: relative;
+    z-index: 1;
+}
+
+.summary-header h3 {
+    font-size: 18px;
+    margin: 0;
+    padding: 10px;
+}
+
+.summary-content p {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0 0;
+}
+
+/* Border Animation Effect */
+.summary-box::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, #FFA500, #FF4500); /* Gradient màu cho hiệu ứng */
-    z-index: -1; /* Để hiệu ứng nằm dưới tiêu đề */
-    transform: scale(0);
-    transition: transform 0.3s ease-in-out;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #fff, transparent);
+    z-index: 0;
+    transition: opacity 0.3s ease;
+    opacity: 0;
 }
 
-.admin-home:hover .header-text::before {
-    transform: scale(1); /* Hiệu ứng khi hover */
+.summary-box:hover::before {
+    opacity: 1;
 }
 
-mat-card {
-    width: 95%;
-    padding: 20px;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.9); /* Màu nền card */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: -20px; /* Để tiêu đề card trùng với phần header */
+.summary-box.schedule-destination-box::before {
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), transparent);
 }
 
-mat-card-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333; /* Màu chữ trong tiêu đề card */
+.chart-container {
+    width: 100%;
+    margin-top: 20px;
 }
 
-mat-card-content {
-    background-color: rgba(255, 255, 255, 0.9); /* Màu nền nội dung */
-    padding: 10px 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: -5px; /* Để nội dung không bị che phủ bởi tiêu đề card */
+/* Customize the chart canvas */
+#userRegistrationChart {
+    width: 100%;
+    max-width: 800px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the chart horizontally */
+    border: 1px solid #ddd;
 }
 
-p {
-    font-size: 18px;
-    color: #333; /* Màu chữ trong nội dung */
-    margin: 0; /* Loại bỏ margin mặc định của các thẻ p */
-    padding: 10px 0; /* Khoảng cách giữa nội dung và viền card */
-    line-height: 1.5;
+/* Add some spacing between the chart and summary boxes */
+.summary-container {
+    margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+    .summary-container {
+        flex-direction: column;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    .summary-box {
+        flex: 1;
+        width: 100%;
+    }
 }

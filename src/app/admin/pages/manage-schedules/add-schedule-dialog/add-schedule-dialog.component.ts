@@ -2,9 +2,9 @@ import { Component, Inject, ElementRef, ViewChild, OnInit } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Schedule } from 'src/app/admin/services/schedule.service';
-import { MapDialogComponent } from '../map-dialog/map-dialog.component';
 import { UserService } from 'src/app/admin/services/user.service';
 import * as L from 'leaflet';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-schedule-dialog',
@@ -13,8 +13,6 @@ import * as L from 'leaflet';
 })
 export class AddScheduleDialogComponent implements OnInit {
   addScheduleForm: FormGroup;
-  selectedKinhDoXuatPhat: number = 0;
-  selectedViDoXuatPhat: number = 0;
   users: any[] = [];
 
   @ViewChild('map', { static: false }) mapElement!: ElementRef;
@@ -25,16 +23,18 @@ export class AddScheduleDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-    private userService: UserService
+    private userService: UserService,
+    private snackBar: MatSnackBar
   ) {
     this.addScheduleForm = this.formBuilder.group({
       maLichTrinh: 0,
       tieuDe: ['', Validators.required],
       moTa: [''],
+      ngayBatDau: new Date(),
+      ngayKetThuc: new Date(),
+      soLuongDiemDenToiDa: 5,
+      soNgayThamQuan: '1', // Giá trị mặc định là 1 ngày
       maNguoiDung: 0,
-      kinhDoXuatPhat: [this.selectedKinhDoXuatPhat, Validators.required],
-      viDoXuatPhat: [this.selectedViDoXuatPhat, Validators.required],
-      soLuongDiemDenToiDa: 5
     });
   }
 
@@ -55,30 +55,18 @@ export class AddScheduleDialogComponent implements OnInit {
   onSaveClick(): void {
     if (this.addScheduleForm && this.addScheduleForm.valid) {
       const newSchedule: Schedule = this.addScheduleForm.value;
-      newSchedule.kinhDoXuatPhat = this.selectedKinhDoXuatPhat;
-      newSchedule.viDoXuatPhat = this.selectedViDoXuatPhat;
       this.dialogRef.close(newSchedule);
-      console.log(newSchedule)
+      console.log(newSchedule);
+      this.snackBar.open(
+        'Người dùng đã được thêm thành công!',
+        'Đóng',
+        {
+          duration: 3000,
+          panelClass: 'success-snackbar',
+        }
+      );
     }
   }
-
-  openMapDialog(): void {
-    const dialogRef = this.dialog.open(MapDialogComponent, {
-      width: '600px',
-      data: { selectedKinhDo: this.selectedKinhDoXuatPhat, selectedViDo: this.selectedViDoXuatPhat }
-    });
-  
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.selectedKinhDoXuatPhat = result.kinhDo;
-        this.selectedViDoXuatPhat = result.viDo;
-        if (this.addScheduleForm) {
-          this.addScheduleForm.get('kinhDoXuatPhat')?.setValue(this.selectedKinhDoXuatPhat);
-          this.addScheduleForm.get('viDoXuatPhat')?.setValue(this.selectedViDoXuatPhat);
-        }
-      }
-    });
-  }  
 
   onDateInput(event: any, formControlName: string): void {
     if (event) {

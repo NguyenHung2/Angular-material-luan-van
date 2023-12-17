@@ -34,51 +34,6 @@
             </td>
         </ng-container>
 
-        <!-- Mô Tả Column -->
-        <ng-container matColumnDef="moTa">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Mô Tả </th>
-            <td mat-cell *matCellDef="let schedule" class="small-column responsive-cell">
-                <div class="data-label">Mô Tả</div>
-                <div class="data-value">{{ schedule.moTa }}</div>
-            </td>
-        </ng-container>
-
-        <!-- Người Dùng Column -->
-        <ng-container matColumnDef="maNguoiDung">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Mã Người Dùng </th>
-            <td mat-cell *matCellDef="let schedule" class="small-column responsive-cell">
-                <div class="data-label">Mã Người Dùng</div>
-                <div class="data-value">{{ schedule.nguoiDung.maNguoiDung }}</div>
-            </td>
-        </ng-container>
-
-        <!-- Kinh Độ Xuất Phát Column -->
-        <ng-container matColumnDef="kinhDoXuatPhat">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Kinh Độ Xuất Phát </th>
-            <td mat-cell *matCellDef="let schedule" class="small-column responsive-cell">
-                <div class="data-label">Kinh Độ Xuất Phát</div>
-                <div class="data-value">{{ schedule.kinhDoXuatPhat }}</div>
-            </td>
-        </ng-container>
-
-        <!-- Vĩ Độ Xuất Phát Column -->
-        <ng-container matColumnDef="viDoXuatPhat">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Vĩ Độ Xuất Phát </th>
-            <td mat-cell *matCellDef="let schedule" class="small-column responsive-cell">
-                <div class="data-label">Vĩ Độ Xuất Phát</div>
-                <div class="data-value">{{ schedule.viDoXuatPhat }}</div>
-            </td>
-        </ng-container>
-
-        <!-- Số Lượng Điểm Đến Tối Đa Column -->
-        <ng-container matColumnDef="soLuongDiemDenToiDa">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Số Lượng Điểm Đến Tối Đa </th>
-            <td mat-cell *matCellDef="let schedule" class="small-column responsive-cell">
-                <div class="data-label">Số Lượng Điểm Đến Tối Đa</div>
-                <div class="data-value">{{ schedule.soLuongDiemDenToiDa }}</div>
-            </td>
-        </ng-container>
-
         <!-- Thao Tác Column -->
         <ng-container matColumnDef="thaoTac">
             <th mat-header-cell *matHeaderCellDef> Thao Tác </th>

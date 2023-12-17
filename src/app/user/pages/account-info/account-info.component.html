@@ -1,0 +1,22 @@
+<!-- account-info.component.html -->
+
+<div *ngIf="loggedInUser" class="account-info-container">
+    <div class="user-icon">
+        <h1>Thông tin tài khoản của bạn</h1>
+        <mat-icon class="mat-48">person</mat-icon>
+        <button mat-raised-button color="primary" (click)="editUserInfo()">Chỉnh Sửa Thông Tin</button>
+    </div>
+
+    <div class="user-details">
+        <p><strong>Tên người dùng: </strong> <br> <span>{{ loggedInUser.tenNguoiDung }}</span></p>
+        <p><strong>Email:</strong> <br> <span>{{ loggedInUser.email }}</span></p>
+        <p><strong>Giới Tính:</strong> <br> <span>{{ loggedInUser.gioiTinh }}</span></p>
+        <p><strong>Địa Chỉ:</strong> <br> <span>{{ loggedInUser.diaChi }}</span></p>
+        <p><strong>Số Điện Thoại:</strong> <br> <span>{{ loggedInUser.soDienThoai }}</span></p>
+        <p><strong>Ngày Sinh:</strong> <br> <span>{{ loggedInUser.ngaySinh | date: 'yyyy-MM-dd' }}</span></p>
+        <!-- Thêm thông tin khác nếu cần -->
+    </div>
+</div>
+<div *ngIf="!loggedInUser">
+    <p>Không có thông tin người dùng. Vui lòng đăng nhập.</p>
+</div>

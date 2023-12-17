@@ -1,0 +1,8 @@
+<div class="delete-dialog">
+    <h2>Xác Nhận Xóa Người Dùng</h2>
+    <p>Bạn có chắc chắn muốn xóa người dùng <strong>{{ data.user.tenNguoiDung }}</strong>?</p>
+    <div class="button-container">
+        <button mat-raised-button color="warn" (click)="confirmDeletion()">Xác Nhận</button>
+        <button mat-raised-button (click)="cancelDeletion()">Hủy</button>
+    </div>
+</div>

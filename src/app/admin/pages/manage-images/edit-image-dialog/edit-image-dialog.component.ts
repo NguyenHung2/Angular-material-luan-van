@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Destination } from 'src/app/admin/services/destination.service';
 import { Image } from 'src/app/admin/services/image.service';
 import { Post } from 'src/app/admin/services/post.service';
@@ -23,7 +24,8 @@ export class EditImageDialogComponent implements OnInit {
       selectedFileName: string,
       destinations: Destination[],
       posts: Post[]
-    }
+    },
+    private snackBar: MatSnackBar
   ) {
     this.image = { ...this.data.image };
     this.selectedFileName = this.data.selectedFileName;
@@ -35,6 +37,14 @@ export class EditImageDialogComponent implements OnInit {
 
   saveChanges(): void {
     this.dialogRef.close(this.image);
+    this.snackBar.open(
+      'Người dùng đã được cập nhật thành công!',
+      'Đóng',
+      {
+        duration: 3000,
+        panelClass: 'success-snackbar',
+      }
+    );
   }
 
   closeDialog(): void {

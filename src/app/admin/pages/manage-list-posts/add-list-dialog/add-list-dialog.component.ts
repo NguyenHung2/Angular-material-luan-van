@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ListPost, ListPostService } from 'src/app/admin/services/list-post.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class AddListDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: {
       category: ListPost,
     },
+    private snackBar: MatSnackBar,
     private categoryService: ListPostService // Đối tượng dịch vụ danh mục
   ) {
     this.newCategory = { ...this.data.category };
@@ -43,6 +45,14 @@ export class AddListDialogComponent {
         this.isInputEmpty = false;
         this.isDuplicateName = false;
         this.dialogRef.close(this.newCategory);
+        this.snackBar.open(
+          'Người dùng đã được thêm thành công!',
+          'Đóng',
+          {
+            duration: 3000,
+            panelClass: 'success-snackbar',
+          }
+        );
       }
     }
   }

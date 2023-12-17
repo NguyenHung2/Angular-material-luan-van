@@ -1,13 +1,1 @@
-<mat-form-field>
-    <mat-label>User</mat-label>
-    <mat-select [(value)]="selectedUser">
-      <mat-option></mat-option>
-      <mat-option [value]="user.id" *ngFor="let user of additionalUsers">{{ user.viewValue }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <p>Selected User: {{selectedUser}}</p>
-  
-  <p *ngIf="selectedUser !== undefined">
-    Selected User's Favorite Food: {{getFavoriteFood(selectedUser)}}
-  </p>
-  
+<div id="map" style="height: 100vh;"></div>

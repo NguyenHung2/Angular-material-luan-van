@@ -1,133 +1,76 @@
-/* Định dạng bố cục chung của trang */
-.itinerary {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Hai cột bên trái và bên phải */
-    grid-template-rows: auto; /* Chiều cao tự động cho hàng */
-    grid-template-areas: "left right" "map map"; /* Sắp xếp các vùng */
-    gap: 20px; /* Khoảng cách giữa các cột và hàng */
-}
-
-/* Định dạng cột bên trái - Form tối ưu lịch trình và Danh sách điểm đến */
-.optimize-form {
-    grid-area: left; /* Xác định vùng "left" cho cột bên trái */
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.itinerary-list {
-    grid-area: right; /* Xác định vùng "right" cho cột bên phải */
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Định dạng cột bên phải - Bản đồ */
-.map {
-    grid-area: map; /* Xác định vùng "map" cho cột bên phải */
-}
-
-/* Quy tắc CSS cho phần Form tối ưu lịch trình */
-.optimize-form form {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Hai cột cho các trường thông tin */
-    gap: 20px; /* Khoảng cách giữa các trường thông tin */
-}
-
-.optimize-form .form-field {
+/* CSS cho container chứa input và button */
+.search-container {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: rgb(250, 250, 250);
+    min-height: 30px;
+    padding: 10px 32px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #ccc;
 }
 
-/* Các quy tắc CSS cho các trường thông tin trong Form */
-.optimize-form label {
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
+/* CSS cho input và icon bản đồ */
+.input-container {
+    position: relative;
+    padding: 5px 20px;
 }
 
-.optimize-form input[type="number"],
-.optimize-form input[type="date"],
-.optimize-form select,
-.optimize-form input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background-color: #fff;
-}
-
-.optimize-form button {
-    background-color: #f39c12;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    text-decoration: none;
-    display: inline-block;
-    font-weight: bold;
-}
-
-.optimize-form button:hover {
-    background-color: #e74c3c;
-}
-
-/* Quy tắc CSS cho Danh sách điểm đến */
-.itinerary-list .itinerary-item {
-    flex: calc(33.33% - 20px);
-    box-sizing: border-box;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
-    display: flex;
-    flex-direction: column;
-}
-
-.itinerary-list .itinerary-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.itinerary-list .itinerary-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.itinerary-list .item-info {
-    padding-top: 15px;
-}
-
-.itinerary-list h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.itinerary-list p {
+.input-container input, .input-container select {
+    flex: 1;
     font-size: 16px;
-    color: #666;
-    text-align: justify;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    max-width: 400px;
+    padding: 0.8rem 3.5rem !important;
 }
 
-.itinerary-list .remove-button {
-    background-color: #e74c3c;
+.input-container .material-icons {
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    transform: translateY(-50%);
+    font-size: 24px;
+}
+
+/* CSS cho button */
+#search-button,
+#get-location-button {
+    background-color: #0074e4;
     color: #fff;
+    font-size: 15px;
     border: none;
-    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px;
+    outline: none;
+    margin: 5px 20px;
+    padding: 0 1rem;
 }
 
-.itinerary-list .remove-button:hover {
-    background-color: #c0392b;
+.info-map {
+    display: flex;
+    flex-direction: row;
+}
+
+/* CSS cho directions-container */
+#directions-container {
+    background-color: rgb(250, 250, 250);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 350px 1;
+    overflow-y: auto;
+}
+
+.destination-options {
+    list-style: none;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* CSS cho bản đồ */
+#map {
+    width: 100%;
+    min-height: 70vh;
 }

@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Destination } from 'src/app/admin/services/destination.service';
 import { Image } from 'src/app/admin/services/image.service';
 import { Post } from 'src/app/admin/services/post.service';
@@ -15,18 +16,18 @@ export class AddImageDialogComponent implements OnInit {
     tenAnh: '',
     duongDan: '',
     ngayTao: new Date(),
-    maDiemDen: null, // Khởi tạo là null, bạn có thể thay đổi giá trị trong quá trình nhập liệu
-    maBaiViet: null, // Khởi tạo là null, bạn có thể thay đổi giá trị trong quá trình nhập liệu
   };
   selectedFileName: string = ''; // Tên tệp đã chọn
   fileInput: HTMLInputElement; // Tham chiếu đến input type="file"
+  isInputEmpty: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<AddImageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       destinations: Destination[];
       posts: Post[];
-    }
+    },
+    private snackBar: MatSnackBar
   ) {
     this.fileInput = document.createElement('input');
     this.fileInput.type = 'file';
@@ -37,6 +38,14 @@ export class AddImageDialogComponent implements OnInit {
 
   openFileInput() {
     this.fileInput.click();
+    this.snackBar.open(
+      'Người dùng đã được thêm thành công!',
+      'Đóng',
+      {
+        duration: 3000,
+        panelClass: 'success-snackbar',
+      }
+    );
   }
 
   onFileSelected(event: Event) {
@@ -49,6 +58,10 @@ export class AddImageDialogComponent implements OnInit {
   }
 
   saveChanges() {
+    if (this.image.tenAnh.trim() === '') {
+      this.isInputEmpty = true;
+      return;
+    }
     // Thực hiện lưu hình ảnh và đóng dialog ở đây
     this.dialogRef.close(this.image);
   }

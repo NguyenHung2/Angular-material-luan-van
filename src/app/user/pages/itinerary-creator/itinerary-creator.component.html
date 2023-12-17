@@ -1,0 +1,35 @@
+<div class="itinerary-creator">
+    <h2>Chào mừng đến với An Giang</h2>
+
+    <div class="navigation-bar">
+        <!-- Top part with the selected category name -->
+        <div class="nav-top custom-nav-top">
+            <p>{{ selectedCategory ? selectedCategory.tenDanhMuc : 'Tất cả danh mục' }}</p>
+        </div>
+        <!-- Bottom part with the navigation menu -->
+        <div class="nav-bottom custom-nav-bottom">
+            <ul>
+                <li (click)="filterItinerariesByCategory(null)">Tất cả loại hình</li>
+                <li *ngFor="let category of tourTypes" (click)="filterItinerariesByCategory(category)">{{
+                    category.tenDanhMuc }}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="itinerary-items custom-post-items">
+        <div *ngFor="let itinerary of pagedItineraries" class="itinerary-item custom-post-item">
+            <img src="{{ itinerary.anh?.duongDan }}" alt="">
+            <div class="itinerary-info">
+                <h2 class="custom-tieuDe">{{ itinerary.tenDiemDen }}</h2>
+                <div class="info-line">
+                    <p class="custom-maLoai">{{ itinerary.danhMuc?.tenDanhMuc }}</p> -
+                    <p class="custom-ngayTao">{{ itinerary.ngayTao | date:'dd/MM/yyyy' }}</p>
+                </div>
+                <p class="custom-tomTat">{{ itinerary.moTa }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="pagination">
+        <mat-paginator [length]="totalItineraries" [pageSize]="itemsPerPage" (page)="onPageChange($event)"
+            [showFirstLastButtons]="true"></mat-paginator>
+    </div>
+</div>

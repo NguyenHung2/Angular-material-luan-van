@@ -1,32 +1,54 @@
 <div class="detail-dialog">
-    <h2 class="dialog-title">Chi Tiết Điểm Đến</h2>
-    <div class="dialog-content">
-        <p class="bold-title">Mã Điểm Đến:</p>
-        <p class="data">{{ data.destination.maDiemDen }}</p>
+    <h2>Chi Tiết Điểm Đến</h2>
+    <div class="scrollable-form">
+        <div class="form-field">
+            <label class="bold-label">Mã điểm đến: </label>
+            {{ data.destination.maDiemDen }}
+        </div>
 
-        <p class="bold-title">Tên Điểm Đến:</p>
-        <p class="data">{{ data.destination.tenDiemDen }}</p>
+        <div class="form-field">
+            <label class="bold-label">Tên điểm đến: </label>
+            {{ data.destination.tenDiemDen }}
+        </div>
 
-        <p class="bold-title">Mô Tả:</p>
-        <p class="data">{{ data.destination.moTa }}</p>
+        <div class="form-field">
+            <label class="bold-label">Mô tả: </label>
+            {{ data.destination.moTa }}
+        </div>
 
-        <p class="bold-title">Kinh Độ:</p>
-        <p class="data">{{ data.destination.kinhDo }}</p>
+        <div class="form-field">
+            <label class="bold-label">Kinh độ: </label>
+            {{ data.destination.kinhDo }}
+        </div>
 
-        <p class="bold-title">Vĩ Độ:</p>
-        <p class="data">{{ data.destination.viDo }}</p>
+        <div class="form-field">
+            <label class="bold-label">Vĩ độ: </label>
+            {{ data.destination.viDo }}
+        </div>
 
-        <p class="bold-title">Địa Chỉ:</p>
-        <p class="data">{{ data.destination.diaChi }}</p>
+        <div class="form-field">
+            <label class="bold-label">Địa chỉ: </label>
+            {{ data.destination.diaChi }}
+        </div>
 
-        <p class="bold-title">Ngày Tạo:</p>
-        <p class="data">{{ data.destination.ngayTao | date: 'dd/MM/yyyy' }}</p>
+        <div class="form-field">
+            <label class="bold-label">Ngày tạo: </label>
+            {{ data.destination.ngayTao | date: 'dd/MM/yyyy' }}
+        </div>
 
-        <p class="bold-title">Danh mục:</p>
-        <p class="data">{{ data.destination.danhmuc.maDanhMuc }} - {{ data.destination.danhmuc.tenDanhMuc }}</p>
+        <div class="form-field">
+            <label class="bold-label">Danh mục: </label>
+            {{ data.destination.danhMuc.maDanhMuc }} - {{ data.destination.danhMuc.tenDanhMuc }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Hình ảnh url: </label>
+            {{data.destination.anh.duongDan}}
+            <img src=" {{data.destination.anh.duongDan}}" alt="">
+        </div>
 
     </div>
     <div class="button-container">
-        <button mat-button type="button" (click)="closeDialog()" class="close-button">Đóng</button>
+        <button mat-raised-button type="button" (click)="closeDialog()" class="close-button">Đóng</button>
     </div>
 </div>

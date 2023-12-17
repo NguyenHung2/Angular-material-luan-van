@@ -1,0 +1,35 @@
+<div class="repo">
+    <button mat-raised-button color="primary" class="toggle-button" (click)="toggleLeftPanel()">Dữ liệu lịch
+        trình</button>
+    <button mat-raised-button color="primary" class="toggle-button" (click)="toggleRightPanel()">Bản đồ lịch
+        trình</button>
+</div>
+<div class="sample-container">
+    <div class="left-panel" [ngClass]="{ 'hidden': hideLeftPanel }">
+        <button mat-raised-button color="primary" (click)="openDestinationDialog()">Chọn lịch trình</button>
+        <!-- Add this button inside the left-panel div -->
+        <button mat-raised-button color="primary" (click)="exportToPDF()">Xuất PDF</button>
+        <h1 class="tenLichTrinh"> {{ selectedScheduleName }}</h1>
+        
+        <div class="detail-trip">
+            <h2>Các điểm đến trong lịch trình</h2>
+            <div class="content trip">
+                <!-- Thông tin lịch trình -->
+                <div class="schedule-info" *ngFor="let destination of destinationInfo">
+                    <h2><strong>Loại:</strong>{{ destination?.danhMuc?.tenDanhMuc }}</h2>
+                    <div class="image-container">
+                        <img src="{{ destination?.anh?.duongDan }}" alt="">
+                    </div>
+                    <p><strong>Tên điểm đến:</strong> {{ destination?.tenDiemDen }}</p>
+                    <p><strong>Mô tả:</strong> {{ destination?.moTa }}</p>
+                    <p><strong>Địa chỉ:</strong> {{ destination?.diaChi }}</p>
+                    <!-- Hiển thị thêm thông tin khác nếu cần -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-panel" [ngClass]="{ 'hidden': hideRightPanel }">
+        <!-- Bản đồ -->
+        <div id="map"></div>
+    </div>
+</div>

@@ -1,17 +1,51 @@
-<footer class="footer">
+<!-- footer.component.html -->
+
+<footer>
+    <!-- Three Columns Layout -->
     <div class="footer-content">
-        <div class="footer-logo">
-            <mat-icon class="logo-icon">explore</mat-icon>
-            <span class="logo-text">TravelOptima</span>
+        <!-- Left Column (Logo and Introduction) -->
+        <div class="column left">
+            <div class="logo">
+                <img src="/assets/logo.png" alt="Logo" class="logo-image">
+            </div>
+            <div class="intro">
+                <p>Chào mừng bạn đến với trang web của chúng tôi. Chúng tôi cung cấp những trải nghiệm tuyệt vời nhất để
+                    bạn có thể khám phá và trải nghiệm thế giới xung quanh. Hãy tham gia cùng chúng tôi và khám phá
+                    những điều mới mẻ!</p>
+            </div>
         </div>
-        <div class="footer-links">
-            <a routerLink="/about">Về chúng tôi</a>
-            <a routerLink="/contact">Liên hệ</a>
-            <a routerLink="/terms">Điều khoản</a>
-            <a routerLink="/privacy">Chính sách bảo mật</a>
+
+        <!-- Middle Column (Navigation Links) -->
+        <div class="column middle">
+            <nav>
+                <a routerLink="/trang-chu" routerLinkActive="active" class="footer-link">Trang chủ</a>
+                <a routerLink="/kham-pha" routerLinkActive="active" class="footer-link">Khám phá</a>
+                <a (click)="handleBanDoClick()" routerLink="/ban-do" routerLinkActive="active" class="footer-link">Bản
+                    đồ</a>
+                <a (click)="handleLichTrinhClick()" routerLink="/lich-trinh" routerLinkActive="active"
+                    class="footer-link">Lịch
+                    trình</a>
+                <a routerLink="/bai-viet" routerLinkActive="active" class="footer-link">Tin tức</a>
+                <a (click)="handlThongTinClick()" routerLink="/thong-tin-nguoi-dung" routerLinkActive="active"
+                    class="footer-link">Thông tin</a>
+            </nav>
         </div>
-    </div>
-    <div class="footer-copy">
-        &copy; 2023 TravelOptima. Tất cả các quyền được bảo lưu.
+
+        <!-- Right Column (Social Icons and Copyright) -->
+        <div class="column right">
+            <!-- Social Media Icons -->
+            <div class="social-icons">
+                <!-- Include your social media icons here -->
+                <a href="#" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
+                <a href="#" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <!-- Add more social media icons as needed -->
+            </div>
+
+            <!-- Copyright Text -->
+            <div class="copyright">
+                &copy; 2023 Your Website Name. All rights reserved.
+            </div>
+        </div>
     </div>
 </footer>

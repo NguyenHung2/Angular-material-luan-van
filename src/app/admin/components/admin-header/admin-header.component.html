@@ -4,12 +4,10 @@
         <mat-icon>menu</mat-icon>
     </button>
 
-    <div class="header-left">
-        <span>TravelOptima Admin</span>
-    </div>
     <div class="header-right">
+        <span>{{ username }}</span>
         <button mat-button (click)="logout()">
-            <mat-icon>exit_to_app</mat-icon> <!-- Sử dụng biểu tượng exit_to_app từ Material Icons -->
+            <mat-icon>exit_to_app</mat-icon> 
         </button>
     </div>
 </mat-toolbar>

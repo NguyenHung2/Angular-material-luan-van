@@ -1,6 +1,6 @@
 <div class="add-dialog">
     <h2>Thêm Danh Mục Điểm Đến</h2>
-    <form (submit)="saveChanges()">
+    <form (submit)="saveChanges()" class="scrollable-form">
         <!-- Tên Danh Mục -->
         <mat-form-field class="form-field" [ngClass]="{'error': isInputEmpty || isDuplicateName }">
             <mat-label>Tên Danh Mục</mat-label>

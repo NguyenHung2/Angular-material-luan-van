@@ -1,0 +1,34 @@
+<!-- pdf-export.component.html -->
+
+<div #pdfContainer class="pdf-export-container">
+    <h1>{{ pdfExportData.title }}</h1>
+
+    <h2>Danh sách các hoạt động:</h2>
+    <ul class="activity-list">
+        <li *ngFor="let destination of pdfExportData.scheduleDestinations">
+            <span class="day-label">Ngày {{destination.thuTu}}:</span>
+            <div class="activity-content">
+                <span class="destination-name">{{ destination.diemDen.tenDiemDen }}:</span>
+                <span [innerHTML]="sanitizeHtml(destination.hoatDong)"></span>
+            </div>
+        </li>
+    </ul>
+
+    <h3 class="note-title">Lưu ý: </h3>
+    <div class="note-list">
+        <ul>
+            <li>Bạn có thể điều chỉnh lịch trình này cho phù hợp với sở thích và thời gian của mình.</li>
+            <li>Nếu bạn đi theo tour, bạn có thể tham khảo lịch trình của tour để có thể sắp xếp thời gian hợp lý.</li>
+            <li>Bạn nên đặt vé xe khách, vé tham quan, đặt phòng khách sạn trước để tránh tình trạng hết vé hoặc không có chỗ ở.</li>
+        </ul>
+    </div>
+
+    <h5 class="conclusion-title">*********************</h5>
+    <p class="conclusion">
+        Lịch trình khám phá du lịch An Giang này sẽ giúp bạn có một ngày trải nghiệm thật là thú vị và đáng nhớ.
+        Hãy chuẩn bị thật tốt để sẵn sàng cho chuyến đi nhé!
+    </p>
+
+    <!-- PDF Export Button -->
+    <button class="export-button" (click)="exportToPDF()">Xuất PDF</button>
+</div>

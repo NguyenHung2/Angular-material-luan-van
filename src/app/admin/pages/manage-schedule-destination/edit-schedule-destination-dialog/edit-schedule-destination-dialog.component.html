@@ -1,0 +1,40 @@
+<div class="edit-dialog">
+    <h2>Chỉnh Sửa Lịch Trình Điểm Đến</h2>
+    <form [formGroup]="editDestinationForm" class="scrollable-form">
+        <!-- Mã Lịch Trình -->
+        <mat-form-field class="form-field">
+            <mat-label>Mã Lịch Trình</mat-label>
+            <mat-select formControlName="maLichTrinh" placeholder="Chọn Mã Lịch Trình" required>
+                <mat-option *ngFor="let schedule of schedules" [value]="schedule.maLichTrinh">{{ schedule.tieuDe }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Mã Điểm Đến -->
+        <mat-form-field class="form-field">
+            <mat-label>Mã Điểm Đến</mat-label>
+            <mat-select formControlName="maDiemDen" placeholder="Chọn Mã Điểm Đến" required>
+                <mat-option *ngFor="let destination of destinations" [value]="destination.maDiemDen">{{ destination.tenDiemDen }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Thứ Tự -->
+        <mat-form-field class="form-field">
+            <mat-label>Thứ Tự</mat-label>
+            <mat-select formControlName="thuTu" placeholder="Chọn Thứ Tự" required>
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Hoạt động -->
+        <mat-label>Hoạt Động</mat-label>
+        <angular-editor formControlName="hoatDong" name="hoatDong" [config]="config"></angular-editor>
+    </form>
+    <div class="button-container">
+        <button mat-raised-button type="button" (click)="onNoClick()">Hủy</button>
+        <button mat-raised-button type="submit" [disabled]="!editDestinationForm.valid" (click)="onSaveClick()">Lưu</button>
+    </div>
+</div>

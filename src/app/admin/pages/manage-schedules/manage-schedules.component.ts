@@ -21,16 +21,17 @@ export class ManageSchedulesComponent implements OnInit {
   user: User[] = [];
   searchControl = new FormControl('');
   filteredSchedules: MatTableDataSource<Schedule> = new MatTableDataSource<Schedule>(this.schedules);
-  displayedColumns: string[] = ['maLichTrinh', 'tieuDe', 'moTa', 'maNguoiDung', 'kinhDoXuatPhat', 'viDoXuatPhat', 'soLuongDiemDenToiDa', 'thaoTac'];
+  displayedColumns: string[] = ['maLichTrinh', 'tieuDe', 'thaoTac'];
 
   newSchedule: Schedule = {
     maLichTrinh: 0,
     tieuDe: '',
     moTa: '',
+    ngayBatDau: new Date(),
+    ngayKetThuc: new Date(),
+    soLuongDiemDenToiDa: 5,
+    soNgayThamQuan: 0,
     maNguoiDung: 0,
-    kinhDoXuatPhat: 0,
-    viDoXuatPhat: 0,
-    soLuongDiemDenToiDa: 5
   }
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -97,11 +98,12 @@ export class ManageSchedulesComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteScheduleDialogComponent, {
       data: { schedule }
     });
-
+    console.log(schedule);
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.scheduleService.deleteSchedule(schedule.maLichTrinh).subscribe(
           () => {
+            console.log(schedule.maLichTrinh);
             this.loadSchedules();
           },
           (error) => {
@@ -136,7 +138,7 @@ export class ManageSchedulesComponent implements OnInit {
 
   showScheduleDetails(schedule: Schedule): void {
     const dialogRef = this.dialog.open(DetailScheduleDialogComponent, {
-      data: { ...schedule }
+      data: { schedule }
     });
 
     dialogRef.afterClosed().subscribe(() => {

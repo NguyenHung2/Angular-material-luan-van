@@ -1,26 +1,45 @@
-<h1 mat-dialog-title>Chi Tiết Bài Viết</h1>
-<div mat-dialog-content>
-  <p class="bold-title">Mã Bài Viết:</p>
-  <p>{{ data.maBaiViet }}</p>
+<div class="detail-dialog">
+    <h2>Chi Tiết Bài Viết</h2>
+    <div class="dialog-content">
+        <div class="form-field">
+            <label class="bold-label">Mã bài viết: </label>
+            {{ data.maBaiViet }}
+        </div>
 
-  <p class="bold-title">Tiêu Đề:</p>
-  <p>{{ data.tieuDe }}</p>
+        <div class="form-field">
+            <label class="bold-label">Tiêu đề: </label>
+            {{ data.tieuDe }}
+        </div>
 
-  <p class="bold-title">Danh Mục Bài Viết:</p>
-  <p>{{ data.danhMucBaiViet }}</p>
+        <div class="form-field">
+            <label class="bold-label">Tóm tắt: </label>
+            {{ data.tomTat }}
+        </div>
 
-  <p class="bold-title">Tóm Tắt:</p>
-  <p>{{ data.tomTat }}</p>
+        <div class="form-field">
+            <label class="bold-label">Nội dung: </label>
+            <p [innerHTML]="sanitizeHtml(data.noiDung)"></p>
+        </div>
+        
 
-  <p class="bold-title">Nội Dung Bài Viết:</p>
-  <div [innerHTML]="data.noiDung"></div>
+        <div class="form-field">
+            <label class="bold-label">Ngày đăng: </label>
+            {{ data.ngayTao | date: 'dd/MM/yyyy' }}
+        </div>
 
-  <p class="bold-title">Hình Ảnh:</p>
-  <img [src]="data.hinhAnh" alt="Hình Ảnh Bài Viết">
+        <div class="form-field">
+            <label class="bold-label">Loại: </label>
+            {{ data.loai.maLoai }} - {{ data.loai.tenLoai }}
+        </div>
 
-  <p class="bold-title">Ngày Đăng:</p>
-  <p>{{ data.ngayDang | date: 'dd/MM/yyyy' }}</p>
-</div>
-<div>
-  <button mat-button (click)="closeDialog()">Đóng</button>
+        <div class="form-field">
+            <label class="bold-label">Hình ảnh url: </label>
+            {{data.anh.duongDan}}
+            <img src=" {{data.anh.duongDan}}" alt="">
+        </div>
+
+    </div>
+    <div class="button-container">
+        <button mat-raised-button type="button" (click)="closeDialog()" class="close-button">Đóng</button>
+    </div>
 </div>

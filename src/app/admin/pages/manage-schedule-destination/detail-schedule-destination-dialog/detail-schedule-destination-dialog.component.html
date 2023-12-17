@@ -1,0 +1,39 @@
+<!-- detail-schedule-destination-dialog.component.html -->
+<div class="detail-dialog">
+    <h2>Chi Tiết Lịch Trình Điểm Đến</h2>
+    <form [formGroup]="detailScheduleForm" class="scrollable-form">
+
+        <!-- Mã Lịch Trình Điểm Đến-->
+        <div class="form-field">
+            <label class="bold-label">Mã lịch trình điểm đến: </label>
+            {{ detailScheduleForm.get('maLichTrinhDiemDen')?.value }}
+        </div>
+
+        <!-- Lịch Trình -->
+        <div class="form-field">
+            <label class="bold-label">Lịch trình: </label>
+            {{ detailScheduleForm.get('maLichTrinh')?.value }} -  {{ detailScheduleForm.get('tenLichTrinh')?.value }}
+        </div>
+
+        <!-- Điểm Đến -->
+        <div class="form-field">
+            <label class="bold-label">Điểm đến: </label>
+            {{ detailScheduleForm.get('maDiemDen')?.value }} -  {{ detailScheduleForm.get('tenDiemDen')?.value }}
+        </div>
+
+        <!-- Thứ Tự -->
+        <div class="form-field">
+            <label class="bold-label">Thứ tự: </label>
+            {{ detailScheduleForm.get('thuTu')?.value }}
+        </div>
+
+        <!-- Hoạt động -->
+        <div class="form-field">
+            <label class="bold-label">Hoạt động: </label>
+            <p [innerHTML]="sanitizeHtml(detailScheduleForm.get('hoatDong')?.value)"></p>
+        </div>
+    </form>
+    <div class="button-container">
+        <button mat-raised-button type="button" (click)="onCloseClick()">Đóng</button>
+    </div>
+</div>

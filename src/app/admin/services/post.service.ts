@@ -1,14 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 export interface Post {
   maBaiViet: number;
   tieuDe: string;
-  danhMucBaiViet: string;
   tomTat: string;
   noiDung: string;
-  hinhAnh: string;
-  ngayDang: Date;
+  ngayTao: Date;
+  maLoai: number;
+  maAnh: number;
+  loai?: {
+    maLoai: number;
+    tenLoai: '';
+  }
+  anh?: {
+    maAnh : number;
+    duongDan: string;
+  }
 }
 
 @Injectable({

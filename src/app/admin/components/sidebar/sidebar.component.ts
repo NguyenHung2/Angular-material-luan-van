@@ -10,8 +10,16 @@ export class SidebarComponent {
   isCategoryMenuOpen = false;
   isDiemDenActive = false;
   isBaiVietActive = false;
+  isNewCategoryMenuOpen = false;
+  isLichTrinhActive = false;
+  isHoatDongActive = false;
+  isChiTietActive = false;
 
   toggleCategoryMenu() {
     this.isCategoryMenuOpen = !this.isCategoryMenuOpen;
+  }
+
+  toggleNewCategoryMenu() {
+    this.isNewCategoryMenuOpen = !this.isNewCategoryMenuOpen;
   }
 }

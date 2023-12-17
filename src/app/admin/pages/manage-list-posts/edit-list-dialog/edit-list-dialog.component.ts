@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ListPost, ListPostService } from 'src/app/admin/services/list-post.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class EditListDialogComponent {
       category: ListPost,
       existingCategories: ListPost[]
     },
+    private snackBar: MatSnackBar,
     private listService: ListPostService // Đối tượng dịch vụ danh mục
   ) {
     this.editedCategory = { ...this.data.category };
@@ -36,6 +38,14 @@ export class EditListDialogComponent {
         this.isDuplicateName = true;
       } else {
         this.dialogRef.close(this.editedCategory);
+        this.snackBar.open(
+          'Người dùng đã được cập nhật thành công!',
+          'Đóng',
+          {
+            duration: 3000,
+            panelClass: 'success-snackbar',
+          }
+        );
       }
     }
   }

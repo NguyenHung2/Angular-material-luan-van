@@ -1,14 +1,17 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ListPostService } from 'src/app/admin/services/list-post.service';
+import { Image, ImageService } from './../../services/image.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Post, PostService } from '../../services/post.service';
-import { MatSort, MatSortable } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { EditPostCategoryDialogComponent } from './edit-post-category-dialog/edit-post-category-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.component';
 import { DeletePostDialogComponent } from './delete-post-dialog/delete-post-dialog.component';
 import { DetailPostDialogComponent } from './detail-post-dialog/detail-post-dialog.component';
+import { ListPost } from '../../services/list-post.service';
 
 @Component({
   selector: 'app-manage-posts',
@@ -17,9 +20,10 @@ import { DetailPostDialogComponent } from './detail-post-dialog/detail-post-dial
 })
 export class ManagePostsComponent implements OnInit {
   posts: Post[] = [];
+  listPosts: ListPost[] = [];
+  images: Image[] = [];
   searchControl = new FormControl('');
   filteredPosts: MatTableDataSource<Post> = new MatTableDataSource<Post>(this.posts);
-  // displayedColumns: string[] = ['maBaiViet', 'tieuDe', 'danhMucBaiViet', 'tomTat', 'noiDung', 'hinhAnh', 'ngayDang', 'thaoTac'];
   displayedColumns: string[] = ['maBaiViet', 'tieuDe', 'thaoTac'];
 
   showAddFormFlag: boolean = false;
@@ -27,28 +31,27 @@ export class ManagePostsComponent implements OnInit {
   newPost: Post = {
     maBaiViet: 0,
     tieuDe: '',
-    danhMucBaiViet: '',
     tomTat: '',
     noiDung: '',
-    hinhAnh: '',
-    ngayDang: new Date(),
+    ngayTao: new Date(),
+    maLoai: 0,
+    maAnh: 0
   };
-
-  selectedFileName: string = 'Chưa chọn tệp';
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(
     private postService: PostService,
-    private fb: FormBuilder,
+    private listPostService: ListPostService,
+    private imageService: ImageService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.loadPosts();
-    this.setupForm();
+    this.loadListPosts();
+    this.loadImages();
   }
 
   ngAfterViewInit() {
@@ -66,15 +69,17 @@ export class ManagePostsComponent implements OnInit {
     });
   }
 
-  setupForm() {
-    this.newPostForm = this.fb.group({
-      maBaiViet: ['', Validators.required],
-      tieuDe: ['', Validators.required],
-      danhMucBaiViet: ['', Validators.required],
-      tomTat: ['', Validators.required],
-      noiDung: ['', Validators.required],
-      hinhAnh: ['', Validators.required],
-      ngayDang: [new Date(), Validators.required],
+  loadListPosts() {
+    this.listPostService.getAllListPost().subscribe((data) => {
+      this.listPosts = data;
+      console.log(data);
+    });
+  }
+
+  loadImages() {
+    this.imageService.getAllImages().subscribe((data) => {
+      this.images = data;
+      console.log(data);
     });
   }
 
@@ -85,7 +90,11 @@ export class ManagePostsComponent implements OnInit {
 
   editPost(post: Post): void {
     const dialogRef = this.dialog.open(EditPostCategoryDialogComponent, {
-      data: { post, fileInput: this.fileInput, selectedFileName: this.selectedFileName }
+      data: {
+        post,
+        listPosts: this.listPosts,
+        images: this.images
+      }
     });
 
     dialogRef.afterClosed().subscribe((editedPost: Post) => {
@@ -106,7 +115,7 @@ export class ManagePostsComponent implements OnInit {
     const dialogRef = this.dialog.open(DeletePostDialogComponent, {
       data: { post } // Pass the post data to the dialog
     });
-  
+
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         // User confirmed deletion in the dialog
@@ -142,13 +151,16 @@ export class ManagePostsComponent implements OnInit {
 
   resetForm() {
     this.newPostForm.reset(this.newPost);
-    this.selectedFileName = 'Chưa chọn tệp';
     this.showAddFormFlag = false;
   }
 
   showAddPostDialog() {
     const dialogRef = this.dialog.open(AddPostDialogComponent, {
-      data: { post: this.newPost, fileInput: this.fileInput, selectedFileName: this.selectedFileName }
+      data: {
+        post: this.newPost,
+        listPosts: this.listPosts,
+        images: this.images
+      }
     });
 
     dialogRef.afterClosed().subscribe((addedPost: Post) => {
@@ -165,29 +177,9 @@ export class ManagePostsComponent implements OnInit {
     });
   }
 
-  openFileInput() {
-    this.fileInput.nativeElement.click();
-  }
-
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.selectedFileName = file.name;
-      // You may want to handle the file upload logic here
-      // You can also update this.newPost.hinhAnh with the selected file data
-    } else {
-      this.selectedFileName = 'Chưa chọn tệp';
-      this.newPost.hinhAnh = '';
-    }
-  }
-
   showDetails(post: Post): void {
     const dialogRef = this.dialog.open(DetailPostDialogComponent, {
-      data: { ...post } // Truyền bài viết vào dialog
+      data: { ...post }
     });
-  
-    dialogRef.afterClosed().subscribe(() => {
-      // Xử lý khi dialog đóng (nếu cần)
-    });
-  }  
+  }
 }

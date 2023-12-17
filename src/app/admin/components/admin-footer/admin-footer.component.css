@@ -1,6 +1,7 @@
 .admin-footer {
-    text-align: center;
-    background-color: #2196F3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
     padding: 10px 0;
     font-size: 14px;

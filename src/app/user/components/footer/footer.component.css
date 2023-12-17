@@ -1,51 +1,111 @@
-/* Footer container */
-.footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
+footer {
+    background-color: #F0F8FF;
+    color: #2d4271;
+    padding: 20px;
     text-align: center;
+    border-top: 2px solid #555;
 }
 
-/* Footer content */
 .footer-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 50px;
+    margin-bottom: 20px;
 }
 
-/* Footer logo */
-.footer-logo {
+.column {
+    flex: 1 500px;
+    margin-left: 20px;
+}
+
+.left {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-.logo-icon {
-    font-size: 24px;
-    color: #f39c12;
+.middle {
+    text-align: center;
 }
 
-.logo-text {
-    font-size: 18px;
-    font-weight: bold;
-    margin-left: 10px;
+.right {
+    text-align: right;
 }
 
-/* Footer links */
-.footer-links a {
+.logo-image {
+    width: 150px; 
+    height: auto;
+}
+
+.logo {
+    padding-bottom: 5px;
+}
+
+.intro {
+    flex: 1;
+}
+
+.intro {
+    text-align: justify;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+    flex-direction: column;
+    text-align: left;
+}
+
+nav a {
+    padding: 10px;
+}
+
+.footer-link {
+    color: #2d4271;
     text-decoration: none;
-    color: #fff;
-    margin: 0 10px;
-    font-size: 16px;
-    transition: color 0.3s;
-}
-
-.footer-links a:hover {
-    color: #f39c12;
-}
-
-/* Footer copyright */
-.footer-copy {
-    margin-top: 10px;
+    font-weight: bold;
     font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #ffd700;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.social-icon {
+    color: #2d4271;
+    font-size: 24px;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #ffd700;
+}
+
+.copyright {
+    font-size: 12px;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+    }
+
+    .social-icons {
+        flex-direction: column;
+    }
+
+    .social-icon {
+        margin: 5px 0;
+    }
 }

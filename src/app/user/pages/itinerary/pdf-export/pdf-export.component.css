@@ -1,0 +1,80 @@
+/* pdf-export.component.css */
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+}
+
+.pdf-export-container {
+    max-width: 21cm;
+    margin: 1.5cm auto;
+    padding: 2cm;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+h1,
+h2,
+p {
+    color: #333;
+    font-size: 18px;
+}
+
+.activity-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.activity-list li {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.day-label {
+    font-weight: bold;
+}
+
+.activity-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.destination-name {
+    font-weight: bold;
+}
+
+.note-list {
+    border: 1px solid #333;
+    text-align: justify;
+    padding: 0 5px;
+    margin: 0;
+}
+
+.conclusion-title {
+    text-align: center;
+}
+
+.conclusion {
+    font-style: italic;
+    color: #555;
+    font-size: 16px;
+    text-align: justify;
+}
+
+.export-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.export-button:hover {
+    background-color: #45a049;
+}

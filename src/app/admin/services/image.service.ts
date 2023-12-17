@@ -1,16 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Destination } from './destination.service';
-import { Post } from './post.service';
 
 export interface Image {
   maAnh: number;
   tenAnh: string;
   duongDan: string;
   ngayTao: Date;
-  maDiemDen: Destination | null;
-  maBaiViet: Post | null;
 }
 
 @Injectable({

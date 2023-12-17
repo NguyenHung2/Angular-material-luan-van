@@ -1,0 +1,7 @@
+<div *ngIf="post" class="post-details">
+    <h2>{{ post.tieuDe }}</h2>
+    <p class="category">{{ post.loai?.tenLoai }}</p>
+    <p class="date">{{ post.ngayTao | date:'dd/MM/yyyy' }}</p>
+    <img *ngIf="post.anh?.duongDan" [src]="post.anh?.duongDan" alt="Post Image">
+    <div class="content" [innerHTML]="sanitizeHtml(post.noiDung)"></div>
+</div>

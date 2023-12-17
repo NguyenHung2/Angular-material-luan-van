@@ -1,0 +1,36 @@
+.post-details {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.category {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.date {
+    color: #777;
+}
+
+img {
+    max-width: 250px;
+    height: 200px;
+    margin-top: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+.content {
+    margin-top: 20px;
+    line-height: 1.6;
+}

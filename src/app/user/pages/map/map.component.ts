@@ -13,7 +13,7 @@ export class MapComponent implements OnInit {
   @ViewChild('searchInput') searchInput!: ElementRef;
   @ViewChild('longitudeInput') longitudeInput!: ElementRef;
   @ViewChild('latitudeInput') latitudeInput!: ElementRef;
-  @ViewChild('originInput') originInput!: ElementRef; // New input field
+  @ViewChild('originInput') originInput!: ElementRef; 
 
   ngOnInit() {
     mapboxgl!.accessToken = 'pk.eyJ1IjoiYjE5MTA0ODAiLCJhIjoiY2xpaW12ZjJ5MXZ2ajNqczF4Y2NzYmNrdiJ9.DaXt-2gXJinZeoBDM63rAA';
@@ -21,8 +21,8 @@ export class MapComponent implements OnInit {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [105.1503, 10.5363], // Center coordinates for An Giang, Vietnam
-      zoom: 9 // Adjust the zoom level as needed
+      center: [105.1503, 10.5363], 
+      zoom: 9 
     });
   }
 
@@ -100,10 +100,6 @@ export class MapComponent implements OnInit {
 
   searchByOrigin() {
     const origin = this.originInput.nativeElement.value;
-
-    // Perform the necessary action with the starting point input (e.g., geocoding).
-
-    // Clear the input field if needed.
     this.originInput.nativeElement.value = '';
   }
 }

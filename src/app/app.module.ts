@@ -53,14 +53,12 @@ import { AdminHomeComponent } from './admin/pages/admin-home/admin-home.componen
 import { LoginAdminComponent } from './admin/auth/login-admin/login-admin.component';
 import { AdminHeaderComponent } from './admin/components/admin-header/admin-header.component';
 import { AdminFooterComponent } from './admin/components/admin-footer/admin-footer.component';
-import { ManageUsersComponent } from './admin/pages/manage-users/manage-users.component';
 import { ManageDestinationsComponent } from './admin/pages/manage-destinations/manage-destinations.component';
 import { SidebarComponent } from './admin/components/sidebar/sidebar.component';
 import { AdminLayoutComponent } from './admin/components/admin-layout/admin-layout.component';
 import { ManageSchedulesComponent } from './admin/pages/manage-schedules/manage-schedules.component';
 import { ManagePostsComponent } from './admin/pages/manage-posts/manage-posts.component';
 import { ManageReviewsComponent } from './admin/pages/manage-reviews/manage-reviews.component';
-import { ManageStatisticsComponent } from './admin/pages/manage-statistics/manage-statistics.component';
 import { HeaderComponent } from './user/components/header/header.component';
 import { FooterComponent } from './user/components/footer/footer.component';
 import { DestinationListComponent } from './user/pages/destination-list/destination-list.component';
@@ -105,6 +103,30 @@ import { DetailScheduleDialogComponent } from './admin/pages/manage-schedules/de
 import { DeleteScheduleDialogComponent } from './admin/pages/manage-schedules/delete-schedule-dialog/delete-schedule-dialog.component';
 import { MapDialogComponent } from './admin/pages/manage-schedules/map-dialog/map-dialog.component';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
+import { ManageScheduleDestinationComponent } from './admin/pages/manage-schedule-destination/manage-schedule-destination.component';
+import { ConfirmationDialogComponent } from './admin/components/admin-header/confirmation-dialog/confirmation-dialog.component';
+import { ManageUserComponent } from './admin/pages/manage-user/manage-user.component';
+import { AddUserDialogComponent } from './admin/pages/manage-user/add-user-dialog/add-user-dialog.component';
+import { EditUserDialogComponent } from './admin/pages/manage-user/edit-user-dialog/edit-user-dialog.component';
+import { DeleteUserDialogComponent } from './admin/pages/manage-user/delete-user-dialog/delete-user-dialog.component';
+import { DetailUserDialogComponent } from './admin/pages/manage-user/detail-user-dialog/detail-user-dialog.component';
+import { ItineraryCreatorComponent } from './user/pages/itinerary-creator/itinerary-creator.component';
+import { DetailScheduleDestinationDialogComponent } from './admin/pages/manage-schedule-destination/detail-schedule-destination-dialog/detail-schedule-destination-dialog.component';
+import { EditScheduleDestinationDialogComponent } from './admin/pages/manage-schedule-destination/edit-schedule-destination-dialog/edit-schedule-destination-dialog.component';
+import { AddScheduleDestinationDialogComponent } from './admin/pages/manage-schedule-destination/add-schedule-destination-dialog/add-schedule-destination-dialog.component';
+import { DeleteScheduleDestinationDialogComponent } from './admin/pages/manage-schedule-destination/delete-schedule-destination-dialog/delete-schedule-destination-dialog.component';
+import { SampleComponent } from './user/pages/itinerary/sample/sample.component';
+import { SampleDialogComponent } from './user/pages/itinerary/sample-dialog/sample-dialog.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { PdfExportComponent } from './user/pages/itinerary/pdf-export/pdf-export.component';
+import { NgxPrintModule } from 'ngx-print';
+import { DetailsComponent } from './user/pages/post-list/details/details.component';
+import { ManageActivitiesComponent } from './admin/pages/manage-activities/manage-activities.component';
+import { AddActivityDialogComponent } from './admin/pages/manage-activities/add-activity-dialog/add-activity-dialog.component';
+import { EditActivityDialogComponent } from './admin/pages/manage-activities/edit-activity-dialog/edit-activity-dialog.component';
+import { DeleteActivityDialogComponent } from './admin/pages/manage-activities/delete-activity-dialog/delete-activity-dialog.component';
+import { DetailActivityDialogComponent } from './admin/pages/manage-activities/detail-activity-dialog/detail-activity-dialog.component';
+import { AccountInfoComponent } from './user/pages/account-info/account-info.component';
 
 @NgModule({
   declarations: [
@@ -115,14 +137,12 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
     LoginAdminComponent,
     AdminHeaderComponent,
     AdminFooterComponent,
-    ManageUsersComponent,
     ManageDestinationsComponent,
     SidebarComponent,
     AdminLayoutComponent,
     ManageSchedulesComponent,
     ManagePostsComponent,
     ManageReviewsComponent,
-    ManageStatisticsComponent,
     HeaderComponent,
     FooterComponent,
     DestinationListComponent,
@@ -165,6 +185,28 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
     DetailScheduleDialogComponent,
     DeleteScheduleDialogComponent,
     MapDialogComponent,
+    ManageScheduleDestinationComponent,
+    ConfirmationDialogComponent,
+    ManageUserComponent,
+    AddUserDialogComponent,
+    EditUserDialogComponent,
+    DeleteUserDialogComponent,
+    DetailUserDialogComponent,
+    ItineraryCreatorComponent,
+    DetailScheduleDestinationDialogComponent,
+    EditScheduleDestinationDialogComponent,
+    AddScheduleDestinationDialogComponent,
+    DeleteScheduleDestinationDialogComponent,
+    SampleComponent,
+    SampleDialogComponent,
+    PdfExportComponent,
+    DetailsComponent,
+    ManageActivitiesComponent,
+    AddActivityDialogComponent,
+    EditActivityDialogComponent,
+    DeleteActivityDialogComponent,
+    DetailActivityDialogComponent,
+    AccountInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -209,6 +251,8 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
     NgxPaginationModule,
     HttpClientModule,
     NgxMatTimepickerModule,
+    AngularEditorModule,
+    NgxPrintModule
   ],
   providers: [],
   bootstrap: [AppComponent],

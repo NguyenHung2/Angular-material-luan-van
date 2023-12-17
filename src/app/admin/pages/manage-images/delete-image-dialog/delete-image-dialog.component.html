@@ -1,1 +1,10 @@
-<p>delete-image-dialog works!</p>
+<!-- delete-schedule-dialog.component.html -->
+<div class="delete-dialog">
+    <h2>Xóa Hình Ảnh</h2>
+    <p>Bạn có chắc chắn muốn xóa hình ảnh "<strong>{{ data.image.tenAnh }}</strong>"?</p>
+    <!-- Wrap the title in <strong> tags for bold text -->
+    <div class="button-container">
+        <button mat-raised-button color="warn" (click)="onDeleteClick()">Xác nhận</button>
+        <button mat-raised-button (click)="onCancelClick()">Hủy</button>
+    </div>
+</div>

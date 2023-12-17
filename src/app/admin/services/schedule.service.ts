@@ -6,10 +6,11 @@ export interface Schedule {
   maLichTrinh: number;
   tieuDe: string;
   moTa: string;
-  maNguoiDung: number; 
-  kinhDoXuatPhat: number;
-  viDoXuatPhat: number;
+  ngayBatDau: Date;
+  ngayKetThuc: Date; 
   soLuongDiemDenToiDa: number;
+  soNgayThamQuan: number;
+  maNguoiDung: number;
 }
 
 @Injectable({

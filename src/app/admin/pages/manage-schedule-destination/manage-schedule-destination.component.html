@@ -1,0 +1,97 @@
+<div class="manage-schedule-destinations">
+    <h2>Danh Sách Lịch Trình Điểm Đến</h2>
+  
+    <div class="search-and-add">
+      <!-- Thanh tìm kiếm -->
+      <mat-form-field class="search-input">
+        <mat-label>Tìm kiếm</mat-label>
+        <input matInput [formControl]="searchControl" placeholder="Ví dụ: 1" #input (keyup)="applyFilter(input.value)" />
+      </mat-form-field>
+  
+      <!-- Thêm nút "Thêm" -->
+      <button mat-fab class="add-button" (click)="addScheduleDestination()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  
+    <table mat-table [dataSource]="filteredScheduleDestinations" matSort class="mat-elevation-z8">
+      <!-- Cột Mã Lịch Trình Điểm Đến -->
+      <ng-container matColumnDef="maLichTrinhDiemDen">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="small-column"> Mã Lịch Trình Điểm Đến </th>
+        <td mat-cell *matCellDef="let scheduleDestination" class="small-column" class="responsive-cell">
+          <div class="data-label">Mã Lịch Trình Điểm Đến</div>
+          <div class="data-value">{{ scheduleDestination.maLichTrinhDiemDen }}</div>
+        </td>
+      </ng-container>
+  
+      <!-- Cột Mã Lịch Trình -->
+      <ng-container matColumnDef="maLichTrinh">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Mã Lịch Trình </th>
+        <td mat-cell *matCellDef="let scheduleDestination" class="responsive-cell">
+          <div class="data-label">Mã Lịch Trình</div>
+          <div class="data-value">{{ scheduleDestination.maLichTrinh }}</div>
+        </td>
+      </ng-container>
+  
+      <!-- Cột Mã Điểm Đến -->
+      <ng-container matColumnDef="maDiemDen">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Mã Điểm Đến </th>
+        <td mat-cell *matCellDef="let scheduleDestination" class="responsive-cell">
+          <div class="data-label">Mã Điểm Đến</div>
+          <div class="data-value">{{ scheduleDestination.maDiemDen }}</div>
+        </td>
+      </ng-container>
+  
+      <!-- Cột Thứ Tự -->
+      <ng-container matColumnDef="thuTu">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Thứ Tự </th>
+        <td mat-cell *matCellDef="let scheduleDestination" class="responsive-cell">
+          <div class="data-label">Thứ Tự</div>
+          <div class="data-value">{{ scheduleDestination.thuTu }}</div>
+        </td>
+      </ng-container>
+  
+      <!-- Cột Hoạt Động -->
+      <ng-container matColumnDef="hoatDong">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hoạt Động </th>
+        <td mat-cell *matCellDef="let scheduleDestination" class="responsive-cell">
+          <div class="data-label">Hoạt Động</div>
+          <div class="data-value">{{ scheduleDestination.hoatDong }}</div>
+        </td>
+      </ng-container>
+  
+      <!-- Cột Thao Tác -->
+      <ng-container matColumnDef="thaoTac">
+        <th mat-header-cell *matHeaderCellDef> Thao Tác </th>
+        <td mat-cell *matCellDef="let scheduleDestination" class="responsive-cell">
+          <div class="data-label">Thao Tác:</div>
+          <div class="data-value" style="text-align: center;">
+            <!-- Nút chỉnh sửa -->
+            <button mat-icon-button (click)="editScheduleDestination(scheduleDestination)">
+              <mat-icon class="edit-icon">edit</mat-icon>
+            </button>
+  
+            <!-- Nút xóa -->
+            <button mat-icon-button (click)="deleteScheduleDestination(scheduleDestination)">
+              <mat-icon class="delete-icon">delete</mat-icon>
+            </button>
+
+            <button mat-icon-button (click)="showDestinationDetails(scheduleDestination)">
+              <mat-icon class="detail-icon">info</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+  
+      <!-- Định nghĩa các hàng và cột của bảng -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  
+      <!-- Thông báo không có dữ liệu -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="6">Không có dữ liệu phù hợp với từ khóa tìm kiếm "{{ searchControl.value }}"</td>
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+  </div>
+  

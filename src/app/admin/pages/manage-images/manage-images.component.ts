@@ -23,7 +23,7 @@ export class ManageImagesComponent implements OnInit {
   destinations: Destination[] = []; 
   searchControl = new FormControl('');
   filteredImages: MatTableDataSource<Image> = new MatTableDataSource<Image>(this.images);
-  displayedColumns: string[] = ['maAnh', 'tenAnh', 'duongDan', 'ngayTao', 'maDiemDen', 'maBaiViet', 'thaoTac'];
+  displayedColumns: string[] = ['maAnh', 'tenAnh', 'duongDan', 'ngayTao', 'thaoTac'];
 
   showAddFormFlag: boolean = false;
   newImageForm!: FormGroup;
@@ -32,8 +32,6 @@ export class ManageImagesComponent implements OnInit {
     tenAnh: '',
     duongDan: '',
     ngayTao: new Date(),
-    maDiemDen: null,
-    maBaiViet: null,
   };
 
   selectedFileName: string = 'Chưa chọn tệp';

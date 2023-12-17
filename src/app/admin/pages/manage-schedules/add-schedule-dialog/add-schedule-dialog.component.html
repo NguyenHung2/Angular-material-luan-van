@@ -1,5 +1,5 @@
-<div class="add-post-dialog">
-    <h2 mat-dialog-title>Thêm Lịch Trình Mới</h2>
+<div class="add-dialog">
+    <h2>Thêm Lịch Trình Mới</h2>
     <form [formGroup]="addScheduleForm" class="scrollable-form">
         <!-- Tiêu Đề -->
         <mat-form-field class="form-field">
@@ -12,26 +12,45 @@
             <mat-label>Mô Tả</mat-label>
             <textarea matInput formControlName="moTa" placeholder="Mô Tả"></textarea>
         </mat-form-field>
+
+        <!-- Ngày bắt đầu -->
+        <mat-form-field class="form-field">
+            <mat-label>Ngày bắt đầu</mat-label>
+            <input matInput [matDatepicker]="startPicker" formControlName="ngayBatDau" placeholder="Ngày bắt đầu" readonly>
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Ngày kết thúc -->
+        <mat-form-field class="form-field">
+            <mat-label>Ngày kết thúc</mat-label>
+            <input matInput [matDatepicker]="endPicker" formControlName="ngayKetThuc" placeholder="Ngày kết thúc" readonly>
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Số ngày tham quan -->
+        <mat-form-field class="form-field">
+            <mat-label>Số ngày tham quan</mat-label>
+            <mat-select formControlName="soNgayThamQuan" placeholder="Số ngày tham quan">
+                <mat-option value="1">1 ngày</mat-option>
+                <mat-option value="2">2 ngày</mat-option>
+                <mat-option value="3">3 ngày</mat-option>
+                <mat-option value="4">4 ngày</mat-option>
+                <mat-option value="5">5 ngày</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Người Dùng -->
         <mat-form-field class="form-field">
             <mat-label>Người Dùng</mat-label>
             <mat-select formControlName="maNguoiDung" placeholder="Mã Người Dùng">
                 <mat-option *ngFor="let user of users" [value]="user.maNguoiDung">{{ user.tenNguoiDung }}</mat-option>
             </mat-select>
-        </mat-form-field>        
-        <mat-form-field>
-            <mat-label>Kinh Độ Xuất Phát</mat-label>
-            <input matInput formControlName="kinhDoXuatPhat" placeholder="Kinh Độ Xuất Phát" readonly>
         </mat-form-field>
-        <mat-form-field>
-            <mat-label>Vĩ Độ Xuất Phát</mat-label>
-            <input matInput formControlName="viDoXuatPhat" placeholder="Vĩ Độ Xuất Phát" readonly>
-        </mat-form-field>        
-        <button mat-icon-button (click)="openMapDialog()">
-            <mat-icon>add_location</mat-icon>
-        </button>
     </form>
     <div class="button-container">
         <button mat-raised-button type="button" (click)="onNoClick()">Hủy</button>
-        <button  mat-raised-button type="submit" [disabled]="!addScheduleForm.valid" (click)="onSaveClick()">Lưu</button>
+        <button mat-raised-button type="submit" [disabled]="!addScheduleForm.valid" (click)="onSaveClick()">Lưu</button>
     </div>
 </div>

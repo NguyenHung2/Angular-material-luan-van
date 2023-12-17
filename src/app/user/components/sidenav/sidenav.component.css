@@ -1,60 +1,83 @@
-/* CSS cho thanh sidenav */
+/* sidenav.component.css */
+
 .sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-    color: white;
-  }
-  
-  .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 18px;
-    color: #818181;
-    display: block;
-  }
-  
-  .sidenav a:hover {
-    color: #f1f1f1;
-  }
-  
-  .closebtn {
-    position: absolute;
-    top: 0;
-    left: 240px;
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  .closebtn:hover {
-    color: #f1f1f1;
-  }
-  
-  /* Lớp "open" mở sidenav */
-  .sidenav.open {
-    width: 250px;
-  }
-  
-  /* CSS cho overlay */
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 2;
-    display: none;
-  }
-  
-  .overlay.show {
-    display: block;
-  }
-  
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  background-color: #eee !important; /* Change this color to a lighter shade */
+  overflow-x: hidden;
+  padding-top: 60px;
+  color: #818181;
+  z-index: 9999 !important; /* Use a very high z-index */
+  transition: left 0.5s ease;
+  pointer-events: auto;
+}
+
+.sidenav-label {
+  text-align: center;
+  font-size: 24px;
+  padding: 0 20px 20px;
+  color: #333; /* Choose the color that fits your design */
+  margin-bottom: 20px;
+  border-bottom: 1px solid #333;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+  color: #818181;
+  transition: color 0.3s, background-color 0.3s; /* Add transition for color and background-color changes */
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+  background-color: #333; /* Add a background color on hover */
+}
+
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s; /* Add transition for color change on hover */
+}
+
+.closebtn:hover {
+  color: #f1f1f1;
+}
+
+.user-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.user-actions .username {
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.user-actions button {
+  background-color: transparent;
+  border: none;
+  color: #818181;
+  cursor: pointer;
+  font-size: 18px;
+  transition: color 0.3s; /* Add transition for color change on hover */
+}
+
+.user-actions button:hover {
+  color: #f1f1f1;
+}
+
+.sidenav.open {
+  left: 0;
+}

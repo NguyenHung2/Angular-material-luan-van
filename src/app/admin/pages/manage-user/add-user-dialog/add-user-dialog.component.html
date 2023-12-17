@@ -1,0 +1,82 @@
+<div class="add-dialog">
+    <h2>Thêm Người Dùng</h2>
+    <form (submit)="saveChanges()">
+
+        <!-- Tên Người Dùng -->
+        <mat-form-field class="form-field">
+            <mat-label>Tên Người Dùng</mat-label>
+            <input matInput [(ngModel)]="newUser.tenNguoiDung" name="tenNguoiDung" required>
+            <div *ngIf="isInputEmpty" class="error-message">Tên người dùng không được để trống.</div>
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field class="form-field">
+            <mat-label>Email</mat-label>
+            <input matInput [(ngModel)]="newUser.email" name="email" type="email">
+            <div *ngIf="isInvalidEmail && newUser.email.trim() !== ''" class="error-message">
+                Email phải là địa chỉ Gmail hợp lệ (ví dụ: example@gmail.com).
+            </div>
+            <div *ngIf="isDuplicateEmail" class="error-message">Email đã tồn tại trong hệ thống.</div>
+        </mat-form-field>
+
+        <!-- Giới Tính -->
+        <mat-form-field class="form-field">
+            <mat-label>Giới Tính</mat-label>
+            <mat-select [(ngModel)]="newUser.gioiTinh" name="gioiTinh">
+                <mat-option value="Nam">Nam</mat-option>
+                <mat-option value="Nữ">Nữ</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Địa Chỉ -->
+        <mat-form-field class="form-field">
+            <mat-label>Địa Chỉ</mat-label>
+            <input matInput [(ngModel)]="newUser.diaChi" name="diaChi">
+        </mat-form-field>
+
+        <!-- Số Điện Thoại -->
+        <mat-form-field class="form-field">
+            <mat-label>Số Điện Thoại</mat-label>
+            <input matInput [(ngModel)]="newUser.soDienThoai" name="soDienThoai" required>
+            <div *ngIf="isInputEmpty" class="error-message">Số điện thoại không được để trống.</div>
+            <div *ngIf="isPhoneNumberValid" class="error-message">Số điện thoại phải bắt đầu bằng số 0 và có 9 hoặc 10
+                chữ số.</div>
+            <div *ngIf="isDuplicatePhoneNumber" class="error-message">Số điện thoại đã tồn tại trong hệ thống.</div>
+        </mat-form-field>
+
+        <!-- Ngày Sinh -->
+        <mat-form-field class="form-field">
+            <mat-label>Ngày Sinh</mat-label>
+            <input matInput [(ngModel)]="newUser.ngaySinh" name="ngaySinh" [matDatepicker]="picker" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Mật Khẩu -->
+        <mat-form-field class="form-field">
+            <mat-label>Mật Khẩu</mat-label>
+            <input matInput [(ngModel)]="newUser.matKhau" name="matKhau" type="{{ hidePassword ? 'password' : 'text' }}"
+                required minlength="8">
+            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <div *ngIf="isInputEmpty" class="error-message">Mật khẩu không được để trống.</div>
+            <div *ngIf="isPasswordTooShort" class="error-message">Mật khẩu ít nhất phải có 8 ký tự.</div>
+        </mat-form-field>
+
+
+        <!-- Vai Trò -->
+        <mat-form-field class="form-field">
+            <mat-label>Vai Trò</mat-label>
+            <mat-select [(ngModel)]="newUser.vaiTro" name="vaiTro">
+                <mat-option value="Người Dùng">Người Dùng</mat-option>
+                <mat-option value="Quản Trị Viên">Quản Trị Viên</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="button-container">
+            <button mat-raised-button type="submit">Lưu</button>
+            <button mat-raised-button type="button" (click)="closeDialog()">Hủy</button>
+        </div>
+    </form>
+</div>

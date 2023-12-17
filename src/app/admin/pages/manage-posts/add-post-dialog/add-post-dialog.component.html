@@ -1,6 +1,6 @@
-<div class="add-post-dialog">
+<div class="add-dialog">
     <h2>Thêm bài viết</h2>
-    <form (submit)="saveChanges()" class="scrollable-form">
+    <form (submit)="saveChanges()">
 
         <!-- Tiêu Đề -->
         <mat-form-field class="form-field">
@@ -15,30 +15,38 @@
         </mat-form-field>
 
         <!-- Nội Dung -->
-        <mat-form-field class="form-field">
+        <!-- <mat-form-field class="form-field"> -->
             <mat-label>Nội Dung</mat-label>
-            <textarea matInput [(ngModel)]="editedPost.noiDung" name="noiDung" required></textarea>
-        </mat-form-field>
+            <angular-editor [(ngModel)]="editedPost.noiDung" name="noiDung" [config]="config"></angular-editor>
+        <!-- </mat-form-field> -->
 
         <!-- Ngày Đăng -->
         <mat-form-field class="form-field">
             <mat-label>Ngày Đăng</mat-label>
-            <input matInput [(ngModel)]="editedPost.ngayDang" name="ngayDang" required [matDatepicker]="picker">
+            <input matInput [(ngModel)]="editedPost.ngayTao" name="ngayDang" required [matDatepicker]="picker">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <!-- Tệp Đính Kèm -->
+        <!-- Mã Loại -->
         <mat-form-field class="form-field">
-            <mat-label>Tệp Đính Kèm</mat-label>
-            <input type="file" (change)="onFileSelected($event)" accept=".jpg, .jpeg, .png" #fileInput hidden />
-            <mat-icon matSuffix (click)="openFileInput()">attach_file</mat-icon>
-            <span>{{ selectedFileName }}</span>
-            <input matInput [placeholder]="'Choose File'" [disabled]="true" [value]="selectedFileName"
-                class="file-path-input">
+            <mat-label>Mã loại</mat-label>
+            <mat-select [(ngModel)]="editedPost.maLoai" name="maLoai" required>
+                <mat-option *ngFor="let list of data.listPosts" [value]="list.maLoai">
+                    {{ list.tenLoai }}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
 
-        <img [src]="editedPost.hinhAnh" alt="Selected Image" *ngIf="editedPost.hinhAnh" class="selected-image" />
+        <!-- Mã ảnh -->
+        <mat-form-field class="form-field">
+            <mat-label>Mã ảnh</mat-label>
+            <mat-select [(ngModel)]="editedPost.maAnh" name="maAnh">
+                <mat-option *ngFor="let image of data.images" [value]="image.maAnh">
+                    {{ image.tenAnh }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
         <div class="button-container">
             <button mat-raised-button type="submit">Lưu</button>

@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ListPost } from 'src/app/admin/services/list-post.service';
 
 @Component({
@@ -10,14 +11,20 @@ import { ListPost } from 'src/app/admin/services/list-post.service';
 export class DeleteListDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<DeleteListDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { category: ListPost, existingCategories: ListPost[] }
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: { category: ListPost, existingCategories: ListPost[] },
+    private snackBar: MatSnackBar
+  ) { }
 
   confirmDelete(): void {
-    // Thực hiện xóa danh mục ở đây, sau khi xóa, cập nhật danh sách existingCategories
-    // Ví dụ: this.data.existingCategories = this.data.existingCategories.filter(cat => cat.maDanhMuc !== this.data.category.maDanhMuc);
-    // Sau khi xóa, cập nhật danh sách existingCategories và đóng dialog
     this.dialogRef.close(true);
+    this.snackBar.open(
+      'Người dùng đã được xóa thành công!',
+      'Đóng',
+      {
+        duration: 3000,
+        panelClass: 'success-snackbar',
+      }
+    );
   }
 
   cancelDelete(): void {

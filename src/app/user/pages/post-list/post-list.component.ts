@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { Post, PostService } from 'src/app/services/post.service';
+import { Component, OnInit } from '@angular/core';
+import { Post, PostService } from 'src/app/admin/services/post.service';
+import { ListPost, ListPostService } from 'src/app/admin/services/list-post.service';
 
 @Component({
   selector: 'app-post-list',
@@ -8,145 +8,89 @@ import { Post, PostService } from 'src/app/services/post.service';
   styleUrls: ['./post-list.component.css']
 })
 export class PostListComponent implements OnInit {
-  // Sidebar
-  sidenavOpen = true;
-  availableCategories = [
-    'Cảnh quan thiên nhiên',
-    'Di tích lịch sử và văn hóa',
-    'Mua sắm và ẩm thực',
-    'Hoạt động ngoài trời và thể thao',
-    'Tôn giáo và lễ hội',
-    'Du lịch sinh thái'
-  ];
-  availableTypes = [
-    'Giới thiệu',
-    'Kinh nghiệm du lịch',
-    'Hướng dẫn du lịch',
-    'Tin tức du lịch',
-    'Ẩm thực và đặc sản'
-  ];
-
-  // Filters
-  selectedTypes: string[] = [];
-  selectedRating: string = '';
-  noResultsFound: boolean = false;
-  filteredKeywords: string[] = [];
-
-
-  // Pagination
-  itemsPerPage: number = 6;
-
-  // Posts
+  pagedPosts: Post[] = [];
+  page = 0;
+  itemsPerPage = 5;
+  totalItems = 0;
   posts: Post[] = [];
-  filteredPosts: Post[] = [];
-  displayedPosts: Post[] = [];
+  categories: ListPost[] = [];
+  selectedCategory: ListPost | null = null;
+  allPosts: Post[] = [];
 
-  // Sorting
-  isNewestSortSelected: boolean = false;
-  isOldestSortSelected: boolean = false;
-
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private listPostService: ListPostService) { }
 
   ngOnInit() {
-    this.loadPosts();
-    this.sidenavOpen = !this.isScreenSmall();
-    window.addEventListener('resize', () => {
-      this.sidenavOpen = !this.isScreenSmall();
+    this.loadCategories();
+    this.listPostService.getAllListPost().subscribe(categories => {
+      this.categories = categories;
+      this.selectedCategory = null; // Không chọn danh mục nào ban đầu
+      this.loadAllPosts(); // Tải tất cả bài viết
     });
+  }  
 
-    this.applyFilters();
+  loadCategories() {
+    this.listPostService.getAllListPost().subscribe(categories => {
+      this.categories = categories;
+    });
+  }
+
+  loadAllPosts() {
+    this.postService.getPosts().subscribe(posts => {
+      this.allPosts = posts;
+      this.totalItems = this.allPosts.length;
+      this.loadPosts(); // Tải tất cả bài viết
+      console.log('Dữ liệu bài viết đã được tải:', this.allPosts);
+    });
+  } 
+  
+  filterPostsByCategory(category: ListPost | null) {
+    this.selectedCategory = category;
+    this.page = 0; // Trở về trang đầu khi thay đổi danh mục
+  
+    if (category) {
+      const categoryPosts = this.allPosts.filter(post => post.loai?.maLoai === category.maLoai);
+      this.totalItems = categoryPosts.length;
+    } else {
+      this.totalItems = this.allPosts.length; // Trường hợp không có danh mục được chọn
+    }
+  
+    this.loadPosts();
+  }  
+
+  onPageChange(event: any) {
+    this.page = event.pageIndex;
+    this.loadPosts();
   }
 
   loadPosts() {
-    this.postService.get().subscribe(posts => {
-      this.posts = posts;
-      this.filteredPosts = this.posts;
-      this.updateDisplayedPosts(0);
-    });
-  }
-
-  onPageChange(event: PageEvent) {
-    this.updateDisplayedPosts(event.pageIndex);
-  }
-
-  updateDisplayedPosts(pageIndex: number) {
-    const startIndex = pageIndex * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.displayedPosts = this.filteredPosts.slice(startIndex, endIndex);
-  }
-
-  // Hàm lọc bài viết
-  applyFilters() {
-    // Kiểm tra và đảm bảo rằng this.selectedTypes là mảng
-    if (!Array.isArray(this.selectedTypes)) {
-      this.selectedTypes = [];
-    }
-
-    // Tạo một mảng rỗng để lưu trữ các từ khóa đã chọn
-    const selectedKeywords: string[] = [];
-
-    // Lọc bài viết dựa trên loại bài viết và ngày đăng
-    this.filteredPosts = this.posts.filter((post) => {
-      const isTypeMatch = this.selectedTypes.length === 0 || this.selectedTypes.some(type => post.loaiBaiViet.toLowerCase().includes(type.toLowerCase()));
-      const isRatingMatch = this.selectedRating === 'all' || post.ngayDang >= new Date('2023-10-20');
-
-      // So sánh từ khóa đã chọn với nội dung bài viết (không phân biệt chữ hoa/thường)
-      const isKeywordMatch = this.selectedTypes.every(type => post.noiDung.toLowerCase().includes(type.toLowerCase()));
-
-      if (isKeywordMatch) {
-        selectedKeywords.push(post.noiDung); // Thêm nội dung khớp vào mảng từ khóa đã chọn
+    console.log('Tất cả biến và thuộc tính trong hàm loadPosts:');
+    console.log('this.selectedCategory:', this.selectedCategory);
+    console.log('this.page:', this.page);
+    console.log('this.itemsPerPage:', this.itemsPerPage);
+    console.log('this.totalItems:', this.totalItems);
+    console.log('this.allPosts:', this.allPosts);
+  
+    if (this.selectedCategory) {
+      console.log('Danh mục được chọn:', this.selectedCategory);
+      const filteredPosts = this.allPosts
+        .filter(post => post.loai?.maLoai === this.selectedCategory!.maLoai);
+  
+      console.log('Bài viết sau khi lọc theo danh mục:', filteredPosts);
+  
+      if (filteredPosts.length > 0) {
+        this.pagedPosts = filteredPosts
+          .slice(this.page * this.itemsPerPage, (this.page + 1) * this.itemsPerPage);
+        console.log('Bài viết sau khi phân trang:', this.pagedPosts);
+      } else {
+        // Không có bài viết phù hợp với danh mục đã chọn
+        this.pagedPosts = [];
+        console.log('Không có bài viết phù hợp với danh mục đã chọn.');
       }
-
-      return isTypeMatch && isRatingMatch && isKeywordMatch;
-    });
-
-    // Cập nhật filteredKeywords với danh sách các từ khóa đã chọn
-    this.filteredKeywords = selectedKeywords;
-
-    // Kiểm tra xem có bài viết được hiển thị không
-    this.noResultsFound = this.filteredPosts.length === 0;
-
-    // Cập nhật bài viết được hiển thị sau khi áp dụng bộ lọc
-    this.updateDisplayedPosts(0);
-  }
-  
-  // Hàm xử lý chọn/loại bỏ loại bài viết
-  toggleType(type: string) {
-    type = type.toLowerCase(); // Chuyển về chữ thường
-    const typeIndex = this.selectedTypes.indexOf(type);
-  
-    if (typeIndex > -1) {
-      this.selectedTypes = this.selectedTypes.filter(t => t !== type); // Loại bỏ loại nếu tồn tại
     } else {
-      this.selectedTypes.push(type); // Thêm loại nếu không tồn tại
+      this.pagedPosts = this.allPosts.slice(this.page * this.itemsPerPage, (this.page + 1) * this.itemsPerPage);
+      console.log('Bài viết sau khi phân trang (không lọc theo danh mục):', this.pagedPosts);
     }
-  }
-
-  // Hàm hiển thị chi tiết bài viết
-  showDetails(post: Post) {
-    // Thực hiện logic để hiển thị chi tiết bài viết
-  }
-
-  // Hàm kiểm tra màn hình có phải là màn hình nhỏ không
-  isScreenSmall(): boolean {
-    const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    return width <= 1200;
-  }
-
-  // Hàm mở/tắt thanh bên
-  toggleSidenav() {
-    this.sidenavOpen = !this.sidenavOpen;
-  }
-
-  // Hàm chuyển đổi sắp xếp mới nhất
-  toggleNewestSort() {
-    this.isNewestSortSelected = true;
-    this.isOldestSortSelected = false;
-  }
-
-  // Hàm chuyển đổi sắp xếp cũ nhất
-  toggleOldestSort() {
-    this.isNewestSortSelected = false;
-    this.isOldestSortSelected = true;
-  }
+  
+    console.log('Dữ liệu bài viết đã được cập nhật:', this.pagedPosts); // Ghi thông tin debug vào console
+  }  
 }

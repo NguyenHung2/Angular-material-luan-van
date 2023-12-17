@@ -1,17 +1,12 @@
 <div class="admin-layout">
-    <!-- Header -->
-    <app-admin-header (toggleSidenav)="toggleSidenav()"></app-admin-header>
-
-    <div class="sidebar-content">
-        <!-- Sidebar -->
+    <div class="sidebar">
         <app-sidebar [isSidebarVisible]="isSidebarVisible"></app-sidebar>
-
-        <!-- Content -->
+    </div>
+    <div class="content-right">
+        <app-admin-header (toggleSidenav)="toggleSidenav()"></app-admin-header>
         <div class="content">
             <router-outlet></router-outlet>
         </div>
+        <app-admin-footer></app-admin-footer>
     </div>
-
-    <!-- Footer -->
-    <app-admin-footer></app-admin-footer>
 </div>

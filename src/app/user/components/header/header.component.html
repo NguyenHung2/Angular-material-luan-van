@@ -1,48 +1,44 @@
-<mat-toolbar class="sticky-header" color="primary">
-    <div class="mat-toolbar-row">
+<!-- header.component.html -->
+
+<header fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column" fxLayoutAlign.xs="start center">
+    <!-- Logo and Navigation Container -->
+    <div class="logo-nav-container" fxLayout="row" fxLayoutAlign="start center">
+        <!-- Logo -->
         <div class="logo">
             <img src="/assets/logo.png" alt="Logo" class="logo-image">
         </div>
-        <button mat-icon-button (click)="toggleSidenav()">
-            <mat-icon>menu</mat-icon>
-        </button>
-        <nav class="nav-links">
-            <ul class="nav-list">
-                <li class="nav-item">
-                    <a routerLink="/trang-chu" routerLinkActive="active" class="nav-link">Trang chủ</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="/kham-pha" routerLinkActive="active" class="nav-link">Khám phá</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="/lich-trinh" routerLinkActive="active" class="nav-link">Lịch trình</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="/ban-do" routerLinkActive="active" class="nav-link">Bản đồ</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="/bai-viet" routerLinkActive="active" class="nav-link">Bài viết</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="/lich-trinh-ban-do" routerLinkActive="active" class="nav-link">Lịch trình bản đồ</a>
-                </li>
-            </ul>
+
+        <!-- Navigation -->
+        <nav fxLayout="row" fxLayoutAlign="start center">
+            <a routerLink="/trang-chu" routerLinkActive="active" class="nav-link">Trang chủ</a>
+            <a routerLink="/kham-pha" routerLinkActive="active" class="nav-link">Khám phá</a>
+            <a (click)="handleBanDoClick()" routerLink="/ban-do" routerLinkActive="active" class="nav-link">Bản đồ</a>
+            <a (click)="handleLichTrinhClick()" routerLink="/lich-trinh" routerLinkActive="active" class="nav-link">Lịch trình</a>
+            <a routerLink="/bai-viet" routerLinkActive="active" class="nav-link">Tin tức</a>
+            <a (click)="handlThongTinClick()" routerLink="/thong-tin-nguoi-dung" routerLinkActive="active" class="nav-link">Thông tin</a>
         </nav>
-        <div class="user-actions">
-            <button mat-icon-button class="notification-button">
-                <mat-icon>notifications</mat-icon>
-            </button>
-            <ng-container *ngIf="!isForgotPassword; else forgotPasswordForm">
-                <button mat-button (click)="openLoginDialog()" class="login-button">
-                    <span>Đăng nhập</span>
-                </button>
-            </ng-container>
-            <ng-template #forgotPasswordForm>
-                <!-- Thêm nội dung cho biểu mẫu phục hồi mật khẩu ở đây -->
-            </ng-template>
-        </div>
     </div>
-</mat-toolbar>
+
+    <!-- User Actions -->
+    <div class="user-actions" fxLayout="row" fxLayoutAlign="end center">
+        <ng-container *ngIf="loggedInUser; else loginButton">
+            <span class="username">{{ loggedInUser.tenNguoiDung }}</span>
+            <button (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+            </button>
+        </ng-container>
+        <ng-template #loginButton>
+            <button (click)="openLoginDialog()">
+                <mat-icon>person_outline</mat-icon>
+            </button>
+        </ng-template>
+    </div>
+
+    <!-- Navigation Toggle Button -->
+    <button class="nav-toggle" (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+    </button>
+</header>
 
 <app-sidenav [showSidenav]="showSidenav"></app-sidenav>
 <div class="overlay" *ngIf="showSidenav" (click)="closeSidenav()"></div>

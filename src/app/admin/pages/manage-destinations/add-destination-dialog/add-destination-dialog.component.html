@@ -46,6 +46,16 @@
       </mat-select>
     </mat-form-field>
 
+    <!-- Mã ảnh -->
+    <mat-form-field class="form-field">
+      <mat-label>Mã ảnh</mat-label>
+      <mat-select [(ngModel)]="newDestination.maAnh" name="maAnh">
+        <mat-option *ngFor="let image of data.images" [value]="image.maAnh">
+          {{ image.tenAnh }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <div class="button-container">
       <button mat-raised-button type="submit">Lưu</button>
       <button mat-raised-button type="button" (click)="closeDialog()">Hủy</button>

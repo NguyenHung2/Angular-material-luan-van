@@ -1,13 +1,43 @@
-<mat-card class="admin-home">
-    <div class="custom-header">
-        <h1 class="header-text">
-            Chào mừng đến với Bảng Điều Khiển Admin
-        </h1>
+<!-- admin-home.component.html -->
+
+<div class="summary-container">
+    <div class="summary-box destination-box">
+        <div class="summary-header">
+            <h3>Tổng số điểm đến</h3>
+        </div>
+        <div class="summary-content">
+            <p>{{ totalDestinations }}</p>
+        </div>
     </div>
-    <mat-card-content>
-        <p>
-            Đây là trang chủ của trang quản trị. Bạn có thể quản lý người dùng, điểm đến, lịch trình, bài viết, đánh giá
-            và xem thống kê từ đây.
-        </p>
-    </mat-card-content>
-</mat-card>
+
+    <div class="summary-box schedule-box">
+        <div class="summary-header">
+            <h3>Tổng số lịch trình</h3>
+        </div>
+        <div class="summary-content">
+            <p>{{ totalSchedules }}</p>
+        </div>
+    </div>
+
+    <div class="summary-box post-box">
+        <div class="summary-header">
+            <h3>Tổng số bài viết</h3>
+        </div>
+        <div class="summary-content">
+            <p>{{ totalPosts }}</p>
+        </div>
+    </div>
+
+    <div class="summary-box schedule-destination-box">
+        <div class="summary-header">
+            <h3>Tổng số lịch trình đã tạo</h3>
+        </div>
+        <div class="summary-content">
+            <p>{{ totalScheduleDestinations }}</p>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div #userRegistrationChart></div>
+    </div>
+</div>

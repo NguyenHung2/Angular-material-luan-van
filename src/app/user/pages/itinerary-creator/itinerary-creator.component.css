@@ -1,0 +1,111 @@
+.itinerary-creator {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    color: #2d4271;
+    align-items: center;
+    max-width: 1320px;
+    margin: 0 auto;
+}
+
+.itinerary-creator h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2d4271;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.navigation-bar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.custom-nav-top {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 24px;
+    color: #fd5056;
+}
+
+.custom-nav-bottom ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.custom-nav-bottom li {
+    cursor: pointer;
+    margin: 0 10px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: background-color 0.2s;
+}
+
+.custom-nav-bottom li:hover {
+    background-color: #e0e0e0;
+}
+
+.itinerary-items {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.itinerary-item {
+    display: flex;
+    background-color: #fff;
+    padding: 1.5rem 0;
+    border-top: 0.5px solid #7d8fab;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.itinerary-item img {
+    width: 30%;
+    height: auto;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.custom-tieuDe {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.info-line {
+    display: flex;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.custom-maLoai {
+    color: #fd5056;
+    margin-right: 5px;
+}
+
+.custom-ngayTao {
+    margin-left: 5px;
+    color: #757585;
+}
+
+.custom-tomTat {
+    font-family: 600;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

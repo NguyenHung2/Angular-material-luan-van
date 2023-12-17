@@ -1,0 +1,27 @@
+<div class="sample-dialog">
+    <div class="schedule-length">
+        <h2>Độ dài lịch trình mong muốn</h2>
+        <ul>
+            <li *ngFor="let length of scheduleLengths" (click)="selectScheduleLength(length)"
+                [class.active]="selectedScheduleLength === length">
+                {{ length }} ngày
+            </li>
+        </ul>
+    </div>
+
+    <div class="selected-schedule" *ngIf="selectedScheduleLength && !isFormClosed">
+        <h3>Lịch trình gợi ý:</h3>
+        <ul>
+            <li *ngFor="let scheduleName of getSelectedScheduleNames()" 
+                [class.active]="isSelectedSchedule(scheduleName)"
+                (click)="toggleSelectedSchedule(scheduleName)">
+                {{ scheduleName }}
+            </li>
+        </ul>
+    </div>
+    
+    <div class="button-container">
+        <button mat-raised-button color="warn" (click)="cancel()">Hủy</button>
+        <button mat-raised-button color="primary" (click)="createSchedule()">Tạo lịch trình</button>
+    </div>
+</div>

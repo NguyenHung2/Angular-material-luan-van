@@ -1,0 +1,61 @@
+/* detail-schedule-dialog.component.css */
+
+.detail-dialog {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  max-height: 80vh;
+  overflow-y: auto;
+  width: 400px;
+  margin: 0 auto;
+}
+
+.detail-dialog h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #007bff;
+  color: #007bff;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.scrollable-form {
+  width: 100%;
+}
+
+.form-field {
+  margin-bottom: 15px;
+  font-size: 15px;
+  white-space: normal;
+}
+
+.bold-label {
+  font-weight: bold;
+}
+
+.button-container {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.button-container button {
+  margin-left: 10px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-container button[type="button"] {
+  background-color: #007bff;
+  color: white;
+}
+
+.button-container button[type="button"]:hover {
+  background-color: #0056b3;
+}

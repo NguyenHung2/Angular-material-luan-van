@@ -1,9 +1,28 @@
+<!-- sidenav.component.html -->
+
 <div class="sidenav" [ngClass]="{'open': showSidenav}">
-    <button class="closebtn" (click)="toggleSidenav()">&times;</button>
-    <a routerLink="/trang-chu" routerLinkActive="active">Trang chủ</a>
-    <a routerLink="/kham-pha" routerLinkActive="active">Khám phá</a>
-    <a routerLink="/lich-trinh" routerLinkActive="active">Lịch trình</a>
-    <a routerLink="/ban-do" routerLinkActive="active">Bản đồ</a>
-    <a routerLink="/bai-viet" routerLinkActive="active">Bài viết</a>
+  <h1 class="sidenav-label">Travel Optima</h1>
+  <button class="closebtn" (click)="toggleSidenav()">&times;</button>
+
+  <!-- Navigation links -->
+  <a routerLink="/trang-chu" routerLinkActive="active">Trang chủ</a>
+  <a routerLink="/kham-pha" routerLinkActive="active">Khám phá</a>
+  <a routerLink="/lich-trinh" routerLinkActive="active">Lịch trình</a>
+  <a routerLink="/ban-do" routerLinkActive="active">Bản đồ</a>
+  <a routerLink="/bai-viet" routerLinkActive="active">Bài viết</a>
+
+  <!-- User Actions -->
+  <div class="user-actions" fxLayout="column" fxLayoutAlign="center center">
+    <ng-container *ngIf="loggedInUsername; else loginButton">
+      <span class="username">{{ loggedInUsername }}</span>
+      <button (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </ng-container>
+    <ng-template #loginButton>
+      <button (click)="openLoginDialog()">
+        <mat-icon>person_outline</mat-icon>
+      </button>
+    </ng-template>
   </div>
-  
+</div>

@@ -1,17 +1,25 @@
 <div class="sidebar" [class.sidebar-hidden]="!isSidebarVisible">
     <div class="header-center">
         <div class="center-content">
+            <div class="sidebar-logo">
+                <img src="/assets/logo.png" alt="Logo" class="logo">
+            </div>
             <button mat-button routerLink="/admin/dashboard" routerLinkActive="active-link">
                 <mat-icon class="material-icons">home</mat-icon>
                 <span>Dashboard</span>
             </button>
 
+            <button mat-button routerLink="/admin/nguoi-dung" routerLinkActive="active-link">
+                <mat-icon class="material-icons">person</mat-icon>
+                <span>Người Dùng</span>
+            </button>            
+
             <!-- Button to toggle the "Danh Mục" submenu -->
             <button mat-button (click)="toggleCategoryMenu()">
                 <mat-icon class="material-icons" [ngClass]="{ 'white-icon': isCategoryMenuOpen }">category</mat-icon>
                 <span>Danh Mục <mat-icon class="material-icons right-icon"
-                    [ngClass]="{ 'icon-rotated': isCategoryMenuOpen }">arrow_drop_down</mat-icon></span>
-            </button>            
+                        [ngClass]="{ 'icon-rotated': isCategoryMenuOpen }">arrow_drop_down</mat-icon></span>
+            </button>
 
             <!-- "Danh Mục" submenu -->
             <div class="submenu" *ngIf="isCategoryMenuOpen">
@@ -27,30 +35,48 @@
                 </button>
             </div>
 
-            <button mat-button routerLink="/admin/diem-den" routerLinkActive="active-link">
-                <mat-icon class="material-icons">place</mat-icon>
-                <span>Điểm Đến</span>
+            <!-- Button to toggle the new category submenu -->
+            <button mat-button (click)="toggleNewCategoryMenu()">
+                <mat-icon class="material-icons" [ngClass]="{ 'white-icon': isNewCategoryMenuOpen }">category</mat-icon>
+                <span>Lịch Trình Chuyến Đi <mat-icon class="material-icons right-icon"
+                        [ngClass]="{ 'icon-rotated': isNewCategoryMenuOpen }">arrow_drop_down</mat-icon></span>
             </button>
 
-            <button mat-button routerLink="/admin/lich-trinh" routerLinkActive="active-link">
-                <mat-icon class="material-icons">calendar_today</mat-icon>
-                <span>Lịch Trình</span>
-            </button>
+            <!-- New category submenu -->
+            <div class="submenu" *ngIf="isNewCategoryMenuOpen">
+                <button mat-button routerLink="/admin/diem-den" [ngClass]="{ 'selected-submenu-item': isDiemDenActive }"
+                    routerLinkActive="active-link">
+                    <mat-icon class="material-icons">place</mat-icon>
+                    <span>Điểm Đến</span>
+                </button>
+                <button mat-button routerLink="/admin/lich-trinh"
+                    [ngClass]="{ 'selected-submenu-item': isLichTrinhActive }" routerLinkActive="active-link">
+                    <mat-icon class="material-icons">calendar_today</mat-icon>
+                    <span>Lịch Trình</span>
+                </button>
+                <!-- <button mat-button routerLink="/admin/hoat-dong"
+                    [ngClass]="{ 'selected-submenu-item': isHoatDongActive }" routerLinkActive="active-link">
+                    <mat-icon class="material-icons">event</mat-icon>
+                    <span>Hoạt Động</span>
+                </button> -->
+                <button mat-button routerLink="/admin/chi-tiet"
+                    [ngClass]="{ 'selected-submenu-item': isChiTietActive }" routerLinkActive="active-link">
+                    <mat-icon class="material-icons">schedule</mat-icon>
+                    <span>Chi Tiết</span>
+                </button>
+            </div>
+
             <button mat-button routerLink="/admin/bai-viet" routerLinkActive="active-link">
                 <mat-icon class="material-icons">description</mat-icon>
                 <span>Bài Viết</span>
             </button>
-            <button mat-button routerLink="/admin/danh-gia" routerLinkActive="active-link">
+            <!-- <button mat-button routerLink="/admin/danh-gia" routerLinkActive="active-link">
                 <mat-icon class="material-icons">star</mat-icon>
                 <span>Đánh Giá</span>
-            </button>
+            </button> -->
             <button mat-button routerLink="/admin/hinh-anh" routerLinkActive="active-link">
                 <mat-icon class="material-icons">image</mat-icon>
                 <span>Hình Ảnh</span>
-            </button>
-            <button mat-button routerLink="/admin/thong-ke" routerLinkActive="active-link">
-                <mat-icon class="material-icons">bar_chart</mat-icon>
-                <span>Thống Kê</span>
             </button>
         </div>
     </div>

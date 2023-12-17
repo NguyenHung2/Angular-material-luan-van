@@ -1,3 +1,4 @@
+import { Image, ImageService } from './../../services/image.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,9 +20,10 @@ import { DetailDestinationDialogComponent } from './detail-destination-dialog/de
 export class ManageDestinationsComponent implements OnInit {
   destinations: Destination[] = [];
   destinationCategories: DestinationCategory[] = [];
+  images: Image[] = [];
   searchControl = new FormControl('');
   filteredDestinations: MatTableDataSource<Destination> = new MatTableDataSource<Destination>(this.destinations);
-  displayedColumns: string[] = ['maDiemDen', 'tenDiemDen', 'thaoTac'];
+  displayedColumns: string[] = ['maDiemDen', 'tenDiemDen', 'maDanhMuc', 'thaoTac'];
 
   showAddFormFlag: boolean = false;
   newDestination: Destination = {
@@ -32,7 +34,8 @@ export class ManageDestinationsComponent implements OnInit {
     kinhDo: null,
     viDo: null,
     ngayTao: new Date(),
-    maDanhMuc: null
+    maDanhMuc: 0,
+    maAnh: 0
   };
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -41,12 +44,14 @@ export class ManageDestinationsComponent implements OnInit {
   constructor(
     private destinationService: DestinationService,
     private destinationCategoryService: DestinationCategoryService,
+    private imageService: ImageService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.loadDestinations();
-    this.loadDestinationCategories(); // Gọi để tải danh sách danh mục điểm đến
+    this.loadDestinationCategories();
+    this.loadImages();
   }
 
   ngAfterViewInit() {
@@ -72,6 +77,13 @@ export class ManageDestinationsComponent implements OnInit {
     });
   }
 
+  loadImages() {
+    this.imageService.getAllImages().subscribe((data) => {
+      this.images = data;
+      console.log(data);
+    });
+  }
+
   applyFilter(filterValue: string): void {
     filterValue = filterValue.trim().toLowerCase();
     this.filteredDestinations.filter = filterValue;
@@ -79,10 +91,12 @@ export class ManageDestinationsComponent implements OnInit {
 
   showEditForm(destination: Destination): void {
     const dialogRef = this.dialog.open(EditDestinationDialogComponent, {
-      data: { 
-        destination, 
-        existingDestinations: this.destinations, 
-        destinationCategories: this.destinationCategories }
+      data: {
+        destination,
+        existingDestinations: this.destinations,
+        destinationCategories: this.destinationCategories,
+        images: this.images
+      }
     });
 
     dialogRef.afterClosed().subscribe((editedDestination: Destination) => {
@@ -135,7 +149,8 @@ export class ManageDestinationsComponent implements OnInit {
       kinhDo: null,
       viDo: null,
       ngayTao: new Date(),
-      maDanhMuc: null
+      maDanhMuc: 0,
+      maAnh: 0
     };
     this.showAddFormFlag = false;
   }
@@ -148,8 +163,10 @@ export class ManageDestinationsComponent implements OnInit {
         destination: this.newDestination,
         existingDestinations: this.destinations,
         destinationCategories: this.destinationCategories,
+        images: this.images
       },
     });
+    console.log(this.images);
 
     dialogRef.afterClosed().subscribe((addedDestination: Destination) => {
       console.log('Hộp thoại thêm điểm đến đã đóng');

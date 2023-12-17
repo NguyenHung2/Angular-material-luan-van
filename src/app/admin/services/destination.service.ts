@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DestinationCategory } from './destination-category.service';
 
 export interface Destination {
   maDiemDen: number;
@@ -11,7 +10,16 @@ export interface Destination {
   viDo: number | null;
   diaChi: string;
   ngayTao: Date;
-  maDanhMuc: DestinationCategory | null;
+  maDanhMuc: number;
+  maAnh: number;
+  danhMuc?: {
+    maDanhMuc: number | undefined;
+    tenDanhMuc: string;
+  };
+  anh?: {
+    maAnh: number;
+    duongDan: string;
+  }
 }
 
 @Injectable({
@@ -20,7 +28,7 @@ export interface Destination {
 export class DestinationService {
   private apiUrl = 'http://localhost:8080/api/destinations';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllDestinations(): Observable<Destination[]> {
     return this.http.get<Destination[]>(this.apiUrl);

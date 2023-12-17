@@ -1,52 +1,75 @@
-<mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #sidenav class="sidenav" [opened]="sidenavOpen" mode="side">
-        <mat-card>
-            <mat-card-title>
-                <div class="filter_title">Bộ lọc</div>
-            </mat-card-title>
+<div class="destination-list">
+  <div class="sidebar">
+    <div class="navigation-bar">
+      <h2>Bộ lọc tìm kiếm</h2>
+      <div class="nav-heading">
+        <span>Khám Phá An Giang</span>
+      </div>
+      <!-- Bottom part with the navigation menu -->
+      <div class="nav-bottom custom-nav-bottom">
+        <div class="nav-option-dm">
+          <h5>Loại danh mục</h5>
+          <div class="category-checkboxes">
+            <label>
+              <input type="checkbox" (change)="filterDestinationsByCategory(null)"
+                [checked]="selectedCategory === null"> Tất cả
+            </label>
+            <ng-container *ngFor="let category of categories">
+              <label>
+                <input type="checkbox" (change)="filterDestinationsByCategory(category)"
+                  [checked]="selectedCategory === category"> {{ category.tenDanhMuc }}
+              </label>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="destination-content">
+    <div class="destination-header">
+      <h1 class="custom-header">Hành Trình Khám Phá An Giang</h1>
+      <div class="custom-description">An Giang là một bí ẩn mà bạn muốn giải mã. Hãy bắt đầu hành trình của bạn để khám
+        phá cảnh quan thiên nhiên thơ mộng, gặp gỡ những người dân hiền lành và thân thiện, và thả mình vào cuộc sống
+        vùng sông nước hùng vĩ. Từ ngọn núi Sam, bạn có thể thấy cảnh biên giới với Campuchia và cảnh đẹp của dòng sông
+        Mekong thơ mộng. Chuyến du lịch này sẽ khiến bạn đắm chìm trong văn hóa và thiên nhiên độc đáo của vùng đất này.
+      </div>
+    </div>
 
-            <!-- Loại điểm đến -->
-            <mat-card-subtitle>Loại điểm đến</mat-card-subtitle>
-            <mat-checkbox *ngFor="let category of availableCategories"
-                [(ngModel)]="selectedCategories[category.maDanhMuc.toString()]"
-                (change)="onCategorySelected(category.maDanhMuc.toString())">
-                {{ category.tenDanhMuc }}
-            </mat-checkbox>
+    <div class="destination-search">
+      <div class="search-options">
+        <div class="search-results">
+          <p>Có <strong>{{ totalItems }}</strong> kết quả tìm thấy</p>
+        </div>
+        <!-- <div class="sort-options">
+          <span>Sắp xếp theo</span>
+          <select class="custom-select">
+            <option value="-1">--- CHỌN ---</option>
+            <option value="0">Sắp xếp theo Mới nhất</option>
+            <option value="1">Sắp xếp theo A-Z</option>
+            <option value="1">Sắp xếp theo Z-A</option>
+          </select>
+        </div> -->
+      </div>
+    </div>
 
-
-            <!-- Nút áp dụng bộ lọc -->
-            <button mat-raised-button color="primary" (click)="applyFilters()">Áp dụng</button>
-        </mat-card>
-    </mat-sidenav>
-
-    <mat-sidenav-content>
-        <mat-card>
-            <mat-card-title>
-                <mat-icon class="filter-icon" (click)="toggleSidenav()" *ngIf="isScreenSmall()">filter_list</mat-icon>
-                <h3 class="destination-list-title">Danh sách điểm đến</h3>
-            </mat-card-title>
-
-            <mat-card-content>
-                <div class="destination-list" *ngIf="!noResultsFound">
-                    <div class="destination-item" *ngFor="let destination of displayedDestinations">
-                        <img src="{{ destination.hinhAnh }}" alt="{{ destination.TenDiemDen }}"
-                            class="destination-image">
-                        <h3 class="destination-name">{{ destination.TenDiemDen }}</h3>
-                        <p class="destination-description">{{ destination.moTa }}</p>
-                        <p class="destination-category">Loại: {{ categoryNameMap[destination.maDanhMuc.toString()] }}
-                        </p>
-                        <!-- Add other destination details as needed -->
-                        <button mat-button color="primary" (click)="showDetails(destination)">Xem chi tiết</button>
-                    </div>
-                </div>
-                <div class="no-results-message" *ngIf="noResultsFound">
-                    Không tìm thấy kết quả cho các loại đã chọn. Vui lòng điều chỉnh bộ lọc của bạn.
-                </div>
-
-                <mat-paginator [length]="filteredDestinations.length" [pageSize]="itemsPerPage"
-                    (page)="onPageChange($event)" [showFirstLastButtons]="true"></mat-paginator>
-            </mat-card-content>
-
-        </mat-card>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+    <div class="destination-items custom-destination-items">
+      <div *ngFor="let destination of pagedDestinations" class="destination-item custom-destination-item">
+        <div class="top-section">
+          <img src="{{ destination.anh?.duongDan }}" alt="">
+        </div>
+        <div class="bottom-section destination-info">
+          <h2 class="custom-tieuDe">{{ destination.tenDiemDen }}</h2>
+          <div class="info-line">
+            <p class="custom-maDanhMuc">{{ destination.danhMuc?.tenDanhMuc }}</p> -
+            <p class="custom-ngayTao">{{ destination.ngayTao | date:'dd/MM/yyyy' }}</p>
+          </div>
+          <p class="custom-moTa">{{ destination.moTa }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="pagination">
+      <mat-paginator [length]="totalItems" [pageSize]="itemsPerPage" (page)="onPageChange($event)"
+        [showFirstLastButtons]="true"></mat-paginator>
+    </div>
+  </div>
+</div>

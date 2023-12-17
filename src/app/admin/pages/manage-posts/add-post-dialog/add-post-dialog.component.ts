@@ -1,5 +1,9 @@
-import { Component, Inject, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { Image } from 'src/app/admin/services/image.service';
+import { ListPost } from 'src/app/admin/services/list-post.service';
 import { Post } from 'src/app/admin/services/post.service';
 
 @Component({
@@ -7,17 +11,19 @@ import { Post } from 'src/app/admin/services/post.service';
   templateUrl: './add-post-dialog.component.html',
   styleUrls: ['./add-post-dialog.component.css']
 })
-export class AddPostDialogComponent implements OnInit {
+export class AddPostDialogComponent {
   editedPost!: Post;
-  @ViewChild('fileInput') fileInput!: ElementRef;
-  selectedFileName: string;
 
   constructor(
     public dialogRef: MatDialogRef<AddPostDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { post: Post, selectedFileName: string }
+    @Inject(MAT_DIALOG_DATA) public data: {
+      post: Post,
+      listPosts: ListPost[],
+      images: Image[]
+    },
+    private snackBar: MatSnackBar
   ) {
     this.editedPost = { ...this.data.post };
-    this.selectedFileName = this.data.selectedFileName;
   }
 
   ngOnInit(): void {
@@ -25,21 +31,46 @@ export class AddPostDialogComponent implements OnInit {
 
   saveChanges(): void {
     this.dialogRef.close(this.editedPost);
+    this.snackBar.open(
+      'Người dùng đã được thêm thành công!',
+      'Đóng',
+      {
+        duration: 3000,
+        panelClass: 'success-snackbar',
+      }
+    );
   }
 
   closeDialog(): void {
     this.dialogRef.close();
   }
 
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.selectedFileName = file.name;
-      this.editedPost.hinhAnh = URL.createObjectURL(file);
-    }
-  }
-
-  openFileInput(): void {
-    this.fileInput.nativeElement.click();
-  }
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [
+      ['bold']
+      ],
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ]
+  };
 }

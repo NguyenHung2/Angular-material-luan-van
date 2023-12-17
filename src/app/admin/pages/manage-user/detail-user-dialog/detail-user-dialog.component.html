@@ -1,0 +1,57 @@
+<div class="detail-dialog">
+    <h2>Chi Tiết Người Dùng</h2>
+    <div class="scrollable-form">
+        <div class="form-field">
+            <label class="bold-label">Mã Người Dùng:</label>
+            {{ data.user.maNguoiDung }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Tên Người Dùng:</label>
+            {{ data.user.tenNguoiDung }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Email:</label>
+            {{ data.user.email }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Giới Tính:</label>
+            {{ data.user.gioiTinh }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Địa Chỉ:</label>
+            {{ data.user.diaChi }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Số Điện Thoại:</label>
+            {{ data.user.soDienThoai }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Mật khẩu:</label>
+            {{ data.user.matKhau }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Ngày Sinh:</label>
+            {{ data.user.ngaySinh | date: 'dd/MM/yyyy' }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Vai Trò:</label>
+            {{ data.user.vaiTro }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Ngày Đăng Ký:</label>
+            {{ data.user.ngayDangKy | date: 'dd/MM/yyyy' }}
+        </div>
+    </div>
+    <div class="button-container">
+        <button mat-raised-button type="button" (click)="closeDialog()" class="close-button">Đóng</button>
+    </div>
+</div>

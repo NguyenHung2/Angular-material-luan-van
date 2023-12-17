@@ -1,1 +1,38 @@
-<p>detail-schedule-dialog works!</p>
+<!-- detail-schedule-dialog.component.html -->
+<div class="detail-dialog">
+    <h2>Chi Tiết Lịch Trình</h2>
+    <form [formGroup]="detailScheduleForm" class="scrollable-form" disabled>
+        <div class="form-field">
+            <label class="bold-label">Tiêu Đề: </label>
+            {{ detailScheduleForm.get('tieuDe')?.value }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Mô Tả: </label>
+            {{ detailScheduleForm.get('moTa')?.value }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Ngày bắt đầu: </label>
+            {{ detailScheduleForm.get('ngayBatDau')?.value }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Ngày kết thúc: </label>
+            {{ detailScheduleForm.get('ngayKetThuc')?.value }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Số ngày tham quan: </label>
+            {{ detailScheduleForm.get('soNgayThamQuan')?.value }}
+        </div>
+
+        <div class="form-field">
+            <label class="bold-label">Người Dùng: </label>
+            {{ detailScheduleForm.get('maNguoiDung')?.value }} - {{ detailScheduleForm.get('tenNguoiDung')?.value }}
+        </div>
+    </form>
+    <div class="button-container">
+        <button mat-raised-button type="button" (click)="onCloseClick()">Đóng</button>
+    </div>
+</div>

@@ -1,1 +1,10 @@
-<p>delete-schedule-dialog works!</p>
+<!-- delete-schedule-dialog.component.html -->
+<div class="delete-dialog">
+    <h2>Xóa Lịch Trình</h2>
+    <p>Bạn có chắc chắn muốn xóa lịch trình "<strong>{{ data.schedule.tieuDe }}</strong>"?</p>
+    <!-- Wrap the title in <strong> tags for bold text -->
+    <div class="button-container">
+        <button mat-raised-button color="warn" (click)="onDeleteClick()">Xác nhận</button>
+        <button mat-raised-button (click)="onCancelClick()">Hủy</button>
+    </div>
+</div>

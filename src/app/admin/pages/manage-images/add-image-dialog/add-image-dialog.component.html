@@ -1,31 +1,12 @@
 <div class="add-dialog">
     <h2>Thêm Hình Ảnh</h2>
-    <form (submit)="saveChanges()" class="scrollable-form">
+    <form (submit)="saveChanges()">
   
       <!-- Tiêu Đề Hình Ảnh -->
       <mat-form-field class="form-field">
         <mat-label>Tiêu Đề Hình Ảnh</mat-label>
         <input matInput [(ngModel)]="image.tenAnh" name="tieuDeHinhAnh" required>
-      </mat-form-field>
-  
-      <!-- Mã Điểm Đến -->
-      <mat-form-field class="form-field">
-        <mat-label>Mã Điểm Đến</mat-label>
-        <mat-select [(ngModel)]="image.maDiemDen" name="maDiemDen">
-          <mat-option *ngFor="let destination of data.destinations" [value]="destination.maDiemDen">
-            {{ destination.tenDiemDen }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-  
-      <!-- Mã Bài Viết -->
-      <mat-form-field class="form-field">
-        <mat-label>Mã Bài Viết</mat-label>
-        <mat-select [(ngModel)]="image.maBaiViet" name="maBaiViet">
-          <mat-option *ngFor="let post of data.posts" [value]="post.maBaiViet">
-            {{ post.tieuDe }}
-          </mat-option>
-        </mat-select>
+        <div *ngIf="isInputEmpty" class="error-message">Tiêu đề hình ảnh không được để trống.</div>
       </mat-form-field>
   
       <!-- Tệp Đính Kèm -->
@@ -33,7 +14,7 @@
         <mat-label>Tệp Đính Kèm</mat-label>
         <input type="file" (change)="onFileSelected($event)" accept=".jpg, .jpeg, .png" #fileInput hidden />
         <mat-icon matSuffix (click)="openFileInput()">attach_file</mat-icon>
-        <span>{{ selectedFileName }}</span>
+        <!-- <span>{{ selectedFileName }}</span> -->
         <input matInput [placeholder]="'Chọn tệp'" [disabled]="true" [value]="selectedFileName" class="file-path-input">
       </mat-form-field>
   

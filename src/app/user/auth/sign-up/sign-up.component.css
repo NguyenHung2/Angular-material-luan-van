@@ -3,6 +3,17 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
+    overflow-y: auto; 
+    max-height: 400px; 
+}
+
+.sign-up-card::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sign-up-card::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
 }
 
 .sign-up-title {
@@ -21,6 +32,7 @@ mat-icon.show-password-button {
 
 .sign-up-button {
     width: 100%;
+    padding: 10px;
     margin-top: 20px;
     background-color: #1976D2;
     color: #ffffff;
@@ -42,4 +54,10 @@ mat-icon.show-password-button {
 
 .back-to-login-link:hover {
     text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
 }

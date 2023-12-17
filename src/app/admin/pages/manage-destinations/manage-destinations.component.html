@@ -1,4 +1,4 @@
-<div class="list-destinations">
+<div class="content-table">
     <h2>Danh Sách Điểm Đến</h2>
 
     <div class="search-and-add">
@@ -35,11 +35,11 @@
         </ng-container>
 
         <!-- Cột Danh Mục -->
-        <ng-container matColumnDef="danhMuc">
+        <ng-container matColumnDef="maDanhMuc">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Danh Mục </th>
             <td mat-cell *matCellDef="let destination" class="responsive-cell">
                 <div class="data-label">Danh Mục</div>
-                <div class="data-value">{{ destination.danhMuc?.tenDanhMuc }}</div>
+                <div class="data-value">{{ destination.danhMuc.tenDanhMuc }}</div>
             </td>
         </ng-container>
 

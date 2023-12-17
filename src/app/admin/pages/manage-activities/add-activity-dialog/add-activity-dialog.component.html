@@ -1,0 +1,45 @@
+<div class="add-dialog">
+    <h2>Thêm Hoạt Động</h2>
+    <form (submit)="saveChanges()">
+
+        <!-- Tên Hoạt Động -->
+        <mat-form-field class="form-field" [ngClass]="{'error': isInputEmpty }">
+            <mat-label>Tên Hoạt Động</mat-label>
+            <input matInput [(ngModel)]="newActivity.tenHoatDong" name="tenHoatDong" required>
+        </mat-form-field>
+        <div class="error-message" *ngIf="isInputEmpty">Vui lòng nhập tên hoạt động.</div>
+
+        <!-- Thời Gian Bắt Đầu -->
+        <mat-form-field class="form-field">
+            <mat-label>Thời Gian Bắt Đầu</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="newActivity.thoiGianBatDau" name="thoiGianBatDau"
+                required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Thời Gian Kết Thúc -->
+        <mat-form-field class="form-field">
+            <mat-label>Thời Gian Kết Thúc</mat-label>
+            <input matInput [matDatepicker]="pickerEnd" [(ngModel)]="newActivity.thoiGianKetThuc" name="thoiGianKetThuc"
+                required>
+            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Mã Điểm Đến -->
+        <mat-form-field class="form-field">
+            <mat-label>Mã Điểm Đến</mat-label>
+            <mat-select [(ngModel)]="newActivity.maDiemDen" name="maDiemDen">
+                <mat-option *ngFor="let destination of data.destinations" [value]="destination.maDiemDen">
+                    {{ destination.tenDiemDen }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="button-container">
+            <button mat-raised-button type="submit">Lưu</button>
+            <button mat-raised-button type="button" (click)="closeDialog()">Hủy</button>
+        </div>
+    </form>
+</div>

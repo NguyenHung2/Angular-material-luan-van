@@ -1,15 +1,13 @@
-import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import * as L from 'leaflet';
-import "leaflet-control-geocoder/dist/Control.Geocoder.css";
-import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 
 @Component({
   selector: 'app-map-dialog',
   templateUrl: './map-dialog.component.html',
   styleUrls: ['./map-dialog.component.css']
 })
-export class MapDialogComponent implements OnInit, AfterViewInit {
+export class MapDialogComponent implements OnInit {
   private map!: L.Map;
   private marker!: L.Marker;
   private selectedKinhDoXuatPhat: number = 0;
@@ -28,10 +26,6 @@ export class MapDialogComponent implements OnInit, AfterViewInit {
     this.initMap();
   }
 
-  ngAfterViewInit(): void {
-    this.initSearch();
-  }
-
   initMap() {
     // Khởi tạo bản đồ Leaflet cho An Giang (điều chỉnh tọa độ và mức phóng to theo nhu cầu)
     this.map = L.map(this.elementRef.nativeElement.querySelector('#map')).setView([10.3867, 105.4365], 13);
@@ -46,23 +40,6 @@ export class MapDialogComponent implements OnInit, AfterViewInit {
         this.updateMarker(e.latlng);
       }
     });
-  }
-
-  initSearch() {
-    const searchControl = L.control.geocoder({
-      defaultMarkGeocode: false,
-    }).addTo(this.map);
-
-    searchControl.on('markgeocode', (e: any) => {
-      const location = e.geocode.center;
-      this.updateMarker(location);
-    });
-
-    // Attach the search input to the Leaflet geocoder
-    const searchInput = this.elementRef.nativeElement.querySelector('#search-input');
-    searchControl.getSearchElement = function () {
-      return searchInput;
-    };
   }
 
   updateMarker(location: L.LatLng) {
